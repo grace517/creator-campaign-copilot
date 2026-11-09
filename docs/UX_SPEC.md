@@ -30,7 +30,7 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 **Job:** choose who to include, within budget.
 
 - Summary bar on top: committed spend against the campaign budget, count of creators and new creators against the limit, and set-level warnings (for example, too many picks from one niche). Turns amber near the limit before it blocks.
-- Warnings live where they apply. A warning about one creator sits in the table, directly under that creator's row, with the reason in numbers and Unpick or Keep anyway. A warning about the whole pick list sits in the summary bar. Nothing makes the brand hunt through the table for what a warning means.
+- Warnings live where they apply. A warning about one creator sits in the table, directly under that creator's row, with the reason in numbers and Unpick or Keep anyway. A warning about the whole pick list sits in the summary bar and names the fix: the unpicked creators who would close the gap and fit the remaining budget, linked to their rows, with **Show in table** to filter to them. Those rows carry a chip saying what they add (for example, "Adds a non-skincare niche"). Nothing makes the brand hunt through the table for what a warning means.
 - Benchmark legend above the table: the paid social CAC to beat, where it came from (the brief), and what green and red mean.
 - Sort and filter row: sort by past CAC (default), CPL, fee, or followers; filter by niche, proven or new, backups only, and fits remaining budget.
 - Table: pick checkbox, creator (niche, followers, backup tag), past CAC against the benchmark (green under, red over), past CPL, DM-to-purchase rate, engagement, and fee. Creators with no history show a "new" tag, not blanks.

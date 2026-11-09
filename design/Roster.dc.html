@@ -70,7 +70,10 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
       <div role="img" aria-label="86 percent of budget committed" style="height: 10px; background: #EEF1F6; border-radius: 999px; overflow: hidden">
         <div style="width: 86%; height: 100%; background: #2F55D4; border-radius: 999px"></div>
       </div>
-      <div style="font-size: 13px; color: #6B4600"><strong>Mix:</strong> 5 of 8 picks are skincare creators. Consider one outside the category.</div>
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; font-size: 13px; color: #6B4600; background: #FFF3D9; border-radius: 8px; padding: 8px 12px">
+        <span><strong>Mix:</strong> 5 of 8 picks are skincare creators. 1 unpicked creator outside skincare fits your remaining $4,500: <a href="#row-runwithrio" style="color: #6B4600; font-weight: 600">@runwithrio</a> (fitness, past CAC $140).</span>
+        <button type="button" style="font: inherit; font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 1px solid #D9B66A; background: #FFFFFF; color: #6B4600">Show in table</button>
+      </div>
     </div>
 
     <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; font-size: 13px; background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 10px; padding: 10px 14px">
@@ -107,6 +110,9 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
               <td style="padding: 10px 8px">
                 <div style="font-weight: 600">{{r.handle}}</div>
                 <div style="font-size: 12px; color: #5B6270">{{r.niche}} · {{r.followers}}{{r.backupNote}}</div>
+                <sc-if value="{{r.fillsGap}}" hint-placeholder-val="{{false}}">
+                  <div style="margin-top: 4px; display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #EAF0FF; color: #1E3FA8">Adds a non-skincare niche</div>
+                </sc-if>
               </td>
               <td style="padding: 10px 8px">
                 <sc-if value="{{r.isNew}}" hint-placeholder-val="{{false}}">
@@ -166,6 +172,7 @@ class Component extends DCLogic {
       rowLine: picked && cac !== null && cac >= 65 * 3 ? '#FFF8E8' : '#EEF1F6',
       warn: cac === null ? '' : 'Picked, but past CAC of $' + cac + ' is ' + Math.round(cac / 65) + 'x your $65 benchmark. At that rate, the $' + fee.toLocaleString('en-US') + ' fee buys about ' + Math.round(fee / cac) + ' customers.',
       backupNote: backup ? ' · backup' : '',
+      fillsGap: !picked && !/skin|beauty/.test(niche) && fee <= 32000 - 27500,
       fee: '$' + fee.toLocaleString('en-US'),
       isNew: cac === null, hasHistory: cac !== null,
       cac: cac === null ? '' : '$' + cac,
