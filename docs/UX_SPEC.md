@@ -1,6 +1,6 @@
 # UX spec
 
-Five screens, one per step a brand takes: brief, roster, drafts, creator status, readout. Mockups live in `design/` (Claude Design canvas source) and use the sample data in `data/`.
+Five campaign screens, one per step a brand takes (brief, roster, drafts, creator status, readout), plus three app-level screens (Campaigns, Creators, Brand kit), phone layouts for status and readout, and the empty, loading, and error states. Mockups live in `design/` (source and rendered images) and use the sample data in `data/`.
 
 ## Principles
 
@@ -73,10 +73,49 @@ The next campaign is usually a different launch, not a rerun, so the readout's o
 - **Campaign data, below.** Views switch between Table and Funnel; filter by pool (set by clicking a pool card) and creator; group by pool. The last three columns are the goals, with the target in each header (CPA, goal $65; cost per lead, goal $4.00; per 1,000 impressions, campaign average). Each value says beat, at par, or missed, and the value that placed the creator is outlined.
 - Attribution: a purchase counts to a creator whenever their code is used, whether it came from the link or was typed at checkout. Codes that leak to coupon sites are flagged when a creator's code use far outruns their DMs.
 
-## States to design next
+## 6. Campaigns home
 
-- Empty: first campaign with no brand kit and no history (roster shows every creator as "new").
-- Loading: drafts generating per row, with rows appearing as they finish.
-- Errors: a creator's account disconnects mid-campaign; the model can't judge a claim and asks a person.
-- Creator side: the screen where a creator gets the starter DM, edits it, and sees checks before sending it back.
-- Mobile: status and readout are the screens a brand checks on a phone; brief, roster, and drafts are desktop-first.
+**Job:** see every campaign and the one thing each needs next.
+
+- Table: campaign, a five-dot stepper with the current step named, "Next for you" (amber when something is at risk or failing), creators, committed against budget, and the result once there is one.
+- Filters: Needs you, Live, Finished, All. **+ New campaign** opens a brief.
+- Below: CPA from Converters against the paid social goal across campaigns, and **Start a campaign from Converters**, which opens a brief with the roster pre-picked from that pool.
+
+## 7. Creators and pools
+
+**Job:** keep the roster sorted by what each creator is good for, across campaigns.
+
+- Pool tabs with counts (the five defaults, then custom pools, then **+ New pool**). Selecting one shows what the pool means, what it's for next, and **Start a campaign with these N**.
+- Table: creator, pool, niche, campaigns run, last CPA, last CPL, fee, last campaign.
+- A creator's pool is their latest readout's result. History is kept and shown ("Test again in Oct → Don't rebook in Dec"). A brand can pin a creator to a pool by hand; pins are labeled.
+
+## 8. Brand kit
+
+**Job:** set the rules once; every campaign and every check uses them.
+
+- Voice, disclosure, and DM length limit.
+- Goals: the paid social CPA to beat, with where it came from (entered by hand, or **Connect ad account** to compute spend ÷ purchases over the last 90 days), and the default secondary goal.
+- Claims: approved and banned chips, each removable, with **+ Add**. Checks use these exactly; the AI also flags paraphrases of banned claims.
+- Pools: the order they're checked, each rule in plain words, what each is for, custom pools marked as custom, and **+ New pool**. Drag to reorder.
+- Products: name, link, default offer. A new brief picks a product and starts from its link and offer.
+
+## Readout: Funnel view
+
+The second view of the readout's data section. One row per creator plus a campaign total: impressions → comments → leads → clicks → purchases, each with its count and its rate from the step before. Grouped by pool by default. The footnote names the weakest step for the outlier, since that's where to look.
+
+## Phone layouts
+
+Status and readout are the screens a brand checks on a phone; brief, roster, and drafts are desktop-first.
+
+- **Header:** menu button, product name, then a campaign strip with breadcrumb, campaign name, and "Step N of 5: screen name".
+- **Creator status, phone:** the readiness sentence and bar, at-risk cards with full-width 44px buttons (Send nudge, Edit or Swap in backup), then everyone else as a list with one status chip each.
+- **Readout, phone:** the verdict, then CPA by creator as a ranked list with the goal line, since a scatter doesn't read at 390px. Each row shows CPA and pool; an outlier bar caps at the edge and says "off scale." Pools are a tappable list that opens each pool's creators. The full table points to desktop.
+
+## Empty, loading, and error states
+
+- **Roster, first campaign:** every creator shows "new", never blanks or zeros; the roster sorts by fee and says it will sort by CPA after the first readout.
+- **Drafts, writing starters:** a progress bar ("3 of 8") and rows that fill in as each starter finishes, so review can start early.
+- **Drafts, the AI is unsure:** the phrase is highlighted, "Needs a person" explains both readings, and Approve is blocked. **Mark as OK for this message** is logged and added to the eval set.
+- **Drafts, a model call fails:** one automatic retry, then "Couldn't write a starter" with **Try again** and **Write it yourself**. Other rows aren't affected.
+- **Status, an account disconnects mid-campaign:** pinned above everything until fixed. Says what stopped (DMs), what's still working (comments), how many people are waiting, and the 24-hour window to reply. **Send reconnect link**.
+- **Readout, results still coming in:** labeled "Early results" with how many posts have run 7 days. Pools aren't set until the last post reaches 7 days.

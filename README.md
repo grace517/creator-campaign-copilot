@@ -21,7 +21,9 @@ Brand teams that use comment-to-DM automation in creator campaigns repeat the sa
 - [Product brief](docs/PRODUCT.md): how campaigns work, the problems, goals, and success metrics
 - [Decisions](docs/DECISIONS.md): what I chose and why
 - [UX spec](docs/UX_SPEC.md): the five screens, their jobs, and the design principles behind them
-- [Build plan](docs/BUILD_PLAN.md): screens, data model, and build order
+- [Build plan](docs/BUILD_PLAN.md): stack, workflow, screens, data model, build order, and hosting
+- [Prompts](docs/PROMPTS.md): every AI call, its inputs, and its exact output
+- [Testing and evals](docs/TESTING.md): what's tested now, and the plan with more time
 - [Evals](evals/README.md): test cases for the message checks
 - [Design](design/README.md): the five screens, as source and as rendered images
 - [Sample data](data/README.md): what each file holds

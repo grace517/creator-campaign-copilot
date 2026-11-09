@@ -2,6 +2,18 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: Public demo runs on cached AI output; live AI sits behind a toggle
+
+**Decision:** The hosted prototype serves cached model outputs by default, generated from the real prompts. A rate-limited "Live AI" toggle calls the API through a serverless function.
+**Why:** Anyone with the link should see the whole flow instantly, and an open link shouldn't spend API credits or expose the key.
+**Would change if:** the audience is a small, known group, in which case live calls by default show the AI working.
+
+## 2026-11-09: Design every screen before the build
+
+**Decision:** The app-level screens (Campaigns, Creators, Brand kit), the Funnel view, phone layouts for status and readout, and the empty, loading, and error states are designed and specified, not left to the coding agent. Every model call has a written prompt spec.
+**Why:** What isn't designed gets invented during the build, and invented screens drift from the product's logic.
+**Would change if:** a screen turns out to need nothing beyond an existing pattern.
+
 ## 2026-11-09: CPA replaces CAC as the deciding metric
 
 **Decision:** Creators are judged on cost per acquisition (CPA): fee divided by purchases, whether the buyer is new or returning. The paid social benchmark is CPA too. Earlier entries below say CAC; read them as CPA.
