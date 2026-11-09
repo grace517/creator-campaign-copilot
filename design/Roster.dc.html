@@ -71,19 +71,19 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
         <div style="width: 86%; height: 100%; background: #2F55D4; border-radius: 999px"></div>
       </div>
       <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; font-size: 13px; color: #6B4600; background: #FFF3D9; border-radius: 8px; padding: 8px 12px">
-        <span><strong>Mix:</strong> 5 of 8 picks are skincare creators. 1 unpicked creator outside skincare fits your remaining $4,500: <a href="#row-runwithrio" style="color: #6B4600; font-weight: 600">@runwithrio</a> (fitness, past CAC $140).</span>
+        <span><strong>Mix:</strong> 5 of 8 picks are skincare creators. 1 unpicked creator outside skincare fits your remaining $4,500: <a href="#row-runwithrio" style="color: #6B4600; font-weight: 600">@runwithrio</a> (fitness, past CPA $140).</span>
         <button type="button" style="font: inherit; font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 1px solid #D9B66A; background: #FFFFFF; color: #6B4600">Show in table</button>
       </div>
     </div>
 
     <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; font-size: 13px; background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 10px; padding: 10px 14px">
-      <span><strong>Paid social CAC to beat: $65</strong> <span style="color: #5B6270">(from the brief)</span></span>
+      <span><strong>Paid social CPA to beat: $65</strong> <span style="color: #5B6270">(from the brief)</span></span>
       <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #1E7A4B"></span>At or under $65 beats paid social</span>
       <span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #B42318"></span>Over $65 costs more than ads</span>
     </div>
 
     <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px">
-      <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #2F55D4; background: #EAF0FF; color: #1E3FA8">Sort: Past CAC, low to high</button>
+      <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #2F55D4; background: #EAF0FF; color: #1E3FA8">Sort: Past CPA, low to high</button>
       <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Niche</button>
       <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Proven or new</button>
       <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Backups only</button>
@@ -96,7 +96,7 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
           <tr style="text-align: left; font-size: 12px; color: #5B6270; border-bottom: 1px solid #E3E6EC">
             <th scope="col" style="padding: 12px 16px; font-weight: 500">Pick</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">Creator</th>
-            <th scope="col" style="padding: 12px 8px; font-weight: 500">Past CAC vs $65</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Past CPA vs $65</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">Past CPL</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">DM to purchase</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">Engagement</th>
@@ -170,7 +170,7 @@ class Component extends DCLogic {
       flagged: picked && cac !== null && cac >= 65 * 3,
       rowBg: picked && cac !== null && cac >= 65 * 3 ? '#FFF8E8' : '#FFFFFF',
       rowLine: picked && cac !== null && cac >= 65 * 3 ? '#FFF8E8' : '#EEF1F6',
-      warn: cac === null ? '' : 'Picked, but past CAC of $' + cac + ' is ' + Math.round(cac / 65) + 'x your $65 benchmark. At that rate, the $' + fee.toLocaleString('en-US') + ' fee buys about ' + Math.round(fee / cac) + ' customers.',
+      warn: cac === null ? '' : 'Picked, but past CPA of $' + cac + ' is ' + Math.round(cac / 65) + 'x your $65 benchmark. At that rate, the $' + fee.toLocaleString('en-US') + ' fee buys about ' + Math.round(fee / cac) + ' purchases.',
       backupNote: backup ? ' · backup' : '',
       fillsGap: !picked && !/skin|beauty/.test(niche) && fee <= 32000 - 27500,
       fee: '$' + fee.toLocaleString('en-US'),

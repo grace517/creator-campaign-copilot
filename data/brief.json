@@ -28,7 +28,7 @@
   "window_end": "2026-12-14",
   "ready_deadline_days_before_post": 3,
   "campaign_budget_usd": 32000,
-  "paid_social_cac_benchmark_usd": 65,
+  "paid_social_cpa_benchmark_usd": 65,
   "secondary_goal": {
     "metric": "cpl_usd",
     "target": 4.0,

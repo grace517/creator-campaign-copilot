@@ -2,6 +2,12 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: CPA replaces CAC as the deciding metric
+
+**Decision:** Creators are judged on cost per acquisition (CPA): fee divided by purchases, whether the buyer is new or returning. The paid social benchmark is CPA too. Earlier entries below say CAC; read them as CPA.
+**Why:** A brand running a creator campaign wants purchases. Whether a buyer is new matters less here than whether the creator drove the sale, and most brands can't reliably tell new from returning at the creator level anyway.
+**Would change if:** a brand's goal is specifically new-customer growth, in which case CAC (new customers only) is the right lens and the data needs a new-customer flag.
+
 ## 2026-11-09: Brands can add custom pools; hooks are tagged from posts
 
 **Decision:** Beyond the five default pools, a brand can define its own (name, metric, target, order), saved to the brand. Hooks are tagged by the AI from each post's caption after it runs.
