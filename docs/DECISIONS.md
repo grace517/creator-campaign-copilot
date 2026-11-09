@@ -2,6 +2,12 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: Creators edit a starter DM; checks re-run on every edit
+
+**Decision:** The AI writes each creator a starter DM from their past DMs (captions when they have none). The creator edits or accepts it, every version is re-checked, and the brand approves last. Drafts shows each creator's stage, how many past DMs the voice comes from, and how much of the starter they changed.
+**Why:** Followers should hear the creator, not the brand, so the creator owns the final words. That only works if most creators start from the suggestion, and if their edits can't slip a banned claim or a broken link past the brand. Past DMs are the closest proxy for DM voice; how much a creator rewrites is a running check on whether the starter sounded like them.
+**Would change if:** creators mostly ignore the starter and write from scratch, in which case the brief's preview space should show the rules instead of sample copy.
+
 ## 2026-11-09: CAC decides rebooking; CPL is secondary
 
 **Decision:** Customer acquisition cost (CAC, cost per customer who purchases) is the deciding metric, compared against the brand's paid social CAC. Cost per lead (CPL, cost per person who comments the keyword and gets the DM) and email or SMS sign-ups are secondary.

@@ -37,15 +37,15 @@ A brand manager can launch a campaign across a full creator roster in minutes, w
    - **Brand kit, set once:** voice, approved and banned claims, disclosure wording, and the product catalog. Every new brief starts prefilled from it, so campaigns stay on-brand without anyone retyping the rules.
    - **Start from a product link:** paste the product page and AI drafts the product, offer, and key benefits, using only approved claims. Anything on the page that isn't on the approved list gets flagged before it reaches a creator.
    - **Learn from past campaigns:** AI suggests the offer and hooks that brought in customers at the lowest CAC last time, with the numbers behind the suggestion.
-   - **See it before you send it:** as the brand edits the brief, a live preview shows a sample DM in two or three creators' voices, so the brand sees what followers will get.
+   - **See it before you send it:** as the brand edits the brief, it sees the starter DM two or three creators will receive, written from each creator's past DMs, so the brand sees what followers will likely get.
 
-   The prototype builds the brand kit and the live preview. Starting from a product link and learning from past campaigns come later.
+   The prototype builds the brand kit and the starter DM preview. Starting from a product link and learning from past campaigns come later.
 2. **Roster:** pick creators already under contract (seeded from a sample roster; CSV import as a second path). Each creator shows their past results with this brand, ranked by CAC, with CPL, DM-to-purchase rate, and engagement rate beside it. Creators with no history are tagged "new."
    - **Sort by** past CAC (the default), CPL, fee, follower count, or post date.
    - **Filter by** readiness status, niche, track record (proven or new), backups only, and fee within the remaining budget.
    - **Prioritize against the budget:** as the brand picks creators, a running total shows committed spend against the campaign budget. The brand can set how many new creators to include, so it tests new talent without betting the campaign on it.
    - **Flag gaps in the mix:** too many creators in one niche, or several posting on the same day.
-3. **Drafts per creator (AI):** a unique comment keyword, a DM in the creator's voice, a caption call to action, and a short creator brief.
+3. **Drafts per creator (AI):** a unique comment keyword, a starter DM in the creator's voice (written from their past DMs), a caption call to action, and a short creator brief. The creator edits or accepts the starter in their own words, and every version is re-checked before the brand approves it.
 4. **Checks:** disclosure present, only approved claims, correct link and keyword, and message length. Every failure shows its reason.
 5. **Approval board:** approve, edit, or regenerate each creator's row.
 6. **Creator status:** invited → accepted or declined → account connected → ready. Anyone not ready 3 days before their post date gets an AI-drafted nudge, and the brand can swap in a backup from the roster.

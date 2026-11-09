@@ -11,8 +11,8 @@ Brand teams that use comment-to-DM automation in creator campaigns repeat the sa
 ## What it does
 
 1. **Brief in:** product, offer, link, approved and banned claims, posting window.
-2. **Drafts out, per creator:** a unique keyword, a DM in the creator's voice, a caption call to action, and a short creator brief.
-3. **Checks before approval:** disclosure, claims, link, keyword, and length, each failure with its reason.
+2. **Drafts out, per creator:** a unique keyword, a starter DM written from the creator's past DMs, a caption call to action, and a short creator brief. The creator edits or accepts it in their own words.
+3. **Checks on every version:** disclosure, claims, link, keyword, and length, re-run on the creator's edits, each failure with its reason.
 4. **Approval board and creator status:** approve, edit, or regenerate; track who has accepted and connected; nudge anyone who isn't ready before their post date.
 5. **Readout:** customer acquisition cost (CAC) and cost per lead (CPL) by creator, against the brand's paid social CAC, plus a plain-language brief on where to move budget.
 
