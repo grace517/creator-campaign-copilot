@@ -1,6 +1,5 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router';
 import { AppBar } from './components/AppBar';
-import { BriefScreen } from './screens/brief/BriefScreen';
 import { CampaignLayout } from './components/CampaignLayout';
 import {
   BrandKitScreen,
@@ -8,9 +7,10 @@ import {
   CreatorsScreen,
   DraftsScreen,
   ReadoutScreen,
-  RosterScreen,
   StatusScreen,
 } from './screens/Placeholders';
+import { BriefScreen } from './screens/brief/BriefScreen';
+import { RosterScreen } from './screens/roster/RosterScreen';
 
 function Shell() {
   return (

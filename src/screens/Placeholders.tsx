@@ -28,15 +28,6 @@ export function ScreenHead({ eyebrow, title, sub, action }: { eyebrow?: string; 
   );
 }
 
-export function RosterScreen() {
-  return (
-    <>
-      <ScreenHead title="Pick creators" />
-      <Placeholder pr="feat/03-roster">Budget summary, benchmark legend, sort and filters, and the creator table.</Placeholder>
-    </>
-  );
-}
-
 export function DraftsScreen() {
   return (
     <>
