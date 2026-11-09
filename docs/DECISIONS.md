@@ -2,6 +2,18 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: Roster warning thresholds, and what counts as one niche
+
+**Decision:**
+- **Mix warning:** fires when one niche group is more than half of the picks.
+- **Niche groups:** skincare, skincare education, sensitive skin, and budget beauty count as one "skincare" group. Every other niche is its own group.
+- **Suggested fixes:** unpicked creators outside that group whose fee fits the remaining budget. A fix never includes anyone who'd trigger the 3x CPA warning: unpicking @sunlit.sam shouldn't lead the brand straight back to him.
+- **Budget bar:** turns amber at 90% of the budget and blocks "Draft messages" over 100%.
+- **New creators:** going over the limit also blocks, and the reason sits under the bar.
+
+**Why:** These rules reproduce the design's numbers from the sample data (5 of 8 skincare, @runwithrio as the fix). The design also asks for a warning that names a fix, not one that hands the brand a new problem.
+**Would change if:** brands care about a different split (audience gender, platform, follower tier), or set their own niche groups in the brand kit.
+
 ## 2026-11-09: The Brief's starter preview is cached; edits re-run the checks, not the wording
 
 **Decision:** In demo mode, the three starter DMs beside the brief come from `data/cached/starter_dms.json`. Editing the brief re-runs the Disclosure, Claims, and Link checks on them at once. The wording stays as cached, and a note says so once the brief differs from the one they were written for. For now the cached text is copied from the Brief design, labeled `"source": "design"`. It gets regenerated from the real prompt when starter generation lands (feat/05-drafts), where the build plan puts it.
