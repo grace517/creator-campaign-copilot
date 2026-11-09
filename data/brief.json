@@ -4,7 +4,9 @@
   "brand": "Fernway Skincare",
   "product": "Barrier Repair Serum",
   "offer": "20% off your first order",
-  "link": "https://fernway.example.com/serum?ref=creator",
+  "link": "https://fernway.example.com/serum",
+  "code_param": "code",
+  "_code_note": "Each creator's code is their comment keyword. The DM link is link + '?code=' + code.",
   "disclosure": "#ad",
   "dm_max_chars": 500,
   "approved_claims": [

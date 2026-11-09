@@ -15,7 +15,7 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 **Job:** set up a campaign in minutes, on-brand by default.
 
 - Brand kit card, prefilled and labeled as such: voice, disclosure, approved claims (green chips), banned claims (red chips).
-- Campaign fields: product, offer, tracked link, posting window, campaign budget, paid social CAC to beat.
+- Campaign fields: product, offer, product link, posting window, campaign budget, paid social CAC to beat. Each creator gets a code (NURSE20) that is both their comment keyword and their checkout code; the DM link carries it so it applies at checkout (…/serum?code=NURSE20).
 - Starter DMs beside the form: the starter DM three creators will receive, written from each creator's past DMs, with disclosure, claims, and link check chips. Each shows how many past DMs its voice comes from, and flags low confidence when there are fewer than two. Updates on every edit to the brief.
 - Primary action: **Next: pick creators**.
 
@@ -23,11 +23,12 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 
 **Job:** choose who to include, within budget.
 
-- Budget bar on top: committed spend against the campaign budget, plus count of creators and new creators against the limit. Turns amber near the limit before it blocks.
-- Mix warnings above the table, inline: a creator whose past CAC is far above the benchmark, or too many picks from one niche. Each warning links to the creator's row, and that row is tinted with a chip saying why (for example, "8x benchmark"). Unpick and Keep sit on the warning.
+- Summary bar on top: committed spend against the campaign budget, count of creators and new creators against the limit, and set-level warnings (for example, too many picks from one niche). Turns amber near the limit before it blocks.
+- Warnings live where they apply. A warning about one creator sits in the table, directly under that creator's row, with the reason in numbers and Unpick or Keep anyway. A warning about the whole pick list sits in the summary bar. Nothing makes the brand hunt through the table for what a warning means.
 - Benchmark legend above the table: the paid social CAC to beat, where it came from (the brief), and what green and red mean.
-- Sort and filter row: sort by past CAC (default), CPL, fee, followers, or post date; filter by status, niche, proven or new, backups only, and fits remaining budget.
-- Table: pick checkbox, creator (niche, followers, backup tag), past CAC against the benchmark (green under, red over), past CPL, DM-to-purchase rate, engagement, fee, post date, status chip. Creators with no history show a "new" tag, not blanks.
+- Sort and filter row: sort by past CAC (default), CPL, fee, or followers; filter by niche, proven or new, backups only, and fits remaining budget.
+- Table: pick checkbox, creator (niche, followers, backup tag), past CAC against the benchmark (green under, red over), past CPL, DM-to-purchase rate, engagement, and fee. Creators with no history show a "new" tag, not blanks.
+- Not on this screen: campaign status and post dates. No one has been invited yet, so there is no status to show, and post dates are set with each creator after they accept. Both live on Creator status.
 - Primary action: **Draft messages for N creators**.
 
 ## 3. Drafts and checks
@@ -38,7 +39,7 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 - Counts: back from creators and passing, creator edits that need a fix, still with the creator.
 - One card per creator: unique keyword, stage chip (with creator, creator edited, creator accepted as-is), the DM, caption call to action, a voice line, and a check chip.
 - Voice line: how many past DMs the starter's voice comes from, and how much of the starter the creator changed. Low confidence is flagged when there are fewer than two past DMs, and those creators fall back to captions.
-- A failed check highlights the offending phrase in the creator's edit and explains it in one sentence with a suggested fix (for example, a paraphrased banned claim, or a dropped tracking tag).
+- A failed check highlights the offending phrase in the creator's edit and explains it in one sentence with a suggested fix (for example, a paraphrased banned claim, or a link missing the creator's code).
 - Approve is disabled on failed rows; **Send back with fix** returns it to the creator. Rows still with the creator offer **Remind**.
 - Bulk actions: **Approve all passing** and **Remind waiting**.
 
@@ -58,6 +59,7 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 - Four tiles: blended CAC against the benchmark, new customers, leads and CPL, email and SMS sign-ups.
 - CAC by creator: horizontal bars against a dashed benchmark line. Green beats paid social; orange loses to it. Outliers cap at the edge with their value shown.
 - Funnel table: hook, fee, comments, leads, clicks, customers, sign-ups, CPL, CAC.
+- Attribution: a purchase counts to a creator whenever their code is used, whether it came from the link or was typed at checkout. Codes that leak to coupon sites are flagged when a creator's code use far outruns their DMs.
 
 ## States to design next
 

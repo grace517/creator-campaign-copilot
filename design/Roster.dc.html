@@ -43,11 +43,7 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
       <div role="img" aria-label="86 percent of budget committed" style="height: 10px; background: #EEF1F6; border-radius: 999px; overflow: hidden">
         <div style="width: 86%; height: 100%; background: #2F55D4; border-radius: 999px"></div>
       </div>
-    </div>
-
-    <div style="display: flex; flex-wrap: wrap; gap: 10px">
-      <div style="flex: 1 1 320px; background: #FFF3D9; color: #6B4600; border-radius: 10px; padding: 10px 14px; font-size: 13px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px"><span><a href="#row-sunlit" style="color: #6B4600; font-weight: 600">@sunlit.sam</a> is picked, but his past CAC is $520, 8x your $65 benchmark.</span><span style="display: flex; gap: 6px"><button type="button" style="font: inherit; font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 1px solid #D9B66A; background: #FFFFFF; color: #6B4600">Unpick</button><button type="button" style="font: inherit; font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 0; background: transparent; color: #6B4600">Keep</button></span></div>
-      <div style="flex: 1 1 320px; background: #FFF3D9; color: #6B4600; border-radius: 10px; padding: 10px 14px; font-size: 13px"><strong>5 of 8</strong> picks are skincare creators. Consider one outside the category.</div>
+      <div style="font-size: 13px; color: #6B4600"><strong>Mix:</strong> 5 of 8 picks are skincare creators. Consider one outside the category.</div>
     </div>
 
     <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; font-size: 13px; background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 10px; padding: 10px 14px">
@@ -58,7 +54,6 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
 
     <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px">
       <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #2F55D4; background: #EAF0FF; color: #1E3FA8">Sort: Past CAC, low to high</button>
-      <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Status</button>
       <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Niche</button>
       <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Proven or new</button>
       <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Backups only</button>
@@ -66,7 +61,7 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
     </div>
 
     <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; overflow-x: auto">
-      <table style="width: 100%; min-width: 900px; border-collapse: collapse; font-variant-numeric: tabular-nums">
+      <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-variant-numeric: tabular-nums">
         <thead>
           <tr style="text-align: left; font-size: 12px; color: #5B6270; border-bottom: 1px solid #E3E6EC">
             <th scope="col" style="padding: 12px 16px; font-weight: 500">Pick</th>
@@ -75,21 +70,16 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
             <th scope="col" style="padding: 12px 8px; font-weight: 500">Past CPL</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">DM to purchase</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">Engagement</th>
-            <th scope="col" style="padding: 12px 8px; font-weight: 500">Fee</th>
-            <th scope="col" style="padding: 12px 8px; font-weight: 500">Posts</th>
-            <th scope="col" style="padding: 12px 16px 12px 8px; font-weight: 500">Status</th>
+            <th scope="col" style="padding: 12px 16px 12px 8px; font-weight: 500">Fee</th>
           </tr>
         </thead>
         <tbody>
           <sc-for list="{{rows}}" as="r" hint-placeholder-count="10">
-            <tr id="{{r.rowId}}" style="border-bottom: 1px solid #EEF1F6; background: {{r.rowBg}}">
+            <tr id="{{r.rowId}}" style="border-bottom: 1px solid {{r.rowLine}}; background: {{r.rowBg}}">
               <td style="padding: 10px 16px"><input type="checkbox" aria-label="Pick {{r.handle}}" checked="{{r.picked}}" style="width: 18px; height: 18px"></td>
               <td style="padding: 10px 8px">
                 <div style="font-weight: 600">{{r.handle}}</div>
                 <div style="font-size: 12px; color: #5B6270">{{r.niche}} · {{r.followers}}{{r.backupNote}}</div>
-                <sc-if value="{{r.flagged}}" hint-placeholder-val="{{false}}">
-                  <div style="margin-top: 4px; display: inline-block; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #FFF3D9; color: #6B4600">8x benchmark</div>
-                </sc-if>
               </td>
               <td style="padding: 10px 8px">
                 <sc-if value="{{r.isNew}}" hint-placeholder-val="{{false}}">
@@ -102,10 +92,19 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
               <td style="padding: 10px 8px">{{r.cpl}}</td>
               <td style="padding: 10px 8px">{{r.rate}}</td>
               <td style="padding: 10px 8px; color: #5B6270">{{r.eng}}</td>
-              <td style="padding: 10px 8px">{{r.fee}}</td>
-              <td style="padding: 10px 8px; color: #5B6270">{{r.post}}</td>
-              <td style="padding: 10px 16px 10px 8px"><span style="font-size: 12px; padding: 3px 10px; border-radius: 999px; background: {{r.stBg}}; color: {{r.stFg}}">{{r.status}}</span></td>
+              <td style="padding: 10px 16px 10px 8px">{{r.fee}}</td>
             </tr>
+            <sc-if value="{{r.flagged}}" hint-placeholder-val="{{false}}">
+              <tr style="border-bottom: 1px solid #EEF1F6; background: #FFF8E8">
+                <td></td>
+                <td colspan="6" style="padding: 0 16px 12px 8px">
+                  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; font-size: 13px; color: #6B4600; background: #FFF3D9; border-radius: 8px; padding: 8px 12px">
+                    <span>{{r.warn}}</span>
+                    <span style="display: flex; gap: 6px"><button type="button" style="font: inherit; font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 1px solid #D9B66A; background: #FFFFFF; color: #6B4600">Unpick</button><button type="button" style="font: inherit; font-size: 12px; padding: 5px 10px; border-radius: 6px; border: 0; background: transparent; color: #6B4600">Keep anyway</button></span>
+                  </div>
+                </td>
+              </tr>
+            </sc-if>
           </sc-for>
         </tbody>
       </table>
@@ -137,6 +136,8 @@ class Component extends DCLogic {
       rowId: 'row-' + handle.slice(1).split('.')[0],
       flagged: picked && cac !== null && cac >= 65 * 3,
       rowBg: picked && cac !== null && cac >= 65 * 3 ? '#FFF8E8' : '#FFFFFF',
+      rowLine: picked && cac !== null && cac >= 65 * 3 ? '#FFF8E8' : '#EEF1F6',
+      warn: cac === null ? '' : 'Picked, but past CAC of $' + cac + ' is ' + Math.round(cac / 65) + 'x your $65 benchmark. At that rate, the $' + fee.toLocaleString('en-US') + ' fee buys about ' + Math.round(fee / cac) + ' customers.',
       backupNote: backup ? ' · backup' : '',
       fee: '$' + fee.toLocaleString('en-US'),
       isNew: cac === null, hasHistory: cac !== null,
@@ -144,7 +145,6 @@ class Component extends DCLogic {
       cacColor: cac !== null && cac > 65 ? '#B42318' : '#1E7A4B',
       cpl: cpl === null ? '–' : '$' + cpl.toFixed(2),
       rate: rate || '–', eng: eng || '–',
-      stBg: st[status][0], stFg: st[status][1]
     }));
     return { rows };
   }

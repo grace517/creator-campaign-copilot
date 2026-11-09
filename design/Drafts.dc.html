@@ -96,7 +96,7 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":980}}'>
 class Component extends DCLogic {
   renderVals() {
-    const link = 'fernway.example.com/serum?ref=creator';
+    const link = (code) => 'fernway.example.com/serum?code=' + code;
     const muted = '#5B6270', amber = '#8A5A00';
     const stages = {
       edited: ['Creator edited', '#E8EEFF', '#2F55D4'],
@@ -114,23 +114,23 @@ class Component extends DCLogic {
     const flag = (handle, keyword, pre, flagged, post, reason, chip, voice) => Object.assign(base(handle, keyword, 'edited', voice, muted), {
       pre, flagged, post, hasFlag: true, canApprove: false, reason, chip, chipBg: '#FDECEA', chipFg: '#B42318', border: '#F2B8B5' });
     const rows = [
-      flag('@sunlit.sam', 'SAM20', '#ad Okay, the serum that ', 'cleared my breakouts overnight', '. 20% off your first order: ' + link,
+      flag('@sunlit.sam', 'SAM20', '#ad Okay, the serum that ', 'cleared my breakouts overnight', '. 20% off your first order: ' + link('SAM20'),
         'Their edit added a banned claim: reads as "cures acne" and "results in 24 hours." Suggested fix: "keeps my skin calm," from the approved claims.', 'Claims check failed',
         'Changed 40% of the starter · voice from 4 past DMs'),
       flag('@budgetbeautyb', 'BUDGET20', "#ad Under-$40 serum that's fragrance-free and dermatologist-tested. 20% off: ", 'fernway.example.com/serum', '',
-        'Their edit dropped the tracking tag (?ref=creator), so purchases from this creator would not count toward their CAC. Suggested fix: restore the full link.', 'Link check failed',
+        'Their edit dropped their code from the link (?code=BUDGET20), so followers who tap it won\'t get 20% off automatically, and their purchases may not count toward this creator\'s CAC. Suggested fix: restore the full link.', 'Link check failed',
         'Changed 55% of the starter · no past DMs, voice from captions'),
-      pass('@theskinnurse', 'NURSE20', 'accepted', "#ad As promised, the serum I recommend for sensitive skin. It's fragrance-free and dermatologist-tested. 20% off your first order: " + link,
+      pass('@theskinnurse', 'NURSE20', 'accepted', "#ad As promised, the serum I recommend for sensitive skin. It's fragrance-free and dermatologist-tested. 20% off your first order: " + link('NURSE20'),
         'Kept the starter word for word · voice from 3 past DMs'),
-      pass('@calm.complexion', 'CALM20', 'edited', '#ad Redness-prone friends: this one is fragrance-free and made for sensitive skin. 20% off your first order: ' + link,
+      pass('@calm.complexion', 'CALM20', 'edited', '#ad Redness-prone friends: this one is fragrance-free and made for sensitive skin. 20% off your first order: ' + link('CALM20'),
         'Changed 15% of the starter · voice from 2 past DMs'),
-      pass('@marco.minimal', 'MARCO20', 'accepted', '#ad Step three, still simple. Lightweight, layers under sunscreen, no fragrance. 20% off your first order: ' + link,
+      pass('@marco.minimal', 'MARCO20', 'accepted', '#ad Step three, still simple. Lightweight, layers under sunscreen, no fragrance. 20% off your first order: ' + link('MARCO20'),
         'Kept the starter word for word · voice from 1 past DM'),
-      pass('@dewy.dana', 'DANA20', 'waiting', '#ad ok here it is: the serum I use every night. Fragrance-free, made with ceramides and niacinamide. 20% off your first order: ' + link,
+      pass('@dewy.dana', 'DANA20', 'waiting', '#ad ok here it is: the serum I use every night. Fragrance-free, made with ceramides and niacinamide. 20% off your first order: ' + link('DANA20'),
         'Voice from 3 past DMs'),
-      pass('@nightshift.nia', 'NIA20', 'waiting', '#ad Survives a 12-hour shift: lightweight, layers under sunscreen, fragrance-free. 20% off your first order: ' + link,
+      pass('@nightshift.nia', 'NIA20', 'waiting', '#ad Survives a 12-hour shift: lightweight, layers under sunscreen, fragrance-free. 20% off your first order: ' + link('NIA20'),
         'Voice from 1 past DM, low confidence', amber),
-      pass('@glow.with.gia', 'GIA20', 'waiting', '#ad For dry winter skin: ceramides and niacinamide, no fragrance. 20% off your first order: ' + link,
+      pass('@glow.with.gia', 'GIA20', 'waiting', '#ad For dry winter skin: ceramides and niacinamide, no fragrance. 20% off your first order: ' + link('GIA20'),
         'No past DMs, voice from captions, low confidence', amber)
     ];
     return { rows };

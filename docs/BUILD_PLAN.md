@@ -13,14 +13,14 @@ Target: a hosted prototype someone outside can click through in under 5 minutes.
 ## Screens
 
 1. **Brief.** Form prefilled from `data/brief.json`, editable.
-2. **Roster.** Table from `data/roster.csv`; select creators; shows fee, past CAC, past CPL, past DM-to-purchase rate, past engagement rate, and committed spend total. Sort by past CAC; "new" tag when there's no history. CSV upload as a second path.
+2. **Roster.** Table from `data/roster.csv`; select creators; shows fee, past CAC, past CPL, past DM-to-purchase rate, past engagement rate, and committed spend total. No campaign status or post dates here; those start at screen 4. Sort by past CAC; "new" tag when there's no history. CSV upload as a second path.
 3. **Drafts and checks.** One row per creator: keyword, starter DM (written from the creator's past DMs), caption CTA, creator brief. The creator edits or accepts; checks re-run on every version; the brand approves last. Check results as pass/fail chips with reasons. Approve, send back with a fix, remind.
 4. **Creator status.** Invited / accepted / declined / connected / ready, with post date and a "not ready by deadline" flag. AI-drafted nudge; swap in a backup.
 5. **Readout.** From `data/results.csv`: per-creator funnel (comments, keyword comments, DMs, clicks, purchases), CAC (fees ÷ purchases) against the paid social benchmark, CPL (fees ÷ DMs sent), and sign-ups, with an AI brief on top: who to rebook, which hooks worked, where to move budget.
 
 ## Data model
 
-- `Campaign`: name, product, offer, link, approved_claims[], banned_claims[], disclosure, window_start, window_end, budget_usd, paid_social_cac_benchmark_usd
+- `Campaign`: name, product, offer, link, code_param, approved_claims[], banned_claims[], disclosure, window_start, window_end, budget_usd, paid_social_cac_benchmark_usd
 - `Creator`: handle, niche, followers, fee_usd, past_dm_count, past_dm_sample, sample_captions[], status, post_date, is_backup, past_campaigns, past_engagement_rate, past_dm_to_purchase_rate, past_cac_usd, past_cpl_usd
 - `Draft`: creator_handle, keyword, starter_dm, creator_dm, stage (with_creator, edited, accepted), share_changed, caption_cta, creator_brief, checks[], approved
 - `Check`: name, passed, reason
@@ -33,8 +33,8 @@ Run the cheap, exact checks in code; use the model only for judgment calls.
 | Check | How |
 |---|---|
 | Disclosure present | Code: the DM or caption CTA contains `#ad`, `#sponsored`, or "paid partnership" |
-| Correct link | Code: the DM contains the campaign link exactly |
-| Correct keyword | Code: the caption CTA contains the creator's assigned keyword |
+| Correct link | Code: the DM contains the campaign link with this creator's code (`?code=NURSE20`) |
+| Correct keyword | Code: the caption CTA contains the creator's code, which is also their comment keyword |
 | Length | Code: DM under the limit set in the brief |
 | Banned claims | Code for exact phrases, then the model for paraphrases ("clears breakouts" ≈ "cures acne") |
 | Unapproved claims | Model: flags any product claim not on the approved list |

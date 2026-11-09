@@ -16,7 +16,7 @@ These are working assumptions from public sources. In a real product build, we'd
 4. **Fees are mostly fixed.** Creators are usually paid a flat fee per deliverable, sometimes plus an affiliate commission. The floor of a campaign's cost is known once contracts are signed.
 5. **The flow:** brief → creators accept → each creator connects and the automation is set → brand approves content and messages → creator posts → followers comment the keyword → DMs go out → clicks → purchases → readout → the brand rebooks or drops creators.
 6. **The brand is on the hook for what's said.** Sponsored posts need a clear disclosure (such as #ad), and brands in regulated categories (skincare, supplements, finance) have claims they can and can't make. Messages go out under the creator's name, but the brand carries the risk.
-7. **Brands judge creators on customer acquisition cost (CAC).** We assume the deciding metric for a D2C skincare brand is CAC from each creator (cost per customer who purchases), compared with CAC from paid social ads. Secondary: cost per lead (CPL), where a lead is someone who raises their hand by commenting the keyword and getting the DM; email or SMS sign-ups captured in the DM; and whether a creator's content is worth reusing as an ad. Reach and engagement help explain results but don't decide rebooking. This shapes both ends of the product: setup gives every creator a unique keyword and tracked link so each purchase traces to one creator, and the readout leads with CAC by creator.
+7. **Brands judge creators on customer acquisition cost (CAC).** We assume the deciding metric for a D2C skincare brand is CAC from each creator (cost per customer who purchases), compared with CAC from paid social ads. Secondary: cost per lead (CPL), where a lead is someone who raises their hand by commenting the keyword and getting the DM; email or SMS sign-ups captured in the DM; and whether a creator's content is worth reusing as an ad. Reach and engagement help explain results but don't decide rebooking. This shapes both ends of the product: setup gives every creator a unique code, used as both their comment keyword and their checkout code, so each purchase traces to one creator whether the buyer taps the link or types the code, and the readout leads with CAC by creator.
 
 ## Core problems
 
@@ -41,7 +41,7 @@ A brand manager can launch a campaign across a full creator roster in minutes, w
 
    The prototype builds the brand kit and the starter DM preview. Starting from a product link and learning from past campaigns come later.
 2. **Roster:** pick creators already under contract (seeded from a sample roster; CSV import as a second path). Each creator shows their past results with this brand, ranked by CAC, with CPL, DM-to-purchase rate, and engagement rate beside it. Creators with no history are tagged "new."
-   - **Sort by** past CAC (the default), CPL, fee, follower count, or post date.
+   - **Sort by** past CAC (the default), CPL, fee, or follower count.
    - **Filter by** readiness status, niche, track record (proven or new), backups only, and fee within the remaining budget.
    - **Prioritize against the budget:** as the brand picks creators, a running total shows committed spend against the campaign budget. The brand can set how many new creators to include, so it tests new talent without betting the campaign on it.
    - **Flag gaps in the mix:** too many creators in one niche, or several posting on the same day.

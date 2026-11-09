@@ -2,6 +2,18 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: Roster shows only what helps pick; warnings sit on the row they're about
+
+**Decision:** The roster drops campaign status and post dates, and shows one-creator warnings directly under that creator's row. Warnings about the whole pick list go in the summary bar.
+**Why:** At the roster step no one has been invited, so a status like "accepted" can't be true yet, and post dates get set with each creator after they accept. A warning at the top of the page made the brand search the table for the row it meant.
+**Would change if:** brands pick around known availability (for example, a creator already booked that week), in which case an availability column earns its place.
+
+## 2026-11-09: Per-creator codes instead of a shared tracked link
+
+**Decision:** Each creator gets a code (NURSE20) that is both the comment keyword and the checkout code. The DM link carries the code so it applies at checkout, and a purchase counts to the creator whenever the code is used, clicked or typed.
+**Why:** Codes are the common pattern in creator deals, and they catch buyers who never tap the link but type the code later. Putting the code in the link keeps the one-tap path. Making the keyword match the code means followers only learn one word.
+**Would change if:** code leakage to coupon sites inflates creator numbers enough to distort CAC, in which case link clicks would need to count for more.
+
 ## 2026-11-09: Creators edit a starter DM; checks re-run on every edit
 
 **Decision:** The AI writes each creator a starter DM from their past DMs (captions when they have none). The creator edits or accepts it, every version is re-checked, and the brand approves last. Drafts shows each creator's stage, how many past DMs the voice comes from, and how much of the starter they changed.
