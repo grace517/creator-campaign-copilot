@@ -8,7 +8,7 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 - **Show the result while it's still cheap to change.** The brief previews real DMs as it's edited; the roster shows the budget as creators are picked.
 - **Flag, explain, then block.** Problems surface in plain words with the cause highlighted. Only a failed check blocks an action, and the block says what fixes it.
 - **One metric decides.** CAC orders the roster and the readout. CPL, engagement, and reach stay visible for context but never set the order.
-- **Every AI claim is checkable.** The readout's recommendations link to the rows behind them.
+- **Every AI claim is checkable.** The readout's verdict and each decision tag sit next to the numbers behind them.
 
 ## Navigation
 
@@ -63,10 +63,12 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 
 **Job:** decide who to rebook and where the budget goes, in 30 seconds.
 
-- AI brief first: a one-line headline, then Rebook, Drop, and Watch cards, each naming creators with their CAC and linking to their rows. A short line on which hooks worked and where to move budget, with its assumption stated.
-- Four tiles: blended CAC against the benchmark, new customers, leads and CPL, email and SMS sign-ups.
-- CAC by creator: horizontal bars against a dashed benchmark line. Green beats paid social; orange loses to it. Outliers cap at the edge with their value shown.
-- Funnel table: hook, fee, comments, leads, clicks, customers, sign-ups, CPL, CAC.
+The page is ordered by that job: the answer, then the decision with its evidence, then context for checking.
+
+- **Verdict first:** one sentence, blended CAC against the benchmark (with and without the outlier), the Rebook, Watch, and Drop counts, and where to move budget, with its assumption stated.
+- **Who to rebook:** CAC by creator, lowest first. Each row carries its decision tag, a bar with its value, and a one-line reason. The rule sits above the chart: Rebook beats the benchmark, Watch is up to 2x, Drop is more than 2x. The benchmark line and its axis label are drawn from the same value, so they always line up. Outliers cap at the edge with their value shown.
+- **Context:** new customers, leads and CPL, email and SMS sign-ups. Useful for checking, not deciding, so it sits below the decision.
+- **Funnel by creator:** hook, fee, comments, leads, clicks, customers, sign-ups, CPL, CAC.
 - Attribution: a purchase counts to a creator whenever their code is used, whether it came from the link or was typed at checkout. Codes that leak to coupon sites are flagged when a creator's code use far outruns their DMs.
 
 ## States to design next
