@@ -2,6 +2,12 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: Brands can add custom pools; hooks are tagged from posts
+
+**Decision:** Beyond the five default pools, a brand can define its own (name, metric, target, order), saved to the brand. Hooks are tagged by the AI from each post's caption after it runs.
+**Why:** Brands value creators for things the defaults don't cover, like sign-ups or content they can reuse as ads. Tagging hooks from the post adds no work for creators and records what they actually did, not what they planned.
+**Would change if:** captions don't carry the angle (for example, it's all in the video), in which case the tag needs the transcript, or the creator names the angle when sending their draft back.
+
 ## 2026-11-09: The readout sorts creators into pools, by an exact rule
 
 **Decision:** The readout leads with a verdict and a fee-vs-customers scatter with the CAC goal line, then puts each creator in one pool (Converters, Lead builders, Reach, Test again, Don't rebook). Beat, at par, and missed are defined to the percent and printed on the page. Saved pools feed Creators so the next roster starts from them.

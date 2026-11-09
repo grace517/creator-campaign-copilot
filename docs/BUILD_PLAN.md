@@ -24,7 +24,8 @@ Target: a hosted prototype someone outside can click through in under 5 minutes.
 - `Creator`: handle, niche, followers, fee_usd, past_dm_count, past_dm_sample, sample_captions[], status, post_date, is_backup, past_campaigns, past_engagement_rate, past_dm_to_purchase_rate, past_cac_usd, past_cpl_usd
 - `Draft`: creator_handle, keyword, starter_dm, creator_dm, stage (with_creator, edited, accepted), share_changed, caption_cta, creator_brief, checks[], approved
 - `Check`: name, passed, reason
-- `Result`: creator_handle, impressions, comments, keyword_comments, dms_sent, link_clicks, purchases, email_sms_signups
+- `Pool`: name, metric, target, order (five defaults plus any the brand adds)
+- `Result`: creator_handle, hook_used (tagged by the AI from the post caption), impressions, comments, keyword_comments, dms_sent, link_clicks, purchases, email_sms_signups
 
 ## Checks (deterministic first, model second)
 
