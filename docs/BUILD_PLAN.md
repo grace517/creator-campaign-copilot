@@ -20,7 +20,7 @@ Target: a hosted prototype someone outside can click through in under 5 minutes.
 
 ## Data model
 
-- `Campaign`: name, product, offer, link, code_param, approved_claims[], banned_claims[], disclosure, window_start, window_end, budget_usd, paid_social_cac_benchmark_usd
+- `Campaign`: name, product, offer, link, code_param, approved_claims[], banned_claims[], disclosure, window_start, window_end, budget_usd, paid_social_cac_benchmark_usd, secondary_goal (metric, target)
 - `Creator`: handle, niche, followers, fee_usd, past_dm_count, past_dm_sample, sample_captions[], status, post_date, is_backup, past_campaigns, past_engagement_rate, past_dm_to_purchase_rate, past_cac_usd, past_cpl_usd
 - `Draft`: creator_handle, keyword, starter_dm, creator_dm, stage (with_creator, edited, accepted), share_changed, caption_cta, creator_brief, checks[], approved
 - `Check`: name, passed, reason

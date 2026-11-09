@@ -2,6 +2,12 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: The brief sets an optional secondary goal
+
+**Decision:** Beside the paid social CAC benchmark, the brand can pick one secondary goal with a target: cost per lead, email and SMS sign-ups, or reach.
+**Why:** CAC still decides, but a creator who misses it can be worth keeping for something else, like cheap leads. Without a stated secondary goal, the readout can only say "close to the line."
+**Would change if:** brands rarely set one, or set several, in which case the readout should show all three against campaign averages instead.
+
 ## 2026-11-09: Steps belong to a campaign, not the app
 
 **Decision:** The five steps move from the top bar into a campaign header, as a stepper under the campaign name. The top bar holds app-level areas: Campaigns, Creators, and Brand kit. A breadcrumb and campaign switcher show there are other campaigns.

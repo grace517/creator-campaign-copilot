@@ -21,7 +21,7 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 **Job:** set up a campaign in minutes, on-brand by default.
 
 - Brand kit card, prefilled and labeled as such: voice, disclosure, approved claims (green chips), banned claims (red chips).
-- Campaign fields: product, offer, product link, posting window, campaign budget, paid social CAC to beat. Each creator gets a code (NURSE20) that is both their comment keyword and their checkout code; the DM link carries it so it applies at checkout (…/serum?code=NURSE20).
+- Campaign fields: product, offer, product link, posting window, campaign budget, main goal (paid social CAC to beat), and an optional secondary goal (cost per lead, email and SMS sign-ups, or reach) with a target. The readout uses the secondary goal to say why a creator who missed on CAC may still be worth keeping. Each creator gets a code (NURSE20) that is both their comment keyword and their checkout code; the DM link carries it so it applies at checkout (…/serum?code=NURSE20).
 - Starter DMs beside the form: the starter DM three creators will receive, written from each creator's past DMs, with disclosure, claims, and link check chips. Each shows how many past DMs its voice comes from, and flags low confidence when there are fewer than two. Updates on every edit to the brief.
 - Primary action: **Next: pick creators**.
 

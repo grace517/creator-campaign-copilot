@@ -33,7 +33,7 @@ A brand manager can launch a campaign across a full creator roster in minutes, w
 
 ## What the prototype does
 
-1. **Campaign brief:** product, offer, link, approved claims, banned claims, posting window, campaign budget.
+1. **Campaign brief:** product, offer, link, approved claims, banned claims, posting window, campaign budget, the paid social CAC to beat, and an optional secondary goal (cost per lead, sign-ups, or reach).
    - **Brand kit, set once:** voice, approved and banned claims, disclosure wording, and the product catalog. Every new brief starts prefilled from it, so campaigns stay on-brand without anyone retyping the rules.
    - **Start from a product link:** paste the product page and AI drafts the product, offer, and key benefits, using only approved claims. Anything on the page that isn't on the approved list gets flagged before it reaches a creator.
    - **Learn from past campaigns:** AI suggests the offer and hooks that brought in customers at the lowest CAC last time, with the numbers behind the suggestion.
