@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Creator status</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+body{margin:0}
+a{color:#2F55D4}a:hover{color:#1E3FA8}
+</style>
+</helmet>
+<div style="min-height: 860px; background: #F6F7F9; color: #15171C; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 32px; background: #FFFFFF; border-bottom: 1px solid #E3E6EC">
+    <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; font-size: 17px">Campaign Copilot</div>
+    <nav aria-label="Campaign steps" style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px">
+      <a href="Main.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">1 Brief</a>
+      <a href="Roster.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">2 Roster</a>
+      <a href="Drafts.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">3 Drafts</a>
+      <a href="Status.dc.html" style="padding: 6px 12px; border-radius: 999px; background: #15171C; color: #FFFFFF; text-decoration: none">4 Status</a>
+      <a href="Readout.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">5 Readout</a>
+    </nav>
+  </header>
+
+  <main style="max-width: 1216px; margin: 0 auto; padding: 28px 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <div>
+      <div style="font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6270">Barrier Serum launch · Today, Nov 30</div>
+      <h1 style="margin: 4px 0 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 28px; font-weight: 600">Creator status</h1>
+      <p style="margin: 4px 0 0; color: #5B6270">Each creator must be ready 3 days before their post date.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; font-variant-numeric: tabular-nums">
+      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 14px 16px"><div style="font-size: 24px; font-weight: 600; color: #1E7A4B">3</div><div style="color: #5B6270; font-size: 13px">Ready</div></div>
+      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 14px 16px"><div style="font-size: 24px; font-weight: 600">3</div><div style="color: #5B6270; font-size: 13px">Accepted or connected</div></div>
+      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 14px 16px"><div style="font-size: 24px; font-weight: 600">2</div><div style="color: #5B6270; font-size: 13px">Invited, no reply</div></div>
+      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 14px 16px"><div style="font-size: 24px; font-weight: 600; color: #8A5A00">2</div><div style="color: #5B6270; font-size: 13px">Past or near deadline</div></div>
+    </div>
+
+    <section aria-label="Needs attention" style="display: flex; flex-direction: column; gap: 10px">
+      <h2 style="margin: 0; font-size: 15px; font-weight: 600">Needs attention</h2>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px">
+        <div style="flex: 1 1 480px; min-width: 0; background: #FFFFFF; border: 1px solid #F0D9A8; border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap">
+            <div><strong>@marco.minimal</strong> · posts Dec 3</div>
+            <span style="font-size: 12px; padding: 3px 10px; border-radius: 999px; background: #FFF3D9; color: #6B4600">Ready deadline today</span>
+          </div>
+          <div style="color: #5B6270; font-size: 13px">Account connected, but the test DM hasn't been sent.</div>
+          <div style="background: #EEF1F6; border-radius: 10px; padding: 10px 12px; font-size: 13px">Hi Marco, quick one before your Dec 3 post: comment MARCO20 on any of your posts from a second account so we can confirm the DM arrives. Takes a minute. Thanks!</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap">
+            <button type="button" style="font: inherit; font-size: 13px; padding: 8px 12px; border-radius: 8px; border: 0; background: #2F55D4; color: #FFFFFF">Send nudge</button>
+            <button type="button" style="font: inherit; font-size: 13px; padding: 8px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Edit</button>
+          </div>
+        </div>
+        <div style="flex: 1 1 480px; min-width: 0; background: #FFFFFF; border: 1px solid #F0D9A8; border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
+          <div style="display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap">
+            <div><strong>@sunlit.sam</strong> · posts Dec 4</div>
+            <span style="font-size: 12px; padding: 3px 10px; border-radius: 999px; background: #FFF3D9; color: #6B4600">Ready deadline tomorrow</span>
+          </div>
+          <div style="color: #5B6270; font-size: 13px">Accepted, but the Instagram account isn't connected yet.</div>
+          <div style="background: #EEF1F6; border-radius: 10px; padding: 10px 12px; font-size: 13px">Hi Sam, your Dec 4 post needs your Instagram connected by tomorrow so the DMs go out. Here's the 2-minute setup link. Shout if anything gets stuck.</div>
+          <div style="display: flex; gap: 6px; flex-wrap: wrap">
+            <button type="button" style="font: inherit; font-size: 13px; padding: 8px 12px; border-radius: 8px; border: 0; background: #2F55D4; color: #FFFFFF">Send nudge</button>
+            <button type="button" style="font: inherit; font-size: 13px; padding: 8px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Swap in a backup</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-label="All creators" style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; overflow-x: auto">
+      <table style="width: 100%; min-width: 760px; border-collapse: collapse; font-variant-numeric: tabular-nums">
+        <thead>
+          <tr style="text-align: left; font-size: 12px; color: #5B6270; border-bottom: 1px solid #E3E6EC">
+            <th scope="col" style="padding: 12px 16px; font-weight: 500">Creator</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Post date</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Invited · Accepted · Connected · Ready</th>
+            <th scope="col" style="padding: 12px 16px 12px 8px; font-weight: 500">Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <sc-for list="{{rows}}" as="r" hint-placeholder-count="9">
+            <tr style="border-bottom: 1px solid #EEF1F6">
+              <td style="padding: 10px 16px; font-weight: 600">{{r.handle}}</td>
+              <td style="padding: 10px 8px">{{r.post}}</td>
+              <td style="padding: 10px 8px">
+                <div role="img" aria-label="{{r.stepLabel}}" style="display: flex; gap: 6px; align-items: center">
+                  <sc-for list="{{r.steps}}" as="s" hint-placeholder-count="4">
+                    <span style="width: 44px; height: 8px; border-radius: 999px; background: {{s.color}}"></span>
+                  </sc-for>
+                </div>
+              </td>
+              <td style="padding: 10px 16px 10px 8px; color: {{r.noteColor}}; font-size: 13px">{{r.note}}</td>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":860}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const names = ['invited', 'accepted', 'connected', 'ready'];
+    const raw = [
+      ['@dewy.dana', 'Dec 2', 4, '', 'ok'],
+      ['@marco.minimal', 'Dec 3', 3, 'Deadline today: test DM not sent', 'warn'],
+      ['@sunlit.sam', 'Dec 4', 2, 'Deadline tomorrow: not connected', 'warn'],
+      ['@theskinnurse', 'Dec 5', 4, '', 'ok'],
+      ['@budgetbeautyb', 'Dec 6', 1, 'No reply yet. Deadline Dec 3', 'muted'],
+      ['@runwithrio', 'Dec 8', 0, 'Declined. Replaced by @calm.complexion', 'bad'],
+      ['@glow.with.gia', 'Dec 9', 1, 'No reply yet. Deadline Dec 6', 'muted'],
+      ['@nightshift.nia', 'Dec 10', 2, 'Deadline Dec 7', 'muted'],
+      ['@calm.complexion', 'Dec 11', 4, 'Backup, swapped in Nov 27', 'ok']
+    ];
+    const colors = { ok: '#1E7A4B', warn: '#8A5A00', bad: '#B42318', muted: '#5B6270' };
+    const rows = raw.map(([handle, post, done, note, tone]) => ({
+      handle, post, note, noteColor: colors[tone],
+      stepLabel: done === 0 ? 'Declined' : 'Reached ' + names[done - 1],
+      steps: names.map((n, i) => ({ color: done === 0 ? '#F2B8B5' : i < done ? (done === 4 ? '#1E7A4B' : '#2F55D4') : '#E3E6EC' }))
+    }));
+    return { rows };
+  }
+}
+</script>
+</body>
+</html>

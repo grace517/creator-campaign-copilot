@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drafts and checks</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+body{margin:0}
+a{color:#2F55D4}a:hover{color:#1E3FA8}
+</style>
+</helmet>
+<div style="min-height: 980px; background: #F6F7F9; color: #15171C; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 32px; background: #FFFFFF; border-bottom: 1px solid #E3E6EC">
+    <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; font-size: 17px">Campaign Copilot</div>
+    <nav aria-label="Campaign steps" style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px">
+      <a href="Main.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">1 Brief</a>
+      <a href="Roster.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">2 Roster</a>
+      <a href="Drafts.dc.html" style="padding: 6px 12px; border-radius: 999px; background: #15171C; color: #FFFFFF; text-decoration: none">3 Drafts</a>
+      <a href="Status.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">4 Status</a>
+      <a href="Readout.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">5 Readout</a>
+    </nav>
+  </header>
+
+  <main style="max-width: 1216px; margin: 0 auto; padding: 28px 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
+      <div>
+        <div style="font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6270">Barrier Serum launch</div>
+        <h1 style="margin: 4px 0 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 28px; font-weight: 600">Review drafts</h1>
+        <p style="margin: 4px 0 0; color: #5B6270"><strong style="color: #1E7A4B">6 of 8</strong> pass every check. <strong style="color: #B42318">2</strong> need a fix before they can go out.</p>
+      </div>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap">
+        <button type="button" style="font: inherit; padding: 12px 16px; border-radius: 10px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Regenerate flagged</button>
+        <a href="Status.dc.html" style="padding: 12px 18px; border-radius: 10px; background: #2F55D4; color: #FFFFFF; text-decoration: none; font-weight: 600">Approve all passing (6)</a>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+        <article style="background: #FFFFFF; border: 1px solid {{r.border}}; border-radius: 12px; padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-start">
+          <div style="flex: 0 1 180px; min-width: 0">
+            <div style="font-weight: 600">{{r.handle}}</div>
+            <div style="margin-top: 6px; display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 6px; background: #EEF1F6">{{r.keyword}}</div>
+          </div>
+          <div style="flex: 999 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 6px">
+            <div style="font-size: 12px; color: #5B6270">DM</div>
+            <div>{{r.pre}}<sc-if value="{{r.hasFlag}}" hint-placeholder-val="{{false}}"><mark style="background: #FDECEA; color: #B42318; padding: 0 2px; border-radius: 3px">{{r.flagged}}</mark></sc-if>{{r.post}}</div>
+            <div style="font-size: 12px; color: #5B6270">Caption call to action: <span style="color: #15171C">{{r.cta}}</span></div>
+            <sc-if value="{{r.hasFlag}}" hint-placeholder-val="{{false}}">
+              <div style="font-size: 13px; color: #B42318; background: #FDECEA; padding: 8px 10px; border-radius: 8px">{{r.reason}}</div>
+            </sc-if>
+          </div>
+          <div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+            <span style="font-size: 12px; padding: 3px 10px; border-radius: 999px; background: {{r.chipBg}}; color: {{r.chipFg}}">{{r.chip}}</span>
+            <div style="display: flex; gap: 6px; flex-wrap: wrap">
+              <sc-if value="{{r.canApprove}}" hint-placeholder-val="{{true}}">
+                <button type="button" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 0; background: #2F55D4; color: #FFFFFF">Approve</button>
+              </sc-if>
+              <sc-if value="{{r.hasFlag}}" hint-placeholder-val="{{false}}">
+                <button type="button" disabled style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 0; background: #E3E6EC; color: #5B6270">Approve</button>
+              </sc-if>
+              <button type="button" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Edit</button>
+              <button type="button" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Regenerate</button>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":980}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const link = 'fernway.example.com/serum?ref=creator';
+    const clean = (handle, keyword, dm) => ({ handle, keyword, pre: dm, flagged: '', post: '', hasFlag: false, canApprove: true, reason: '',
+      cta: '#ad Comment ' + keyword + " and I'll DM you my code", chip: 'All 6 checks pass', chipBg: '#E6F4EC', chipFg: '#1E7A4B', border: '#E3E6EC' });
+    const flag = (handle, keyword, pre, flagged, post, reason, chip) => ({ handle, keyword, pre, flagged, post, hasFlag: true, canApprove: false, reason,
+      cta: '#ad Comment ' + keyword + " and I'll DM you my code", chip, chipBg: '#FDECEA', chipFg: '#B42318', border: '#F2B8B5' });
+    const rows = [
+      flag('@sunlit.sam', 'SAM20', '#ad Okay, the serum that ', 'cleared my breakouts overnight', '. 20% off your first order: ' + link,
+        'Banned claim: reads as "cures acne" and "results in 24 hours." Rewrite with an approved claim, such as fragrance-free or suitable for sensitive skin.', 'Claims check failed'),
+      flag('@budgetbeautyb', 'BUDGET20', "#ad Under-$40 serum that's fragrance-free and dermatologist-tested. 20% off: ", 'fernway.example.com/serum', '',
+        'Link is missing the tracking tag (?ref=creator), so purchases from this creator would not count toward their CAC.', 'Link check failed'),
+      clean('@theskinnurse', 'NURSE20', "#ad As promised, the serum I recommend for sensitive skin. It's fragrance-free and dermatologist-tested. 20% off your first order: " + link),
+      clean('@calm.complexion', 'CALM20', '#ad Redness-prone friends: this one is fragrance-free and made for sensitive skin. 20% off your first order: ' + link),
+      clean('@dewy.dana', 'DANA20', '#ad ok here it is: the serum I use every night. Fragrance-free, made with ceramides and niacinamide. 20% off your first order: ' + link),
+      clean('@nightshift.nia', 'NIA20', '#ad Survives a 12-hour shift: lightweight, layers under sunscreen, fragrance-free. 20% off your first order: ' + link),
+      clean('@marco.minimal', 'MARCO20', '#ad Step three, still simple. Lightweight, layers under sunscreen, no fragrance. 20% off your first order: ' + link),
+      clean('@glow.with.gia', 'GIA20', '#ad For dry winter skin: ceramides and niacinamide, no fragrance. 20% off your first order: ' + link)
+    ];
+    return { rows };
+  }
+}
+</script>
+</body>
+</html>

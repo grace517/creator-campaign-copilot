@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Pick creators</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+body{margin:0}
+a{color:#2F55D4}a:hover{color:#1E3FA8}
+</style>
+</helmet>
+<div style="min-height: 900px; background: #F6F7F9; color: #15171C; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 32px; background: #FFFFFF; border-bottom: 1px solid #E3E6EC">
+    <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; font-size: 17px">Campaign Copilot</div>
+    <nav aria-label="Campaign steps" style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px">
+      <a href="Main.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">1 Brief</a>
+      <a href="Roster.dc.html" style="padding: 6px 12px; border-radius: 999px; background: #15171C; color: #FFFFFF; text-decoration: none">2 Roster</a>
+      <a href="Drafts.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">3 Drafts</a>
+      <a href="Status.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">4 Status</a>
+      <a href="Readout.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">5 Readout</a>
+    </nav>
+  </header>
+
+  <main style="max-width: 1216px; margin: 0 auto; padding: 28px 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px">
+      <div>
+        <div style="font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6270">Barrier Serum launch</div>
+        <h1 style="margin: 4px 0 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 28px; font-weight: 600">Pick creators</h1>
+      </div>
+      <a href="Drafts.dc.html" style="padding: 12px 18px; border-radius: 10px; background: #2F55D4; color: #FFFFFF; text-decoration: none; font-weight: 600">Draft messages for 8 creators</a>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; font-variant-numeric: tabular-nums">
+        <div><strong>$27,500</strong> committed of $32,000 budget</div>
+        <div style="color: #5B6270">8 creators · 2 new (limit 2)</div>
+      </div>
+      <div role="img" aria-label="86 percent of budget committed" style="height: 10px; background: #EEF1F6; border-radius: 999px; overflow: hidden">
+        <div style="width: 86%; height: 100%; background: #2F55D4; border-radius: 999px"></div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 10px">
+      <div style="flex: 1 1 320px; background: #FFF3D9; color: #6B4600; border-radius: 10px; padding: 10px 14px; font-size: 13px"><strong>@sunlit.sam</strong>'s past CAC is $520, 8x your $65 paid social benchmark.</div>
+      <div style="flex: 1 1 320px; background: #FFF3D9; color: #6B4600; border-radius: 10px; padding: 10px 14px; font-size: 13px"><strong>5 of 8</strong> picks are skincare creators. Consider one outside the category.</div>
+    </div>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px">
+      <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #2F55D4; background: #EAF0FF; color: #1E3FA8">Sort: Past CAC, low to high</button>
+      <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Status</button>
+      <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Niche</button>
+      <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Proven or new</button>
+      <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Backups only</button>
+      <button type="button" style="font: inherit; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Fits remaining budget</button>
+    </div>
+
+    <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; overflow-x: auto">
+      <table style="width: 100%; min-width: 900px; border-collapse: collapse; font-variant-numeric: tabular-nums">
+        <thead>
+          <tr style="text-align: left; font-size: 12px; color: #5B6270; border-bottom: 1px solid #E3E6EC">
+            <th scope="col" style="padding: 12px 16px; font-weight: 500">Pick</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Creator</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Past CAC</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Past CPL</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">DM to purchase</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Engagement</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Fee</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Posts</th>
+            <th scope="col" style="padding: 12px 16px 12px 8px; font-weight: 500">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <sc-for list="{{rows}}" as="r" hint-placeholder-count="10">
+            <tr style="border-bottom: 1px solid #EEF1F6">
+              <td style="padding: 10px 16px"><input type="checkbox" aria-label="Pick {{r.handle}}" checked="{{r.picked}}" style="width: 18px; height: 18px"></td>
+              <td style="padding: 10px 8px">
+                <div style="font-weight: 600">{{r.handle}}</div>
+                <div style="font-size: 12px; color: #5B6270">{{r.niche}} · {{r.followers}}{{r.backupNote}}</div>
+              </td>
+              <td style="padding: 10px 8px">
+                <sc-if value="{{r.isNew}}" hint-placeholder-val="{{false}}">
+                  <span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #EAF0FF; color: #1E3FA8">new</span>
+                </sc-if>
+                <sc-if value="{{r.hasHistory}}" hint-placeholder-val="{{true}}">
+                  <span style="font-weight: 600; color: {{r.cacColor}}">{{r.cac}}</span>
+                </sc-if>
+              </td>
+              <td style="padding: 10px 8px">{{r.cpl}}</td>
+              <td style="padding: 10px 8px">{{r.rate}}</td>
+              <td style="padding: 10px 8px; color: #5B6270">{{r.eng}}</td>
+              <td style="padding: 10px 8px">{{r.fee}}</td>
+              <td style="padding: 10px 8px; color: #5B6270">{{r.post}}</td>
+              <td style="padding: 10px 16px 10px 8px"><span style="font-size: 12px; padding: 3px 10px; border-radius: 999px; background: {{r.stBg}}; color: {{r.stFg}}">{{r.status}}</span></td>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":900}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const st = {
+      ready: ['#E6F4EC', '#1E7A4B'], connected: ['#EAF0FF', '#1E3FA8'], accepted: ['#EAF0FF', '#1E3FA8'],
+      invited: ['#EEF1F6', '#3F4652'], declined: ['#FDECEA', '#B42318']
+    };
+    const raw = [
+      ['@theskinnurse', 'skincare education', '265K', 6000, 38, 2.85, '7.5%', '5.6%', 'Dec 5', 'ready', true, false],
+      ['@calm.complexion', 'sensitive skin', '61K', 1600, 45, 3.69, '8.2%', '5.2%', 'Dec 11', 'ready', true, true],
+      ['@dewy.dana', 'skincare', '182K', 4200, 50, 3.05, '6.1%', '4.8%', 'Dec 2', 'ready', true, false],
+      ['@nightshift.nia', 'nurse lifestyle', '88K', 2200, 58, 3.71, '6.4%', '4.1%', 'Dec 10', 'accepted', true, false],
+      ['@marco.minimal', "men's grooming", '96K', 2500, 115, 8.05, '7.0%', '3.1%', 'Dec 3', 'connected', true, false],
+      ['@runwithrio', 'fitness', '128K', 3100, 140, 4.20, '3.0%', '3.9%', 'Dec 8', 'declined', false, false],
+      ['@sunlit.sam', 'lifestyle', '410K', 7800, 520, 10.40, '2.0%', '2.2%', 'Dec 4', 'accepted', true, false],
+      ['@budgetbeautyb', 'budget beauty', '73K', 1800, null, null, null, null, 'Dec 6', 'invited', true, false],
+      ['@glow.with.gia', 'skincare', '54K', 1400, null, null, null, null, 'Dec 9', 'invited', true, false],
+      ['@lena.layers', 'skincare', '39K', 1100, null, null, null, null, 'Dec 12', 'connected', false, true]
+    ];
+    const rows = raw.map(([handle, niche, followers, fee, cac, cpl, rate, eng, post, status, picked, backup]) => ({
+      handle, niche, followers, post, status, picked,
+      backupNote: backup ? ' · backup' : '',
+      fee: '$' + fee.toLocaleString('en-US'),
+      isNew: cac === null, hasHistory: cac !== null,
+      cac: cac === null ? '' : '$' + cac,
+      cacColor: cac !== null && cac > 65 ? '#B42318' : '#1E7A4B',
+      cpl: cpl === null ? '–' : '$' + cpl.toFixed(2),
+      rate: rate || '–', eng: eng || '–',
+      stBg: st[status][0], stFg: st[status][1]
+    }));
+    return { rows };
+  }
+}
+</script>
+</body>
+</html>
