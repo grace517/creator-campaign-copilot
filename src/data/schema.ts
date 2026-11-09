@@ -105,3 +105,29 @@ export const demoStateSchema = z.object({
   }),
 });
 export type DemoState = z.infer<typeof demoStateSchema>;
+
+export const brandKitSchema = z.object({
+  voice: z.string().min(1),
+  disclosure_placement: z.string().min(1),
+  last_changed: isoDate,
+  products: z
+    .array(z.object({ name: z.string().min(1), link: z.string().url(), default_offer: z.string().min(1) }))
+    .min(1),
+});
+export type BrandKit = z.infer<typeof brandKitSchema>;
+
+/** Output of docs/PROMPTS.md call 1 (starter DM and caption call to action). */
+export const starterOutputSchema = z.object({
+  dm: z.string().min(1),
+  caption_cta: z.string().min(1),
+  claims_used: z.array(z.string()),
+  voice_source: z.enum(['past_dms', 'captions']),
+});
+export type StarterOutput = z.infer<typeof starterOutputSchema>;
+
+export const cachedStartersSchema = z.object({
+  source: z.enum(['design', 'model']),
+  written_for: z.object({ product: z.string(), offer: z.string(), link: z.string().url() }),
+  starters: z.array(starterOutputSchema.extend({ handle })).min(1),
+});
+export type CachedStarters = z.infer<typeof cachedStartersSchema>;
