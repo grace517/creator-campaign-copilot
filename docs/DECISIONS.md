@@ -2,6 +2,12 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: Steps belong to a campaign, not the app
+
+**Decision:** The five steps move from the top bar into a campaign header, as a stepper under the campaign name. The top bar holds app-level areas: Campaigns, Creators, and Brand kit. A breadcrumb and campaign switcher show there are other campaigns.
+**Why:** A brand runs several campaigns at once. Steps in the top bar read as the whole app, and hid the path to other campaigns.
+**Would change if:** brands mostly run one campaign at a time, in which case the campaign list matters less than a fast path to the current one.
+
 ## 2026-11-09: Roster shows only what helps pick; warnings sit on the row they're about
 
 **Decision:** The roster drops campaign status and post dates, and shows one-creator warnings directly under that creator's row. Warnings about the whole pick list go in the summary bar.

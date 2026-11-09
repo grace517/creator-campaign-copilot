@@ -14,22 +14,50 @@ body{margin:0}
 a{color:#2F55D4}a:hover{color:#1E3FA8}
 </style>
 </helmet>
-<div style="min-height: 1000px; background: #F6F7F9; color: #15171C; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
-  <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 32px; background: #FFFFFF; border-bottom: 1px solid #E3E6EC">
-    <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; font-size: 17px">Campaign Copilot</div>
-    <nav aria-label="Campaign steps" style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px">
-      <a href="Main.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">1 Brief</a>
-      <a href="Roster.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">2 Roster</a>
-      <a href="Drafts.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">3 Drafts</a>
-      <a href="Status.dc.html" style="padding: 6px 12px; border-radius: 999px; color: #5B6270; text-decoration: none">4 Status</a>
-      <a href="Readout.dc.html" style="padding: 6px 12px; border-radius: 999px; background: #15171C; color: #FFFFFF; text-decoration: none">5 Readout</a>
-    </nav>
+<div style="min-height: 1140px; background: #F6F7F9; color: #15171C; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
+  <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 32px; background: #FFFFFF; border-bottom: 1px solid #E3E6EC">
+    <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
+      <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; font-size: 17px">Campaign Copilot</div>
+      <nav aria-label="Main" style="display: flex; gap: 20px; font-size: 14px">
+        <a href="#" aria-current="page" style="color: #15171C; font-weight: 600; text-decoration: none; padding-bottom: 4px; border-bottom: 2px solid #15171C">Campaigns</a>
+        <a href="#" style="color: #5B6270; text-decoration: none; padding-bottom: 4px">Creators</a>
+        <a href="#" style="color: #5B6270; text-decoration: none; padding-bottom: 4px">Brand kit</a>
+      </nav>
+    </div>
+    <div style="font-size: 13px; color: #5B6270">Fernway Skincare (sample)</div>
   </header>
 
   <main style="max-width: 1216px; margin: 0 auto; padding: 28px 32px 40px; display: flex; flex-direction: column; gap: 18px">
+    <section aria-label="Campaign" style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 16px 20px 18px; display: flex; flex-direction: column; gap: 18px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 12px">
+        <div>
+          <nav aria-label="Breadcrumb" style="font-size: 13px; color: #5B6270"><a href="#" style="color: #5B6270">Campaigns</a> <span aria-hidden="true">/</span> Barrier Serum launch</nav>
+          <h1 style="margin: 2px 0 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 24px; font-weight: 600">Barrier Serum launch</h1>
+          <div style="font-size: 13px; color: #5B6270">Barrier Repair Serum · Dec 1 – 14 · $32,000 budget</div>
+        </div>
+        <button type="button" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Switch campaign (3 others) ▾</button>
+      </div>
+      <ol aria-label="Campaign steps" style="list-style: none; margin: 0; padding: 0; display: flex; align-items: flex-start">
+        <li style="flex: 1 1 0; min-width: 0; position: relative"><span aria-hidden="true" style="position: absolute; top: 13px; left: calc(50% + 18px); right: calc(-50% + 18px); height: 2px; background: #1E7A4B"></span>
+          <a href="Main.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; font-size: 13px; color: #15171C"><span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: #1E7A4B; border: 2px solid #1E7A4B; color: #FFFFFF">✓</span><span>Brief<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">, completed</span></span></a>
+        </li>
+        <li style="flex: 1 1 0; min-width: 0; position: relative"><span aria-hidden="true" style="position: absolute; top: 13px; left: calc(50% + 18px); right: calc(-50% + 18px); height: 2px; background: #1E7A4B"></span>
+          <a href="Roster.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; font-size: 13px; color: #15171C"><span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: #1E7A4B; border: 2px solid #1E7A4B; color: #FFFFFF">✓</span><span>Roster<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">, completed</span></span></a>
+        </li>
+        <li style="flex: 1 1 0; min-width: 0; position: relative"><span aria-hidden="true" style="position: absolute; top: 13px; left: calc(50% + 18px); right: calc(-50% + 18px); height: 2px; background: #1E7A4B"></span>
+          <a href="Drafts.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; font-size: 13px; color: #15171C"><span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: #1E7A4B; border: 2px solid #1E7A4B; color: #FFFFFF">✓</span><span>Drafts<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">, completed</span></span></a>
+        </li>
+        <li style="flex: 1 1 0; min-width: 0; position: relative"><span aria-hidden="true" style="position: absolute; top: 13px; left: calc(50% + 18px); right: calc(-50% + 18px); height: 2px; background: #1E7A4B"></span>
+          <a href="Status.dc.html" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; font-size: 13px; color: #15171C"><span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: #1E7A4B; border: 2px solid #1E7A4B; color: #FFFFFF">✓</span><span>Status<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">, completed</span></span></a>
+        </li>
+        <li style="flex: 1 1 0; min-width: 0; position: relative">
+          <a href="Readout.dc.html" aria-current="step" style="display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; font-size: 13px; color: #15171C; font-weight: 600"><span style="width: 24px; height: 24px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; background: #FFFFFF; border: 2px solid #1E7A4B; color: #1E7A4B">5</span><span>Readout<span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">, current</span></span></a>
+        </li>
+      </ol>
+    </section>
     <div>
-      <div style="font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6270">Barrier Serum launch · Dec 1 – 14 · sample results</div>
-      <h1 style="margin: 4px 0 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 28px; font-weight: 600">Readout</h1>
+      <div style="font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #5B6270">Sample results</div>
+      <h2 style="margin: 4px 0 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 22px; font-weight: 600">Readout</h2>
     </div>
 
     <section aria-label="Summary" style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px">
@@ -118,7 +146,7 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1000}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1140}}'>
 class Component extends DCLogic {
   renderVals() {
     const bench = 65, scale = 150;

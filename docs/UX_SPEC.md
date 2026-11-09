@@ -10,6 +10,12 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 - **One metric decides.** CAC orders the roster and the readout. CPL, engagement, and reach stay visible for context but never set the order.
 - **Every AI claim is checkable.** The readout's recommendations link to the rows behind them.
 
+## Navigation
+
+- **App level:** Campaigns, Creators, and Brand kit in the top bar. Creators and the brand kit are shared across campaigns; campaigns are where work happens.
+- **Campaign level:** every campaign screen opens with a campaign header: breadcrumb (Campaigns / campaign name), the campaign name, its product, window, and budget, and a campaign switcher. The five steps sit under the name as a stepper, so they read as this campaign's progress, not app navigation.
+- **Stepper:** connected circles. Completed steps are filled green with a check, the current step is white with a green outline, and steps not started are light grey. Every step is a link, and screen readers hear each step's state.
+
 ## 1. Brief
 
 **Job:** set up a campaign in minutes, on-brand by default.
