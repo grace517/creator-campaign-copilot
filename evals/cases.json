@@ -1,0 +1,169 @@
+{
+  "_note": "Test cases for the message checks, against data/brief.json. expected_fail lists every check that should fail; an empty list means the message should pass clean.",
+  "keyword": "BARRIER",
+  "cases": [
+    {
+      "id": 1,
+      "dm": "#ad Here's your 20% off Fernway's Barrier Repair Serum, fragrance-free and great for sensitive skin: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": []
+    },
+    {
+      "id": 2,
+      "dm": "#ad It's made with ceramides and niacinamide and layers under my sunscreen. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": []
+    },
+    {
+      "id": 3,
+      "dm": "Here's your 20% off the serum I've been using: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "disclosure"
+      ]
+    },
+    {
+      "id": 4,
+      "dm": "#ad This serum cures acne, honestly. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "banned_claim"
+      ]
+    },
+    {
+      "id": 5,
+      "dm": "#ad My breakouts cleared up completely with this. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "banned_claim"
+      ],
+      "note": "Paraphrase of 'cures acne'; needs the model check"
+    },
+    {
+      "id": 6,
+      "dm": "#ad Clinically proven to repair your barrier. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "banned_claim"
+      ]
+    },
+    {
+      "id": 7,
+      "dm": "#ad You'll see results overnight. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "banned_claim"
+      ],
+      "note": "Paraphrase of 'results in 24 hours'"
+    },
+    {
+      "id": 8,
+      "dm": "#ad It's 100% natural and gentle. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "banned_claim"
+      ]
+    },
+    {
+      "id": 9,
+      "dm": "#ad This serum smoothed out my fine lines. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "banned_claim"
+      ],
+      "note": "Paraphrase of 'removes wrinkles'"
+    },
+    {
+      "id": 10,
+      "dm": "#ad It's vegan and cruelty-free. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "unapproved_claim"
+      ]
+    },
+    {
+      "id": 11,
+      "dm": "#ad It boosts collagen production. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "unapproved_claim"
+      ]
+    },
+    {
+      "id": 12,
+      "dm": "#ad Here's your 20% off the Barrier Repair Serum!",
+      "expected_fail": [
+        "link"
+      ]
+    },
+    {
+      "id": 13,
+      "dm": "#ad Here's your 20% off: https://fernway.example.com/serum",
+      "expected_fail": [
+        "link"
+      ],
+      "note": "Missing the tracking parameter"
+    },
+    {
+      "id": 14,
+      "dm": "#ad 20% off at https://fernway-deals.example.net/serum",
+      "expected_fail": [
+        "link"
+      ]
+    },
+    {
+      "id": 15,
+      "dm": "Paid partnership with Fernway. Fragrance-free and dermatologist-tested. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [],
+      "note": "Disclosure written out instead of #ad"
+    },
+    {
+      "id": 16,
+      "dm": "#ad I've been using this every night for a month and my skin feels calmer, softer, and less tight after cleansing. I've been using this every night for a month and my skin feels calmer, softer, and less tight after cleansing. I've been using this every night for a month and my skin feels calmer, softer, and less tight after cleansing. I've been using this every night for a month and my skin feels calmer, softer, and less tight after cleansing. I've been using this every night for a month and my skin feels calmer, softer, and less tight after cleansing. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "length"
+      ],
+      "note": "Over the 500-character limit; otherwise clean"
+    },
+    {
+      "id": 17,
+      "dm": "This cures acne and it's 100% natural: https://fernway.example.com/serum",
+      "expected_fail": [
+        "disclosure",
+        "banned_claim",
+        "link"
+      ]
+    },
+    {
+      "id": 18,
+      "dm": "#ad So lightweight it layers under sunscreen, and it's dermatologist-tested. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": []
+    },
+    {
+      "id": 19,
+      "dm": "#ad Way better than the Glowlab serum I used to buy. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "unapproved_claim"
+      ],
+      "note": "Comparative claim against a named competitor"
+    },
+    {
+      "id": 20,
+      "dm": "#ad My dermatologist friend says it heals eczema flare-ups. 20% off: https://fernway.example.com/serum?ref=creator",
+      "expected_fail": [
+        "banned_claim"
+      ],
+      "note": "Banned claim attributed to someone else is still a banned claim"
+    }
+  ],
+  "caption_cases": [
+    {
+      "id": "c1",
+      "caption_cta": "#ad Comment BARRIER and I'll send you my code",
+      "expected_fail": []
+    },
+    {
+      "id": "c2",
+      "caption_cta": "#ad Comment SERUM and I'll send you my code",
+      "expected_fail": [
+        "keyword"
+      ]
+    },
+    {
+      "id": "c3",
+      "caption_cta": "Comment BARRIER for 20% off",
+      "expected_fail": [
+        "disclosure"
+      ]
+    }
+  ]
+}

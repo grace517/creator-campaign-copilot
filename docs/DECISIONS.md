@@ -1,0 +1,45 @@
+# Decisions
+
+Newest first. Each entry: what I decided, why, and what would change my mind.
+
+## 2026-11-09: CAC decides rebooking; CPL is secondary
+
+**Decision:** Customer acquisition cost (CAC, cost per customer who purchases) is the deciding metric, compared against the brand's paid social CAC. Cost per lead (CPL, cost per person who comments the keyword and gets the DM) and email or SMS sign-ups are secondary.
+**Why:** A D2C brand weighs creators against its other acquisition channels, and paid social is the usual comparison. Reach and engagement explain results but don't pay back the fee.
+**Would change if:** brands say they rebook on something else, or the deciding metric varies too much by brand to default.
+
+## 2026-11-09: Build the brand kit and live DM preview into the brief
+
+**Decision:** The brief starts prefilled from a brand kit (voice, approved and banned claims, disclosure, products), and a live preview shows a sample DM in two or three creators' voices as the brand edits. Drafting from a product link and suggestions from past campaigns come later.
+**Why:** These two make the brief fast and on-brand with sample data alone, and they demo well. The other two need real product pages or real campaign history.
+**Would change if:** testers say writing the brief isn't where their time goes.
+
+## 2026-11-09: Show past results on the roster, ranked by CAC
+
+**Decision:** When a brand picks creators for a campaign, each creator shows their past CAC, CPL, and DM-to-purchase rate with this brand, plus engagement rate as a secondary column. Creators with no history are tagged "new."
+**Why:** The readout from one campaign should shape who gets picked for the next. Engagement predicts reach, not action, so it doesn't decide the ranking.
+**Would change if:** campaign managers say they pick creators on something else, such as audience fit or content quality.
+
+## 2026-11-09: Start from a contracted roster, not recruiting
+
+**Decision:** The prototype assumes creators are already under contract. Recruiting and contracts are out of scope.
+**Why:** Comment-to-DM runs after a deal is signed, and discovery platforms and agencies already own recruiting. Starting at launch keeps the prototype on the step that's manual today.
+**Would change if:** campaign managers say finding and contracting creators is the bigger pain.
+
+## 2026-11-09: Include a campaign readout
+
+**Decision:** Ship a readout screen on sample results alongside the launch flow.
+**Why:** The point of the campaign is knowing who to rebook. A launch tool without the readout stops at the step the brand cares about least.
+**Would change if:** testers say their existing dashboards already answer this well.
+
+## 2026-11-09: Check every AI draft before a person approves it
+
+**Decision:** Every drafted message runs through disclosure, claims, link, keyword, and length checks before it reaches the approval board. A failed check blocks approval until fixed or overridden with a reason.
+**Why:** Messages go out under the creator's name, but the brand carries the risk. Drafting at scale only helps if the checks are trustworthy, so the checks have their own eval set.
+**Would change if:** brands say the approval step is enough on its own.
+
+## 2026-11-09: Deprioritize delivery reconciliation
+
+**Decision:** Leave out the comparison of comments vs. DMs sent vs. delivered.
+**Why:** Public forums show silent DM failures, but AI-assisted setup and insight is the bigger open opportunity for brand teams, and delivery depends on platform rules a prototype can't test.
+**Would change if:** brand teams say delivery accuracy is a known problem for them.

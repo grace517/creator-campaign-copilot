@@ -1,0 +1,30 @@
+{
+  "_note": "Fictional sample brand and campaign for the prototype.",
+  "campaign_name": "Fernway Barrier Serum launch",
+  "brand": "Fernway Skincare",
+  "product": "Barrier Repair Serum",
+  "offer": "20% off your first order",
+  "link": "https://fernway.example.com/serum?ref=creator",
+  "disclosure": "#ad",
+  "dm_max_chars": 500,
+  "approved_claims": [
+    "fragrance-free",
+    "made with ceramides and niacinamide",
+    "dermatologist-tested",
+    "suitable for sensitive skin",
+    "lightweight texture that layers under sunscreen"
+  ],
+  "banned_claims": [
+    "cures acne",
+    "heals eczema",
+    "clinically proven",
+    "removes wrinkles",
+    "100% natural",
+    "results in 24 hours"
+  ],
+  "window_start": "2026-12-01",
+  "window_end": "2026-12-14",
+  "ready_deadline_days_before_post": 3,
+  "campaign_budget_usd": 32000,
+  "paid_social_cac_benchmark_usd": 65
+}
