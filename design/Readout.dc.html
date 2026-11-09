@@ -14,7 +14,7 @@ body{margin:0}
 a{color:#2F55D4}a:hover{color:#1E3FA8}
 </style>
 </helmet>
-<div style="min-height: 1500px; background: #F6F7F9; color: #15171C; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
+<div style="min-height: 1800px; background: #F6F7F9; color: #15171C; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
   <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 32px; background: #FFFFFF; border-bottom: 1px solid #E3E6EC">
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
       <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; font-size: 17px">Campaign Copilot</div>
@@ -72,28 +72,28 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
         <h3 style="margin: 0; font-size: 15px; font-weight: 600">Who to rebook: CAC by creator, lowest first</h3>
         <div style="font-size: 12px; color: #5B6270">Rebook: beats $65 · Watch: up to 2x · Drop: more than 2x</div>
       </div>
-      <sc-for list="{rows}" as="r" hint-placeholder-count="8">
-        <div id="{r.id}" style="display: grid; grid-template-columns: 140px 76px minmax(0, 1fr) 280px; gap: 12px; align-items: center; font-variant-numeric: tabular-nums">
-          <div style="font-size: 13px; font-weight: 600">{r.handle}</div>
-          <div><span style="font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {r.chipBg}; color: {r.chipFg}">{r.decision}</span></div>
-          <div role="img" aria-label="{r.handle} CAC {r.cac}" style="position: relative; height: 22px; background: #F2F4F8; border-radius: 4px">
-            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: {r.barW}; background: {r.barColor}; border-radius: 4px"></div>
-            <div style="position: absolute; left: {benchPct}; top: -4px; bottom: -4px; border-left: 2px dashed #15171C"></div>
-            <sc-if value="{r.capped}" hint-placeholder-val="{false}">
-              <span style="position: absolute; right: 8px; top: 0; bottom: 0; display: flex; align-items: center; font-size: 12px; font-weight: 600; color: #FFFFFF">{r.cac} ▸ off scale</span>
+      <sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
+        <div id="{{r.id}}" style="display: grid; grid-template-columns: 140px 76px minmax(0, 1fr) 280px; gap: 12px; align-items: center; font-variant-numeric: tabular-nums">
+          <div style="font-size: 13px; font-weight: 600">{{r.handle}}</div>
+          <div><span style="font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {{r.chipBg}}; color: {{r.chipFg}}">{{r.decision}}</span></div>
+          <div role="img" aria-label="{{r.handle}} CAC {{r.cac}}" style="position: relative; height: 22px; background: #F2F4F8; border-radius: 4px">
+            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: {{r.barW}}; background: {{r.barColor}}; border-radius: 4px"></div>
+            <div style="position: absolute; left: {{r.benchPct}}; top: -4px; bottom: -4px; border-left: 2px dashed #15171C"></div>
+            <sc-if value="{{r.capped}}" hint-placeholder-val="{{false}}">
+              <span style="position: absolute; right: 8px; top: 0; bottom: 0; display: flex; align-items: center; font-size: 12px; font-weight: 600; color: #FFFFFF">{{r.cac}} ▸ off scale</span>
             </sc-if>
-            <sc-if value="{r.inScale}" hint-placeholder-val="{true}">
-              <span style="position: absolute; left: calc({r.barW} + 6px); top: 0; bottom: 0; display: flex; align-items: center; font-size: 12px; font-weight: 600; color: {r.barText}">{r.cac}</span>
+            <sc-if value="{{r.inScale}}" hint-placeholder-val="{{true}}">
+              <span style="position: absolute; left: calc({{r.barW}} + 6px); top: 0; bottom: 0; display: flex; align-items: center; font-size: 12px; font-weight: 600; color: {{r.barText}}">{{r.cac}}</span>
             </sc-if>
           </div>
-          <div style="font-size: 12px; color: #5B6270">{r.why}</div>
+          <div style="font-size: 12px; color: #5B6270">{{r.why}}</div>
         </div>
       </sc-for>
       <div style="display: grid; grid-template-columns: 140px 76px minmax(0, 1fr) 280px; gap: 12px; font-size: 11px; color: #5B6270; font-variant-numeric: tabular-nums">
         <span></span><span></span>
         <div style="position: relative; height: 16px">
           <span style="position: absolute; left: 0">$0</span>
-          <span style="position: absolute; left: {benchPct}; transform: translateX(-50%); font-weight: 600; color: #15171C">$65 paid social</span>
+          <span style="position: absolute; left: {{benchPct}}; transform: translateX(-50%); font-weight: 600; color: #15171C">$65 paid social</span>
           <span style="position: absolute; right: 0">$150</span>
         </div>
         <span></span>
@@ -147,7 +147,7 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1500}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1800}}'>
 class Component extends DCLogic {
   renderVals() {
     const bench = 65, scale = 150;
@@ -181,6 +181,7 @@ class Component extends DCLogic {
         why: (notes[handle] ? notes[handle] + ' ' : '') + (beats ? pct + '% under ads.' : pct + '% over ads.'),
         fee: '$' + n(fee), comments: n(comments), leads: n(leads), clicks: n(clicks), customers: n(customers), signups: n(signups),
         cpl: '$' + (fee / leads).toFixed(2), cac: '$' + Math.round(cac),
+        benchPct: (bench / scale * 100).toFixed(1) + '%',
         capped: cac > scale, inScale: cac <= scale,
         barW: Math.min(100, (cac / scale) * 100).toFixed(1) + '%',
         barColor: beats ? '#3E9B6C' : '#E07B39',
