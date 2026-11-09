@@ -7,7 +7,7 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 - **Start mostly done.** Every screen opens prefilled from the brand kit, the roster, or the last campaign. The brand edits; it rarely types from scratch.
 - **Show the result while it's still cheap to change.** The brief previews real DMs as it's edited; the roster shows the budget as creators are picked.
 - **Flag, explain, then block.** Problems surface in plain words with the cause highlighted. Only a failed check blocks an action, and the block says what fixes it.
-- **One metric decides.** CPA orders the roster and the readout. CPL, engagement, and reach stay visible for context but never set the order.
+- **One metric decides.** CPA orders the roster and is checked first when the readout places creators in pools. CPL, engagement, and reach stay visible for context but never set the order.
 - **Every AI claim is checkable.** The readout's verdict and each decision tag sit next to the numbers behind them.
 
 ## Navigation

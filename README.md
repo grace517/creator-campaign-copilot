@@ -23,6 +23,8 @@ Brand teams that use comment-to-DM automation in creator campaigns repeat the sa
 - [UX spec](docs/UX_SPEC.md): the five screens, their jobs, and the design principles behind them
 - [Build plan](docs/BUILD_PLAN.md): screens, data model, and build order
 - [Evals](evals/README.md): test cases for the message checks
+- [Design](design/README.md): the five screens, as source and as rendered images
+- [Sample data](data/README.md): what each file holds
 
 ## Run it
 

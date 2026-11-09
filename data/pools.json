@@ -1,0 +1,80 @@
+{
+  "_note": "Pool rules for the readout. Assignment runs in code, not the model. Lower is better for every metric here.",
+  "thresholds": {
+    "beat": "value <= target * 0.90",
+    "at_par": "target * 0.90 < value <= target * 1.10",
+    "missed": "value > target * 1.10"
+  },
+  "targets": {
+    "cpa_usd": {
+      "source": "brief.paid_social_cpa_benchmark_usd",
+      "label": "Primary goal"
+    },
+    "cpl_usd": {
+      "source": "brief.secondary_goal.target when secondary_goal.metric is cpl_usd, else campaign average",
+      "label": "Secondary goal"
+    },
+    "cpm_usd": {
+      "source": "campaign average (total fees / total impressions * 1000) unless the brief sets a reach goal",
+      "label": "Reach"
+    }
+  },
+  "metrics": {
+    "cpa_usd": "fee_usd / purchases",
+    "cpl_usd": "fee_usd / dms_sent",
+    "cpm_usd": "fee_usd / impressions * 1000"
+  },
+  "order": [
+    {
+      "id": "converters",
+      "name": "Converters",
+      "rule": "cpa_usd is beat",
+      "use_next_for": "Launches and sales pushes, where CPA decides."
+    },
+    {
+      "id": "lead_builders",
+      "name": "Lead builders",
+      "rule": "cpl_usd is beat",
+      "use_next_for": "List growth: waitlists, drops, sign-up offers."
+    },
+    {
+      "id": "reach",
+      "name": "Reach",
+      "rule": "cpm_usd is beat",
+      "use_next_for": "Awareness moments. Don't judge on CPA."
+    },
+    {
+      "id": "test_again",
+      "name": "Test again",
+      "rule": "nothing beat and past_campaigns == 0 (first campaign with the brand)",
+      "use_next_for": "One more campaign with a converting hook, same fee."
+    },
+    {
+      "id": "dont_rebook",
+      "name": "Don't rebook",
+      "rule": "nothing beat and past_campaigns > 0",
+      "use_next_for": "Leave out of the next roster."
+    }
+  ],
+  "custom_pools": "A brand can add pools (name, metric, target, position in the order). Same thresholds.",
+  "expected_sample_result": {
+    "converters": [
+      "@theskinnurse",
+      "@dewy.dana",
+      "@calm.complexion",
+      "@nightshift.nia"
+    ],
+    "lead_builders": [
+      "@budgetbeautyb"
+    ],
+    "reach": [
+      "@sunlit.sam"
+    ],
+    "test_again": [
+      "@glow.with.gia"
+    ],
+    "dont_rebook": [
+      "@marco.minimal"
+    ]
+  }
+}

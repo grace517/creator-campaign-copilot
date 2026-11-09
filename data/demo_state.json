@@ -1,0 +1,75 @@
+{
+  "_note": "Seeded state so each screen opens the way it's designed. The campaign is shown at two moments: drafts under review, then creator status on Nov 30. A working app would move from one to the other.",
+  "drafts_snapshot": [
+    {
+      "handle": "@sunlit.sam",
+      "stage": "edited",
+      "share_changed": 0.4,
+      "creator_dm": "#ad Okay, the serum that cleared my breakouts overnight. 20% off your first order: https://fernway.example.com/serum?code=SAM20",
+      "expected_fail": [
+        "banned_claim"
+      ]
+    },
+    {
+      "handle": "@budgetbeautyb",
+      "stage": "edited",
+      "share_changed": 0.55,
+      "creator_dm": "#ad Under-$40 serum that's fragrance-free and dermatologist-tested. 20% off: https://fernway.example.com/serum",
+      "expected_fail": [
+        "link"
+      ]
+    },
+    {
+      "handle": "@theskinnurse",
+      "stage": "accepted",
+      "share_changed": 0.0
+    },
+    {
+      "handle": "@calm.complexion",
+      "stage": "edited",
+      "share_changed": 0.15,
+      "creator_dm": "#ad Redness-prone friends: this one is fragrance-free and made for sensitive skin. 20% off your first order: https://fernway.example.com/serum?code=CALM20",
+      "expected_fail": []
+    },
+    {
+      "handle": "@marco.minimal",
+      "stage": "accepted",
+      "share_changed": 0.0
+    },
+    {
+      "handle": "@dewy.dana",
+      "stage": "with_creator"
+    },
+    {
+      "handle": "@nightshift.nia",
+      "stage": "with_creator"
+    },
+    {
+      "handle": "@glow.with.gia",
+      "stage": "with_creator"
+    }
+  ],
+  "status_snapshot": {
+    "today": "2026-11-30",
+    "test_dm_sent": {
+      "@dewy.dana": true,
+      "@theskinnurse": true,
+      "@calm.complexion": true,
+      "@marco.minimal": false
+    },
+    "swaps": [
+      {
+        "declined": "@runwithrio",
+        "replaced_by": "@calm.complexion",
+        "on": "2026-11-27"
+      }
+    ],
+    "ready_means": "accepted, account connected, test DM arrived, and DM approved",
+    "groups": {
+      "ready": "ready",
+      "at_risk": "not ready and ready deadline is today or tomorrow",
+      "waiting_on_reply": "invited, no answer",
+      "on_track": "everyone else in progress"
+    }
+  }
+}
