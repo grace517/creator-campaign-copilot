@@ -2,6 +2,13 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: The readout sorts creators into pools, by an exact rule
+
+**Decision:** The readout leads with a verdict and a fee-vs-customers scatter with the CAC goal line, then puts each creator in one pool (Converters, Lead builders, Reach, Test again, Don't rebook). Beat, at par, and missed are defined to the percent and printed on the page. Saved pools feed Creators so the next roster starts from them.
+**Why:** The next campaign is usually a different launch, so "rebook" was the wrong output. A pool says what a creator is good for, including a creator who loses on CAC but wins on leads or reach. A scatter shows spend and results together, which a ranked bar can't.
+**Also fixed:** the earlier readout mockup said 435 customers and a $63 blended CAC. The sample data has 415 customers, so blended CAC is $66, and $49 without the outlier.
+**Would change if:** brands mostly rerun the same product with the same creators, in which case a rebook list is the simpler output.
+
 ## 2026-11-09: The brief sets an optional secondary goal
 
 **Decision:** Beside the paid social CAC benchmark, the brand can pick one secondary goal with a target: cost per lead, email and SMS sign-ups, or reach.

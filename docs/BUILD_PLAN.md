@@ -16,7 +16,7 @@ Target: a hosted prototype someone outside can click through in under 5 minutes.
 2. **Roster.** Table from `data/roster.csv`; select creators; shows fee, past CAC, past CPL, past DM-to-purchase rate, past engagement rate, and committed spend total. No campaign status or post dates here; those start at screen 4. Sort by past CAC; "new" tag when there's no history. CSV upload as a second path.
 3. **Drafts and checks.** One row per creator: keyword, starter DM (written from the creator's past DMs), caption CTA, creator brief. The creator edits or accepts; checks re-run on every version; the brand approves last. Check results as pass/fail chips with reasons. Approve, send back with a fix, remind.
 4. **Creator status.** Invited / accepted / declined / connected / ready, with post date and a "not ready by deadline" flag. AI-drafted nudge; swap in a backup.
-5. **Readout.** From `data/results.csv`: per-creator funnel (comments, keyword comments, DMs, clicks, purchases), CAC (fees ÷ purchases) against the paid social benchmark, CPL (fees ÷ DMs sent), and sign-ups, with an AI brief on top: who to rebook, which hooks worked, where to move budget.
+5. **Readout.** From `data/results.csv`: a verdict, a fee-vs-customers scatter with the CAC goal line, and one pool per creator by the exact rule in `docs/UX_SPEC.md`, each with CAC, cost per lead, and cost per 1,000 impressions against their targets. Table and Funnel views with filters below.
 
 ## Data model
 
@@ -24,7 +24,7 @@ Target: a hosted prototype someone outside can click through in under 5 minutes.
 - `Creator`: handle, niche, followers, fee_usd, past_dm_count, past_dm_sample, sample_captions[], status, post_date, is_backup, past_campaigns, past_engagement_rate, past_dm_to_purchase_rate, past_cac_usd, past_cpl_usd
 - `Draft`: creator_handle, keyword, starter_dm, creator_dm, stage (with_creator, edited, accepted), share_changed, caption_cta, creator_brief, checks[], approved
 - `Check`: name, passed, reason
-- `Result`: creator_handle, comments, keyword_comments, dms_sent, link_clicks, purchases, email_sms_signups
+- `Result`: creator_handle, impressions, comments, keyword_comments, dms_sent, link_clicks, purchases, email_sms_signups
 
 ## Checks (deterministic first, model second)
 

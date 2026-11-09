@@ -14,7 +14,7 @@ body{margin:0}
 a{color:#2F55D4}a:hover{color:#1E3FA8}
 </style>
 </helmet>
-<div style="min-height: 1800px; background: #F6F7F9; color: #15171C; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
+<div style="min-height: 2400px; background: #F6F7F9; color: #15171C; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5">
   <header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 12px 32px; background: #FFFFFF; border-bottom: 1px solid #E3E6EC">
     <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 28px">
       <div style="font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; font-size: 17px">Campaign Copilot</div>
@@ -60,63 +60,102 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
       <h2 style="margin: 4px 0 0; font-family: 'Space Grotesk', Inter, sans-serif; font-size: 22px; font-weight: 600">Readout</h2>
     </div>
 
-    <section aria-label="Verdict" style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 10px">
-      <h3 style="margin: 0; font-size: 18px; font-weight: 600">Creators beat paid social, but only without <a href="#c-sam">@sunlit.sam</a>.</h3>
-      <p style="margin: 0; color: #3F4652; font-variant-numeric: tabular-nums">Blended CAC was <strong>$63</strong> against your <strong>$65</strong> paid social benchmark. Without @sunlit.sam it drops to <strong>$47</strong>.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center"><span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: #E6F4EC; color: #1E7A4B">Rebook 4</span><span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: #FFF3D9; color: #6B4600">Watch 3</span><span style="font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: #FDECEA; color: #B42318">Drop 1</span></div>
-      <p style="margin: 0; color: #3F4652; font-size: 13px"><strong>Move budget:</strong> Sam's $7,800, spent across the four creators to rebook, would have brought about 170 more customers. That assumes their CAC holds at higher spend.</p>
-    </section>
-
-    <section aria-label="Who to rebook" style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 18px 22px; display: flex; flex-direction: column; gap: 12px">
-      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; align-items: baseline">
-        <h3 style="margin: 0; font-size: 15px; font-weight: 600">Who to rebook: CAC by creator, lowest first</h3>
-        <div style="font-size: 12px; color: #5B6270">Rebook: beats $65 · Watch: up to 2x · Drop: more than 2x</div>
+    <section aria-label="Verdict" style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 20px 22px; display: flex; flex-direction: column; gap: 14px">
+      <div style="display: flex; flex-direction: column; gap: 6px">
+        <h3 style="margin: 0; font-size: 20px; font-weight: 600">Creators beat paid social by 24%, once you take out @sunlit.sam.</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 13px; color: #3F4652; font-variant-numeric: tabular-nums">
+          <span>Without Sam: <strong>$49</strong> CAC vs <strong>$65</strong> goal</span>
+          <span>With Sam: <strong>$66</strong>, just over</span>
+          <span><strong>415</strong> new customers</span>
+          <span>Hooks that converted: <strong>nurse explains sensitive skin</strong>, <strong>before-and-after routine</strong> <a href="Main.dc.html">Use in next brief</a></span>
+        </div>
       </div>
-      <sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
-        <div id="{{r.id}}" style="display: grid; grid-template-columns: 140px 76px minmax(0, 1fr) 280px; gap: 12px; align-items: center; font-variant-numeric: tabular-nums">
-          <div style="font-size: 13px; font-weight: 600">{{r.handle}}</div>
-          <div><span style="font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 999px; background: {{r.chipBg}}; color: {{r.chipFg}}">{{r.decision}}</span></div>
-          <div role="img" aria-label="{{r.handle}} CAC {{r.cac}}" style="position: relative; height: 22px; background: #F2F4F8; border-radius: 4px">
-            <div style="position: absolute; left: 0; top: 0; bottom: 0; width: {{r.barW}}; background: {{r.barColor}}; border-radius: 4px"></div>
-            <div style="position: absolute; left: {{r.benchPct}}; top: -4px; bottom: -4px; border-left: 2px dashed #15171C"></div>
-            <sc-if value="{{r.capped}}" hint-placeholder-val="{{false}}">
-              <span style="position: absolute; right: 8px; top: 0; bottom: 0; display: flex; align-items: center; font-size: 12px; font-weight: 600; color: #FFFFFF">{{r.cac}} ▸ off scale</span>
-            </sc-if>
-            <sc-if value="{{r.inScale}}" hint-placeholder-val="{{true}}">
-              <span style="position: absolute; left: calc({{r.barW}} + 6px); top: 0; bottom: 0; display: flex; align-items: center; font-size: 12px; font-weight: 600; color: {{r.barText}}">{{r.cac}}</span>
-            </sc-if>
+        <div style="display: flex; gap: 8px">
+          <div style="position: relative; width: 36px; height: 400px; font-size: 11px; color: #5B6270"><span style="position: absolute; bottom: 0px; right: 0; transform: translateY(50%)">0</span><span style="position: absolute; bottom: 100px; right: 0; transform: translateY(50%)">50</span><span style="position: absolute; bottom: 200px; right: 0; transform: translateY(50%)">100</span><span style="position: absolute; bottom: 300px; right: 0; transform: translateY(50%)">150</span><span style="position: absolute; bottom: 400px; right: 0; transform: translateY(50%)">200</span></div>
+          <div style="flex: 1 1 auto; min-width: 0; overflow-x: auto">
+          <div role="img" aria-label="Customers against fee for each creator. Points above the line beat the $65 paid social CAC. @sunlit.sam sits far below it." style="position: relative; width: 760px; height: 400px; border-left: 1px solid #C9CED8; border-bottom: 1px solid #C9CED8">
+<div style="position: absolute; left: 0; right: 0; bottom: 100px; border-top: 1px solid #EEF1F6"></div><div style="position: absolute; left: 0; right: 0; bottom: 200px; border-top: 1px solid #EEF1F6"></div><div style="position: absolute; left: 0; right: 0; bottom: 300px; border-top: 1px solid #EEF1F6"></div><div style="position: absolute; left: 0; right: 0; bottom: 400px; border-top: 1px solid #EEF1F6"></div>
+          <div style="position: absolute; left: 0; bottom: 0; width: 798.9px; border-top: 2px dashed #15171C; transform-origin: 0 0; transform: rotate(-17.95deg)"></div>
+          <div style="position: absolute; left: 24px; bottom: 360px; font-size: 12px; font-weight: 600; color: #1E7A4B">↖ Beats paid social</div>
+          <div style="position: absolute; left: 360px; bottom: 8px; font-size: 12px; font-weight: 600; color: #5B6270">Costs more than paid social ↘</div>
+          <div style="position: absolute; left: 610px; bottom: 254px; font-size: 11px; color: #15171C; transform: rotate(-17.95deg)">$65 CAC line</div>
+          <div title="@theskinnurse: $35 CAC, 173 customers for $6,000" style="position: absolute; left: 564.0px; bottom: 340.0px; width: 12px; height: 12px; border-radius: 999px; background: #1E7A4B; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #1E7A4B"><span style="position: absolute; left: 16px; top: -6px; white-space: nowrap; font-size: 11px; font-weight: 600; color: #1E7A4B">@theskinnurse</span></div>
+          <div title="@dewy.dana: $48 CAC, 88 customers for $4,200" style="position: absolute; left: 393.0px; bottom: 170.0px; width: 12px; height: 12px; border-radius: 999px; background: #1E7A4B; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #1E7A4B"><span style="position: absolute; left: 16px; top: -6px; white-space: nowrap; font-size: 11px; font-weight: 600; color: #1E7A4B">@dewy.dana</span></div>
+          <div title="@calm.complexion: $48 CAC, 33 customers for $1,600" style="position: absolute; left: 146.0px; bottom: 60.0px; width: 12px; height: 12px; border-radius: 999px; background: #1E7A4B; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #1E7A4B"><span style="position: absolute; right: 18px; top: -12px; white-space: nowrap; font-size: 11px; font-weight: 600; color: #1E7A4B">@calm.complexion</span></div>
+          <div title="@nightshift.nia: $54 CAC, 41 customers for $2,200" style="position: absolute; left: 203.0px; bottom: 76.0px; width: 12px; height: 12px; border-radius: 999px; background: #1E7A4B; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #1E7A4B"><span style="position: absolute; left: -10px; top: -22px; white-space: nowrap; font-size: 11px; font-weight: 600; color: #1E7A4B">@nightshift.nia</span></div>
+          <div title="@budgetbeautyb: $69 CAC, 26 customers for $1,800" style="position: absolute; left: 165.0px; bottom: 46.0px; width: 12px; height: 12px; border-radius: 999px; background: #2F55D4; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #2F55D4"><span style="position: absolute; right: 18px; top: -6px; white-space: nowrap; font-size: 11px; font-weight: 600; color: #2F55D4">@budgetbeautyb</span></div>
+          <div title="@glow.with.gia: $74 CAC, 19 customers for $1,400" style="position: absolute; left: 127.0px; bottom: 32.0px; width: 12px; height: 12px; border-radius: 999px; background: #8A5A00; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #8A5A00"><span style="position: absolute; right: 18px; top: 0px; white-space: nowrap; font-size: 11px; font-weight: 600; color: #8A5A00">@glow.with.gia</span></div>
+          <div title="@marco.minimal: $119 CAC, 21 customers for $2,500" style="position: absolute; left: 231.5px; bottom: 36.0px; width: 12px; height: 12px; border-radius: 999px; background: #B42318; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #B42318"><span style="position: absolute; left: 16px; top: -6px; white-space: nowrap; font-size: 11px; font-weight: 600; color: #B42318">@marco.minimal</span></div>
+          <div title="@sunlit.sam: $557 CAC, 14 customers for $7,800" style="position: absolute; left: 735.0px; bottom: 22.0px; width: 12px; height: 12px; border-radius: 999px; background: #6B3FB0; border: 2px solid #FFFFFF; box-shadow: 0 0 0 1px #6B3FB0"><span style="position: absolute; right: 18px; top: -6px; white-space: nowrap; font-size: 11px; font-weight: 600; color: #6B3FB0">@sunlit.sam</span></div>
+          <div style="position: absolute; left: 479px; bottom: 50px; width: 250px; background: #15171C; color: #FFFFFF; border-radius: 8px; padding: 8px 10px; font-size: 12px; line-height: 1.4">
+            <div style="font-weight: 600">@sunlit.sam · $557 CAC</div>
+            <div>14 customers for $7,800. At $65 he'd need 120.</div>
+            <div style="color: #C9CED8">Hover state, shown on every dot</div>
           </div>
-          <div style="font-size: 12px; color: #5B6270">{{r.why}}</div>
+          </div>
+          <div style="position: relative; width: 760px; height: 18px; margin-top: 4px; font-size: 11px; color: #5B6270"><span style="position: absolute; left: 0px; transform: translateX(-50%)">$0</span><span style="position: absolute; left: 190px; transform: translateX(-50%)">$2,000</span><span style="position: absolute; left: 380px; transform: translateX(-50%)">$4,000</span><span style="position: absolute; left: 570px; transform: translateX(-50%)">$6,000</span><span style="position: absolute; left: 760px; transform: translateX(-50%)">$8,000</span></div>
+          </div>
         </div>
-      </sc-for>
-      <div style="display: grid; grid-template-columns: 140px 76px minmax(0, 1fr) 280px; gap: 12px; font-size: 11px; color: #5B6270; font-variant-numeric: tabular-nums">
-        <span></span><span></span>
-        <div style="position: relative; height: 16px">
-          <span style="position: absolute; left: 0">$0</span>
-          <span style="position: absolute; left: {{benchPct}}; transform: translateX(-50%); font-weight: 600; color: #15171C">$65 paid social</span>
-          <span style="position: absolute; right: 0">$150</span>
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-size: 12px; color: #5B6270">
+          <span>Across: creator fee · Up: new customers</span>
+          <span style="display: flex; flex-wrap: wrap; gap: 12px"><span style="display: flex; align-items: center; gap: 5px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #1E7A4B"></span>Converters</span><span style="display: flex; align-items: center; gap: 5px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #2F55D4"></span>Lead builders</span><span style="display: flex; align-items: center; gap: 5px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #6B3FB0"></span>Reach</span><span style="display: flex; align-items: center; gap: 5px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #8A5A00"></span>Test again</span><span style="display: flex; align-items: center; gap: 5px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #B42318"></span>Don't rebook</span></span>
         </div>
-        <span></span>
-      </div>
     </section>
 
-    <section aria-label="Context" style="display: flex; flex-direction: column; gap: 8px">
-      <h3 style="margin: 0; font-size: 15px; font-weight: 600">Context</h3>
-      <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; font-variant-numeric: tabular-nums">
-        <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 12px 16px"><div style="color: #5B6270; font-size: 13px">New customers</div><div style="font-size: 20px; font-weight: 600">435</div><div style="font-size: 12px; color: #5B6270">from $27,500 in fees</div></div>
-        <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 12px 16px"><div style="color: #5B6270; font-size: 13px">Leads (DMs sent)</div><div style="font-size: 20px; font-weight: 600">6,432</div><div style="font-size: 12px; color: #5B6270">$4.28 cost per lead</div></div>
-        <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 12px 16px"><div style="color: #5B6270; font-size: 13px">Email and SMS sign-ups</div><div style="font-size: 20px; font-weight: 600">1,876</div><div style="font-size: 12px; color: #5B6270">captured in the DM</div></div>
+    <section aria-label="Creator pools" style="display: flex; flex-direction: column; gap: 10px">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 8px">
+        <h3 style="margin: 0; font-size: 15px; font-weight: 600">Where each creator goes next</h3>
+        <span style="font-size: 12px; color: #5B6270">Saved pools appear under Creators and filter the next roster.</span>
       </div>
+      <div style="display: grid; grid-template-columns: 160px repeat(3, minmax(0, 1fr)); gap: 8px; font-size: 12px; color: #5B6270; padding: 0 19px">
+        <span></span><span>Conversions: CAC vs $65 goal</span><span>Leads: cost per lead vs $4.00 goal</span><span>Reach: cost per 1,000 impressions vs $17.45 average</span>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-top: 3px solid #1E7A4B; border-radius: 12px; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px"><div style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #1E7A4B"></span><h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #15171C">4 Converters · $42 CAC, 36% under the $65 goal</h4></div><button type="button" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid #1E7A4B; background: #FFFFFF; color: #1E7A4B">Save 4 to Converters</button></div>
+        <div style="display: grid; grid-template-columns: 160px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center"><div style="font-size: 13px; font-weight: 600">@theskinnurse</div><div style="border: 2px solid #1E7A4B; background: #E6F4EC; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$35 CAC</span><span style="color: #1E7A4B; font-size: 12px">beat</span></div><div style="border: 1px solid #E3E6EC; background: #E6F4EC; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$2.65 per lead</span><span style="color: #1E7A4B; font-size: 12px">beat</span></div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$19.35 per 1K impr.</span><span style="color: #8A5A00; font-size: 12px">missed</span></div></div>
+        <div style="display: grid; grid-template-columns: 160px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center"><div style="font-size: 13px; font-weight: 600">@dewy.dana</div><div style="border: 2px solid #1E7A4B; background: #E6F4EC; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$48 CAC</span><span style="color: #1E7A4B; font-size: 12px">beat</span></div><div style="border: 1px solid #E3E6EC; background: #E6F4EC; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$3.03 per lead</span><span style="color: #1E7A4B; font-size: 12px">beat</span></div><div style="border: 1px solid #E3E6EC; background: #F2F4F8; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$17.50 per 1K impr.</span><span style="color: #5B6270; font-size: 12px">at par</span></div></div>
+        <div style="display: grid; grid-template-columns: 160px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center"><div style="font-size: 13px; font-weight: 600">@calm.complexion</div><div style="border: 2px solid #1E7A4B; background: #E6F4EC; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$48 CAC</span><span style="color: #1E7A4B; font-size: 12px">beat</span></div><div style="border: 1px solid #E3E6EC; background: #F2F4F8; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$4.02 per lead</span><span style="color: #5B6270; font-size: 12px">at par</span></div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$22.86 per 1K impr.</span><span style="color: #8A5A00; font-size: 12px">missed</span></div></div>
+        <div style="display: grid; grid-template-columns: 160px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center"><div style="font-size: 13px; font-weight: 600">@nightshift.nia</div><div style="border: 2px solid #1E7A4B; background: #E6F4EC; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$54 CAC</span><span style="color: #1E7A4B; font-size: 12px">beat</span></div><div style="border: 1px solid #E3E6EC; background: #E6F4EC; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$3.49 per lead</span><span style="color: #1E7A4B; font-size: 12px">beat</span></div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$20.95 per 1K impr.</span><span style="color: #8A5A00; font-size: 12px">missed</span></div></div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-top: 3px solid #2F55D4; border-radius: 12px; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px"><div style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #2F55D4"></span><h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #15171C">1 Lead builder · $3.54 per lead, 12% under the $4.00 goal</h4></div><button type="button" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid #2F55D4; background: #FFFFFF; color: #2F55D4">Save to Lead builders</button></div>
+        <div style="display: grid; grid-template-columns: 160px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center"><div style="font-size: 13px; font-weight: 600">@budgetbeautyb</div><div style="border: 1px solid #E3E6EC; background: #F2F4F8; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$69 CAC</span><span style="color: #5B6270; font-size: 12px">at par</span></div><div style="border: 2px solid #1E7A4B; background: #E6F4EC; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$3.54 per lead</span><span style="color: #1E7A4B; font-size: 12px">beat</span></div><div style="border: 1px solid #E3E6EC; background: #F2F4F8; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$18.95 per 1K impr.</span><span style="color: #5B6270; font-size: 12px">at par</span></div></div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-top: 3px solid #6B3FB0; border-radius: 12px; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px"><div style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #6B3FB0"></span><h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #15171C">1 Reach · $12.58 per 1,000 impressions, 28% under campaign average</h4></div><button type="button" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid #6B3FB0; background: #FFFFFF; color: #6B3FB0">Save to Reach</button></div>
+        <div style="display: grid; grid-template-columns: 160px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center"><div style="font-size: 13px; font-weight: 600">@sunlit.sam</div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$557 CAC</span><span style="color: #8A5A00; font-size: 12px">missed</span></div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$11.62 per lead</span><span style="color: #8A5A00; font-size: 12px">missed</span></div><div style="border: 2px solid #1E7A4B; background: #E6F4EC; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$12.58 per 1K impr.</span><span style="color: #1E7A4B; font-size: 12px">beat</span></div></div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-top: 3px solid #8A5A00; border-radius: 12px; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px"><div style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #8A5A00"></span><h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #15171C">1 to test again · $74 CAC, 13% over the $65 goal, first campaign</h4></div><button type="button" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid #8A5A00; background: #FFFFFF; color: #8A5A00">Save to Test again</button></div>
+        <div style="display: grid; grid-template-columns: 160px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center"><div style="font-size: 13px; font-weight: 600">@glow.with.gia</div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$74 CAC</span><span style="color: #8A5A00; font-size: 12px">missed</span></div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$4.98 per lead</span><span style="color: #8A5A00; font-size: 12px">missed</span></div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$29.17 per 1K impr.</span><span style="color: #8A5A00; font-size: 12px">missed</span></div></div>
+      </div>
+      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-top: 3px solid #B42318; border-radius: 12px; padding: 14px 18px; display: flex; flex-direction: column; gap: 10px">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px"><div style="display: flex; align-items: center; gap: 8px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #B42318"></span><h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #15171C">1 not to rebook · $119 CAC, 83% over the $65 goal</h4></div><button type="button" style="font: inherit; font-size: 13px; padding: 7px 12px; border-radius: 8px; border: 1px solid #B42318; background: #FFFFFF; color: #B42318">Mark as not rebooking</button></div>
+        <div style="display: grid; grid-template-columns: 160px repeat(3, minmax(0, 1fr)); gap: 8px; align-items: center"><div style="font-size: 13px; font-weight: 600">@marco.minimal</div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$119 CAC</span><span style="color: #8A5A00; font-size: 12px">missed</span></div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$8.45 per lead</span><span style="color: #8A5A00; font-size: 12px">missed</span></div><div style="border: 1px solid #E3E6EC; background: #FFFFFF; border-radius: 8px; padding: 6px 10px; display: flex; justify-content: space-between; gap: 8px; font-size: 13px"><span style="font-weight: 600">$28.41 per 1K impr.</span><span style="color: #8A5A00; font-size: 12px">missed</span></div></div>
+      </div>
+      <p style="margin: 0; font-size: 12px; color: #5B6270; max-width: 980px"><strong>How pools are set.</strong> Beat: 10% or more better than the target. At par: within 10% either way. Missed: more than 10% worse. Targets come from the brief; reach has none, so it uses the campaign average. A creator joins the first pool they qualify for, in order: beat CAC (Converters), beat cost per lead (Lead builders), beat reach cost (Reach). Anyone who beats nothing goes to Test again on a first campaign, otherwise Don't rebook. The outlined cell is the one that placed them.</p>
     </section>
 
-    <section aria-label="Funnel by creator" style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; overflow-x: auto">
-      <h3 style="margin: 0; padding: 14px 16px 0; font-size: 15px; font-weight: 600">Funnel by creator</h3>
-      <table style="width: 100%; min-width: 900px; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13px">
+    <section aria-label="Campaign data" style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; overflow-x: auto">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid #E3E6EC">
+        <div role="tablist" aria-label="Views" style="display: flex; gap: 4px; font-size: 13px">
+          <button type="button" role="tab" aria-selected="true" style="font: inherit; padding: 6px 12px; border-radius: 8px; border: 0; background: #15171C; color: #FFFFFF">Table</button>
+          <button type="button" role="tab" aria-selected="false" style="font: inherit; padding: 6px 12px; border-radius: 8px; border: 0; background: #F2F4F8; color: #15171C">Funnel</button>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 6px; font-size: 13px">
+          <button type="button" style="font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Creators: All ▾</button>
+          <button type="button" style="font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Pool: All ▾</button>
+          <button type="button" style="font: inherit; padding: 6px 12px; border-radius: 8px; border: 1px solid #D5D9E2; background: #FFFFFF; color: #15171C">Group by: Pool ▾</button>
+        </div>
+      </div>
+      <table style="width: 100%; min-width: 1000px; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13px">
         <thead>
           <tr style="text-align: right; color: #5B6270; border-bottom: 1px solid #E3E6EC">
             <th scope="col" style="padding: 12px 16px; font-weight: 500; text-align: left">Creator</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500; text-align: left">Pool</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500; text-align: left">Hook</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">Fee</th>
+            <th scope="col" style="padding: 12px 8px; font-weight: 500">Impressions</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">Comments</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">Leads</th>
             <th scope="col" style="padding: 12px 8px; font-weight: 500">Clicks</th>
@@ -127,68 +166,24 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
           </tr>
         </thead>
         <tbody>
-          <sc-for list="{{rows}}" as="r" hint-placeholder-count="8">
-            <tr style="border-bottom: 1px solid #EEF1F6; text-align: right">
-              <td style="padding: 10px 16px; text-align: left; font-weight: 600">{{r.handle}}</td>
-              <td style="padding: 10px 8px; text-align: left; color: #5B6270">{{r.hook}}</td>
-              <td style="padding: 10px 8px">{{r.fee}}</td>
-              <td style="padding: 10px 8px">{{r.comments}}</td>
-              <td style="padding: 10px 8px">{{r.leads}}</td>
-              <td style="padding: 10px 8px">{{r.clicks}}</td>
-              <td style="padding: 10px 8px">{{r.customers}}</td>
-              <td style="padding: 10px 8px">{{r.signups}}</td>
-              <td style="padding: 10px 8px">{{r.cpl}}</td>
-              <td style="padding: 10px 16px 10px 8px; font-weight: 600; color: {{r.barText}}">{{r.cac}}</td>
-            </tr>
-          </sc-for>
+          <tr style="border-bottom: 1px solid #EEF1F6; text-align: right"><td style="padding: 10px 16px; text-align: left; font-weight: 600">@theskinnurse</td><td style="padding: 10px 8px; text-align: left"><span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #E6F4EC; color: #1E7A4B">Converters</span></td><td style="padding: 10px 8px; text-align: left; color: #5B6270">nurse explains sensitive skin</td><td style="padding: 10px 8px">$6,000</td><td style="padding: 10px 8px">310,000</td><td style="padding: 10px 8px">4,480</td><td style="padding: 10px 8px">2,262</td><td style="padding: 10px 8px">1,104</td><td style="padding: 10px 8px">173</td><td style="padding: 10px 8px">760</td><td style="padding: 10px 8px">$2.65</td><td style="padding: 10px 16px 10px 8px; font-weight: 600; color: #1E7A4B">$35</td></tr>
+          <tr style="border-bottom: 1px solid #EEF1F6; text-align: right"><td style="padding: 10px 16px; text-align: left; font-weight: 600">@dewy.dana</td><td style="padding: 10px 8px; text-align: left"><span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #E6F4EC; color: #1E7A4B">Converters</span></td><td style="padding: 10px 8px; text-align: left; color: #5B6270">before-and-after barrier routine</td><td style="padding: 10px 8px">$4,200</td><td style="padding: 10px 8px">240,000</td><td style="padding: 10px 8px">3,120</td><td style="padding: 10px 8px">1,385</td><td style="padding: 10px 8px">612</td><td style="padding: 10px 8px">88</td><td style="padding: 10px 8px">402</td><td style="padding: 10px 8px">$3.03</td><td style="padding: 10px 16px 10px 8px; font-weight: 600; color: #1E7A4B">$48</td></tr>
+          <tr style="border-bottom: 1px solid #EEF1F6; text-align: right"><td style="padding: 10px 16px; text-align: left; font-weight: 600">@calm.complexion</td><td style="padding: 10px 8px; text-align: left"><span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #E6F4EC; color: #1E7A4B">Converters</span></td><td style="padding: 10px 8px; text-align: left; color: #5B6270">what I stopped using for redness</td><td style="padding: 10px 8px">$1,600</td><td style="padding: 10px 8px">70,000</td><td style="padding: 10px 8px">720</td><td style="padding: 10px 8px">398</td><td style="padding: 10px 8px">192</td><td style="padding: 10px 8px">33</td><td style="padding: 10px 8px">131</td><td style="padding: 10px 8px">$4.02</td><td style="padding: 10px 16px 10px 8px; font-weight: 600; color: #1E7A4B">$48</td></tr>
+          <tr style="border-bottom: 1px solid #EEF1F6; text-align: right"><td style="padding: 10px 16px; text-align: left; font-weight: 600">@nightshift.nia</td><td style="padding: 10px 8px; text-align: left"><span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #E6F4EC; color: #1E7A4B">Converters</span></td><td style="padding: 10px 8px; text-align: left; color: #5B6270">12-hour shift skincare</td><td style="padding: 10px 8px">$2,200</td><td style="padding: 10px 8px">105,000</td><td style="padding: 10px 8px">1,340</td><td style="padding: 10px 8px">630</td><td style="padding: 10px 8px">287</td><td style="padding: 10px 8px">41</td><td style="padding: 10px 8px">190</td><td style="padding: 10px 8px">$3.49</td><td style="padding: 10px 16px 10px 8px; font-weight: 600; color: #1E7A4B">$54</td></tr>
+          <tr style="border-bottom: 1px solid #EEF1F6; text-align: right"><td style="padding: 10px 16px; text-align: left; font-weight: 600">@budgetbeautyb</td><td style="padding: 10px 8px; text-align: left"><span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #EAF0FF; color: #2F55D4">Lead builders</span></td><td style="padding: 10px 8px; text-align: left; color: #5B6270">dupe comparison</td><td style="padding: 10px 8px">$1,800</td><td style="padding: 10px 8px">95,000</td><td style="padding: 10px 8px">1,210</td><td style="padding: 10px 8px">509</td><td style="padding: 10px 8px">203</td><td style="padding: 10px 8px">26</td><td style="padding: 10px 8px">118</td><td style="padding: 10px 8px">$3.54</td><td style="padding: 10px 16px 10px 8px; font-weight: 600; color: #B42318">$69</td></tr>
+          <tr style="border-bottom: 1px solid #EEF1F6; text-align: right"><td style="padding: 10px 16px; text-align: left; font-weight: 600">@glow.with.gia</td><td style="padding: 10px 8px; text-align: left"><span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #FFF3D9; color: #8A5A00">Test again</span></td><td style="padding: 10px 8px; text-align: left; color: #5B6270">dry winter night routine</td><td style="padding: 10px 8px">$1,400</td><td style="padding: 10px 8px">48,000</td><td style="padding: 10px 8px">610</td><td style="padding: 10px 8px">281</td><td style="padding: 10px 8px">131</td><td style="padding: 10px 8px">19</td><td style="padding: 10px 8px">84</td><td style="padding: 10px 8px">$4.98</td><td style="padding: 10px 16px 10px 8px; font-weight: 600; color: #B42318">$74</td></tr>
+          <tr style="border-bottom: 1px solid #EEF1F6; text-align: right"><td style="padding: 10px 16px; text-align: left; font-weight: 600">@marco.minimal</td><td style="padding: 10px 8px; text-align: left"><span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #FDECEA; color: #B42318">Don't rebook</span></td><td style="padding: 10px 8px; text-align: left; color: #5B6270">3-step routine for men</td><td style="padding: 10px 8px">$2,500</td><td style="padding: 10px 8px">88,000</td><td style="padding: 10px 8px">940</td><td style="padding: 10px 8px">296</td><td style="padding: 10px 8px">118</td><td style="padding: 10px 8px">21</td><td style="padding: 10px 8px">71</td><td style="padding: 10px 8px">$8.45</td><td style="padding: 10px 16px 10px 8px; font-weight: 600; color: #B42318">$119</td></tr>
+          <tr style="border-bottom: 1px solid #EEF1F6; text-align: right"><td style="padding: 10px 16px; text-align: left; font-weight: 600">@sunlit.sam</td><td style="padding: 10px 8px; text-align: left"><span style="font-size: 12px; padding: 2px 8px; border-radius: 999px; background: #F1EBFA; color: #6B3FB0">Reach</span></td><td style="padding: 10px 8px; text-align: left; color: #5B6270">sunday reset vlog mention</td><td style="padding: 10px 8px">$7,800</td><td style="padding: 10px 8px">620,000</td><td style="padding: 10px 8px">5,260</td><td style="padding: 10px 8px">671</td><td style="padding: 10px 8px">155</td><td style="padding: 10px 8px">14</td><td style="padding: 10px 8px">120</td><td style="padding: 10px 8px">$11.62</td><td style="padding: 10px 16px 10px 8px; font-weight: 600; color: #B42318">$557</td></tr>
         </tbody>
       </table>
     </section>
   </main>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1800}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":2400}}'>
 class Component extends DCLogic {
   renderVals() {
-    const bench = 65, scale = 150;
-    const raw = [
-      ['c-theskinnurse', '@theskinnurse', 'nurse explains sensitive skin', 6000, 4480, 2262, 1104, 173, 760],
-      ['c-dewy', '@dewy.dana', 'before-and-after barrier routine', 4200, 3120, 1385, 612, 88, 402],
-      ['c-calm', '@calm.complexion', 'what I stopped using for redness', 1600, 720, 398, 192, 33, 131],
-      ['c-nia', '@nightshift.nia', '12-hour shift skincare', 2200, 1340, 630, 287, 41, 190],
-      ['c-budget', '@budgetbeautyb', 'dupe comparison', 1800, 1210, 509, 203, 26, 118],
-      ['c-gia', '@glow.with.gia', 'dry winter night routine', 1400, 610, 281, 131, 19, 84],
-      ['c-marco', '@marco.minimal', '3-step routine for men', 2500, 940, 296, 118, 21, 71],
-      ['c-sam', '@sunlit.sam', 'sunday reset vlog mention', 7800, 5260, 671, 155, 14, 120]
-    ];
-    const n = (x) => x.toLocaleString('en-US');
-    const notes = {
-      '@theskinnurse': 'Best hook: a nurse explaining sensitive skin.',
-      '@calm.complexion': 'Backup who stepped in.',
-      '@budgetbeautyb': 'First campaign.',
-      '@glow.with.gia': 'First campaign.',
-      '@marco.minimal': 'Over ads two campaigns running. Try a new hook.',
-      '@sunlit.sam': 'Second campaign over $500. Biggest audience, fewest customers.'
-    };
-    const rows = raw.map(([id, handle, hook, fee, comments, leads, clicks, customers, signups]) => {
-      const cac = fee / customers;
-      const beats = cac <= bench;
-      const pct = Math.round(Math.abs(1 - cac / bench) * 100);
-      const decision = beats ? 'Rebook' : cac <= bench * 2 ? 'Watch' : 'Drop';
-      const tone = { Rebook: ['#E6F4EC', '#1E7A4B'], Watch: ['#FFF3D9', '#6B4600'], Drop: ['#FDECEA', '#B42318'] }[decision];
-      return {
-        id, handle, hook, decision, chipBg: tone[0], chipFg: tone[1],
-        why: (notes[handle] ? notes[handle] + ' ' : '') + (beats ? pct + '% under ads.' : pct + '% over ads.'),
-        fee: '$' + n(fee), comments: n(comments), leads: n(leads), clicks: n(clicks), customers: n(customers), signups: n(signups),
-        cpl: '$' + (fee / leads).toFixed(2), cac: '$' + Math.round(cac),
-        benchPct: (bench / scale * 100).toFixed(1) + '%',
-        capped: cac > scale, inScale: cac <= scale,
-        barW: Math.min(100, (cac / scale) * 100).toFixed(1) + '%',
-        barColor: beats ? '#3E9B6C' : '#E07B39',
-        barText: beats ? '#1E7A4B' : '#B42318'
-      };
-    });
-    return { rows, benchPct: (bench / scale * 100).toFixed(1) + '%' };
+    return {};
   }
 }
 </script>

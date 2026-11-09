@@ -61,14 +61,14 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 
 ## 5. Readout
 
-**Job:** decide who to rebook and where the budget goes, in 30 seconds.
+**Job:** in a minute, see whether creators beat paid social, and decide where each creator goes next.
 
-The page is ordered by that job: the answer, then the decision with its evidence, then context for checking.
+The next campaign is usually a different launch, not a rerun, so the readout's output is a pool for each creator, saved to Creators, not a rebook list.
 
-- **Verdict first:** one sentence, blended CAC against the benchmark (with and without the outlier), the Rebook, Watch, and Drop counts, and where to move budget, with its assumption stated.
-- **Who to rebook:** CAC by creator, lowest first. Each row carries its decision tag, a bar with its value, and a one-line reason. The rule sits above the chart: Rebook beats the benchmark, Watch is up to 2x, Drop is more than 2x. The benchmark line and its axis label are drawn from the same value, so they always line up. Outliers cap at the edge with their value shown.
-- **Context:** new customers, leads and CPL, email and SMS sign-ups. Useful for checking, not deciding, so it sits below the decision.
-- **Funnel by creator:** hook, fee, comments, leads, clicks, customers, sign-ups, CPL, CAC.
+- **Verdict and scatter, always on top.** One sentence with the number that matters ("Creators beat paid social by 24%, once you take out @sunlit.sam"), a short line of facts (CAC with and without the outlier, new customers, hooks that converted with **Use in next brief**), then a scatter: fee across, new customers up, and the line where CAC equals the paid social goal. Above the line beats ads. Dots are colored by pool and labeled directly; hover shows creator, CAC, and one line. Position against a reference line is read before any text, so the outlier needs no sentence. On a phone, the scatter becomes a ranked list.
+- **Where each creator goes next.** One lane per pool, each with the same headline format: count and pool, the metric that placed them against its target, and a save action. Each creator row shows three cells in a fixed order: conversions (CAC), leads (cost per lead), and reach (cost per 1,000 impressions). Each cell says beat, at par, or missed. The cell that placed them is outlined.
+- **Exact rules, printed on the page.** Beat: 10% or more better than the target. At par: within 10% either way. Missed: more than 10% worse. Targets come from the brief (CAC goal, secondary goal); a metric with no target uses the campaign average. A creator joins the first pool they qualify for: Converters (beat CAC), Lead builders (beat cost per lead), Reach (beat reach cost). Anyone who beats nothing goes to Test again on a first campaign with the brand, otherwise Don't rebook.
+- **Campaign data, below.** Views switch between Table and Funnel; filter by creator and pool; group by pool. The table includes impressions, leads, customers, sign-ups, CPL, and CAC.
 - Attribution: a purchase counts to a creator whenever their code is used, whether it came from the link or was typed at checkout. Codes that leak to coupon sites are flagged when a creator's code use far outruns their DMs.
 
 ## States to design next
