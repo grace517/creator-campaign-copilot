@@ -53,8 +53,10 @@ Five screens, one per step a brand takes: brief, roster, drafts, creator status,
 
 **Job:** get every creator ready 3 days before they post.
 
-- Counts: ready, accepted or connected, invited with no reply, past or near deadline.
-- **Needs attention** cards first: creator, post date, deadline badge, what's missing, and an AI-drafted nudge with Send and Edit. A creator at risk also offers **Swap in a backup**.
+- What this screen must say, in order: will every post go out on time; who needs action today, and what action; everyone else is fine.
+- Readiness summary first: one sentence ("3 of 8 creators are ready. 2 are at risk."), then one bar split into four groups that never overlap: ready, on track, waiting on a reply, at risk. Each creator counts once, in their most urgent group, so the groups add up to the creators in the campaign. A declined creator who was replaced isn't counted.
+- **Ready** means accepted, connected, test DM arrived, and DM approved.
+- **At risk: act today** cards next: creator, post date, deadline badge, what's missing, and an AI-drafted nudge with Send and Edit. A creator at risk also offers **Swap in a backup**.
 - Pipeline table: four-segment bar (invited, accepted, connected, ready), post date, and a note. Declined creators show who replaced them.
 
 ## 5. Readout

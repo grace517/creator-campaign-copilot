@@ -61,15 +61,22 @@ a{color:#2F55D4}a:hover{color:#1E3FA8}
       <p style="margin: 4px 0 0; color: #5B6270">Each creator must be ready 3 days before their post date.</p>
     </div>
 
-    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; font-variant-numeric: tabular-nums">
-      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 14px 16px"><div style="font-size: 24px; font-weight: 600; color: #1E7A4B">3</div><div style="color: #5B6270; font-size: 13px">Ready</div></div>
-      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 14px 16px"><div style="font-size: 24px; font-weight: 600">3</div><div style="color: #5B6270; font-size: 13px">Accepted or connected</div></div>
-      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 14px 16px"><div style="font-size: 24px; font-weight: 600">2</div><div style="color: #5B6270; font-size: 13px">Invited, no reply</div></div>
-      <div style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 14px 16px"><div style="font-size: 24px; font-weight: 600; color: #8A5A00">2</div><div style="color: #5B6270; font-size: 13px">Past or near deadline</div></div>
-    </div>
+    <section aria-label="Readiness" style="background: #FFFFFF; border: 1px solid #E3E6EC; border-radius: 12px; padding: 16px 20px; display: flex; flex-direction: column; gap: 12px; font-variant-numeric: tabular-nums">
+      <div style="font-size: 16px"><strong>3 of 8 creators are ready.</strong> 2 are at risk of missing their ready deadline.</div>
+      <div role="img" aria-label="3 ready, 1 on track, 2 waiting on a reply, 2 at risk" style="display: flex; gap: 3px; height: 12px; border-radius: 999px; overflow: hidden">
+        <span style="flex: 3 1 0; background: #1E7A4B"></span><span style="flex: 1 1 0; background: #2F55D4"></span><span style="flex: 2 1 0; background: #C9CED8"></span><span style="flex: 2 1 0; background: #D99A1E"></span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; font-size: 13px">
+        <div style="display: flex; gap: 8px; align-items: flex-start"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 3px; background: #1E7A4B; flex: none; margin-top: 5px"></span><div><strong>3 ready</strong><div style="color: #5B6270; font-size: 12px">Connected, test DM arrived, DM approved</div></div></div>
+        <div style="display: flex; gap: 8px; align-items: flex-start"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 3px; background: #2F55D4; flex: none; margin-top: 5px"></span><div><strong>1 on track</strong><div style="color: #5B6270; font-size: 12px">In progress, deadline 3+ days away</div></div></div>
+        <div style="display: flex; gap: 8px; align-items: flex-start"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 3px; background: #C9CED8; flex: none; margin-top: 5px"></span><div><strong>2 waiting on a reply</strong><div style="color: #5B6270; font-size: 12px">Invited, no answer yet</div></div></div>
+        <div style="display: flex; gap: 8px; align-items: flex-start"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 3px; background: #D99A1E; flex: none; margin-top: 5px"></span><div><strong>2 at risk</strong><div style="color: #5B6270; font-size: 12px">Ready deadline today or tomorrow</div></div></div>
+      </div>
+      <div style="font-size: 12px; color: #5B6270">Each creator counts once, in their most urgent group. Not counted: @runwithrio, who declined and was replaced by @calm.complexion.</div>
+    </section>
 
     <section aria-label="Needs attention" style="display: flex; flex-direction: column; gap: 10px">
-      <h2 style="margin: 0; font-size: 15px; font-weight: 600">Needs attention</h2>
+      <h2 style="margin: 0; font-size: 15px; font-weight: 600">At risk: act today</h2>
       <div style="display: flex; flex-wrap: wrap; gap: 10px">
         <div style="flex: 1 1 480px; min-width: 0; background: #FFFFFF; border: 1px solid #F0D9A8; border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px">
           <div style="display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap">
