@@ -5,6 +5,7 @@ import { POST } from '../../api/nudge';
 
 const sam: NudgeInput = {
   handle: '@sunlit.sam',
+  code: 'SAM20',
   postDate: 'Dec 4',
   readyDeadline: 'Dec 1',
   today: 'Nov 30',
@@ -39,6 +40,7 @@ describe('draftNudge', () => {
     expect(await draftNudge(sam, client)).toEqual({ message: good, attempts: 1 });
     const content = calls[0]!.messages[0]!.content;
     expect(content).toContain('Missing step: connect their Instagram account');
+    expect(content).toContain('Their code (also their comment keyword): SAM20');
     expect(content).toContain('Ready deadline: Dec 1');
     expect(content).toContain('Setup link: https://copilot.example.com/creators/SAM20/connect');
   });

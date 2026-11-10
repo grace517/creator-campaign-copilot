@@ -45,6 +45,7 @@ for (const r of rows.filter((r) => (r.group === 'at_risk' || r.group === 'waitin
   const res = await draftNudge(
     {
       handle: r.creator.handle,
+      code: r.creator.code,
       postDate: shortDate(r.creator.post_date),
       readyDeadline: shortDate(r.deadline),
       today: shortDate(snap.today),

@@ -12,6 +12,7 @@ const text = (max: number) => z.string().min(1).max(max);
 const bodySchema = z.object({
   handle: text(100),
   firstName: text(60).optional(),
+  code: z.string().regex(/^[A-Z0-9]{2,30}$/),
   postDate: text(40),
   readyDeadline: text(40),
   today: text(40),
