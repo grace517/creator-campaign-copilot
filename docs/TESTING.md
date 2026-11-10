@@ -13,9 +13,12 @@ Messages go out under a creator's name, but the brand carries the risk. A missed
 
 | Layer | What runs | Where |
 |---|---|---|
-| Message checks | 21 DM cases and 3 caption cases with expected failures | `evals/cases.json`, results in `evals/README.md` |
-| Pool rules | The sample data must produce the expected pools | `data/pools.json` (`expected_sample_result`) |
-| Readout numbers | 415 purchases, $66 blended CPA, $49 without the outlier | Checked against `data/results.csv` |
+| Message checks | 27 DM cases and 3 caption cases with expected failures; the claim judgment runs in CI with the API key | `evals/cases.json`, results in `evals/README.md` |
+| Unit tests | Exact checks, metrics, thresholds, pools (the sample data must produce `expected_sample_result`), readiness, states, and the API functions | `src/**/*.test.ts`, `test/api/` (Vitest) |
+| End to end | The journey (pick creators, approve drafts, swap in a backup, open the readout, click a pool card, filter the table), a sign-up target filling List builders, the phone layouts, and every empty, loading, and error state | `e2e/` (Playwright, against a production build) |
+| Accessibility | axe (WCAG 2.1 A and AA) on every screen and state at 1280px and 390px, plus keyboard checks | `e2e/a11y.spec.ts` |
+
+All four run in CI on every pull request.
 
 ## With more time
 
@@ -45,9 +48,9 @@ Each suite reports per-case results, not just a score, so a regression shows whi
 
 ### 4. End-to-end tests
 
-- Playwright runs the five screens on the sample data: pick creators, approve drafts, swap in a backup, open the readout, click a pool card, and check the table filters.
+- Done: Playwright runs the five screens on the sample data (see above).
 - Visual regression against the rendered designs in `design/screens/`, so a layout change is a deliberate decision.
-- Accessibility checks (axe) on every screen: contrast, labels, keyboard reach.
+- Done: accessibility checks (axe) on every screen. Next: a screen-reader pass by a person, which axe can't replace.
 
 ### 5. In CI, on every pull request
 
