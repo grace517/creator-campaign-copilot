@@ -2,6 +2,23 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: The demo cache is model output, generated in CI and reviewed before it's committed
+
+**Decision:**
+- **What's cached:** starter DMs for all ten creators and the claim judgments on every message the app shows now come from the real prompts, replacing the design copy.
+- **How it's made:** a GitHub Actions workflow (read-only, with the repository's API key) generates them and uploads them for review. A person checks them before they go in through a PR.
+- **Claim judgment context:** it now gets the product name and offer.
+
+**Why:**
+- **Real output:** the build plan's demo mode is "generated once from the real prompts", so the demo should show what the model actually writes and flags, not the design's ideal copy.
+- **Review step:** the first generation flagged the product's own name, "the barrier repair serum", as an unapproved claim in 3 of 6 starters, even though a name isn't a claim. Reviewing before committing is how that got caught. Giving the judgment the name fixed it, and both starters are now eval cases (22, 23).
+
+**Known difference from the design:**
+- **Three "Needs a person" results:** the model marks three messages "unsure", so the Drafts counts differ from the mockup (2 passing and 3 needing review, not 3 and 2): @calm.complexion's edit and starter ("Redness-prone friends…") and @nightshift.nia's starter ("…for shift skin").
+- **Open question:** whether an audience callout counts as a claim is a product call, not a prompt tweak.
+
+**Would change if:** the brand decides audience callouts aren't claims. The judgment prompt would then say so, with eval cases first.
+
 ## 2026-11-09: Claim judgment runs on Claude Opus 5.5 at high effort, and an unreadable answer means "Needs a person"
 
 **Decision:**
