@@ -13,7 +13,7 @@ import Anthropic from '@anthropic-ai/sdk';
 import { readFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { JUDGMENT_MODEL, judgeClaims } from '../api/_lib/claimJudgment';
+import { JUDGMENT_MODEL, judgeClaims, type Ruling } from '../api/_lib/claimJudgment';
 import { parseBrief } from '../src/data/parse';
 import { captionChecks, exactChecks, type CheckName } from '../src/lib/checks';
 
@@ -21,7 +21,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const brief = parseBrief(readFileSync(join(root, 'data/brief.json'), 'utf8'));
 const evals = JSON.parse(readFileSync(join(root, 'evals/cases.json'), 'utf8')) as {
   keyword: string;
-  cases: { id: number; dm: string; expected_fail: CheckName[]; note?: string }[];
+  cases: { id: number; dm: string; expected_fail: CheckName[]; note?: string; rulings?: Ruling[] }[];
   caption_cases: { id: string; caption_cta: string; expected_fail: CheckName[] }[];
 };
 
@@ -58,7 +58,7 @@ for (const c of evals.cases) {
   // docs/PROMPTS.md: the claim judgment runs after the exact checks pass.
   if (client && actual.length === 0) {
     const j = await judgeClaims(
-      { message: c.dm, approved_claims: brief.approved_claims, banned_claims: brief.banned_claims, product: brief.product, offer: brief.offer },
+      { message: c.dm, approved_claims: brief.approved_claims, banned_claims: brief.banned_claims, product: brief.product, offer: brief.offer, rulings: c.rulings },
       client,
     );
     modelRan = true;

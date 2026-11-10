@@ -17,6 +17,16 @@ const bodySchema = z.object({
   banned_claims: z.array(claim).max(50),
   product: claim.optional(),
   offer: claim.optional(),
+  rulings: z
+    .array(
+      z.object({
+        phrase: z.string().min(1).max(300),
+        ruling: z.enum(['not_a_claim', 'approved_claim']),
+        note: z.string().max(300).optional(),
+      }),
+    )
+    .max(50)
+    .optional(),
 });
 
 const json = (body: unknown, status = 200) =>
