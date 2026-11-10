@@ -5,6 +5,7 @@ import { App } from './App';
 import { BriefProvider } from './state/BriefContext';
 import { DraftsProvider } from './state/DraftsContext';
 import { PicksProvider } from './state/PicksContext';
+import { ReadoutProvider } from './state/ReadoutContext';
 import { StatusProvider } from './state/StatusContext';
 import './styles/app.css';
 
@@ -15,7 +16,9 @@ createRoot(document.getElementById('root')!).render(
         <PicksProvider>
           <DraftsProvider>
             <StatusProvider>
-              <App />
+              <ReadoutProvider>
+                <App />
+              </ReadoutProvider>
             </StatusProvider>
           </DraftsProvider>
         </PicksProvider>

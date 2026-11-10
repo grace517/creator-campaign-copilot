@@ -5,10 +5,10 @@ import {
   BrandKitScreen,
   CampaignsScreen,
   CreatorsScreen,
-  ReadoutScreen,
 } from './screens/Placeholders';
 import { BriefScreen } from './screens/brief/BriefScreen';
 import { DraftsScreen } from './screens/drafts/DraftsScreen';
+import { ReadoutScreen } from './screens/readout/ReadoutScreen';
 import { RosterScreen } from './screens/roster/RosterScreen';
 import { StatusScreen } from './screens/status/StatusScreen';
 

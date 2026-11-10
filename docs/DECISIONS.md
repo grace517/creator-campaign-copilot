@@ -2,6 +2,22 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: How the readout's verdict and funnel note are worked out
+
+**Decision:**
+- **Outliers:** an outlier is a creator whose CPA is 3x the goal or more, the same multiple the roster warns at.
+- **Verdict:** when the blended CPA misses the goal but the rest beat it, the verdict names who to take out ("Creators beat paid social by 24%, once you take out @sunlit.sam."). Otherwise it says plainly whether creators beat paid social.
+- **Facts line:** uses handles, not first names; the data has no names.
+- **Funnel note:** names the outlier's weakest step against the campaign's own rate at that step ("only 12.8% of comments became leads, against 36.4% across the campaign"), not against one other creator.
+- **Table filter:** the table opens unfiltered; a pool card filters it.
+- **Custom pools:** can be checked first or after any default pool; their cards and legend entries follow that order.
+
+**Why:**
+- **Verdict:** it's a template filled from computed numbers, so it can't claim anything the data doesn't support. Reusing the roster's 3x multiple means "outlier" means the same thing on both screens.
+- **Funnel comparison:** the design compared @sunlit.sam with @theskinnurse (50.5%), but @calm.complexion is higher at that step (55.3%), so the campaign rate is the fairer comparison.
+
+**Would change if:** brands want to set their own outlier rule, or compare against their top creator. Either would be a brand-kit setting.
+
 ## 2026-11-10: A late swap may go over the new-creator limit, and says so first
 
 **Decision:** On Creator status, "Swap in a backup" offers every unpicked backup under contract, cheapest past CPA first. If a backup is new and would take the campaign over its new-creator limit, the option says so in amber ("puts you at 3 new creators (limit 2)"), but the swap is still allowed. "Swap in a backup" shows only when the at-risk creator hasn't accepted or connected yet. One who's connected and only needs a test DM gets a nudge, not a replacement.

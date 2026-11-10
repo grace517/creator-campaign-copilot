@@ -28,15 +28,6 @@ export function ScreenHead({ eyebrow, title, sub, action }: { eyebrow?: string; 
 }
 
 
-export function ReadoutScreen() {
-  return (
-    <>
-      <ScreenHead eyebrow="Sample results" title="Readout" />
-      <Placeholder pr="feat/07-readout">Verdict and scatter, pool cards, and the Table and Funnel views.</Placeholder>
-    </>
-  );
-}
-
 function AppScreen({ title, sub, pr, body }: { title: string; sub: string; pr: string; body: string }) {
   return (
     <>
