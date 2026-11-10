@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import { Link, useParams } from 'react-router';
+import { Link, useParams, useSearchParams } from 'react-router';
+import { SampleStatePicker, useSampleState } from '../../components/SampleState';
 import { cachedJudgments, cachedStarters, demoState, roster } from '../../data';
 import { buildRows, counts, learnedRulings, sortRows } from '../../lib/drafts';
 import { RULING_KINDS } from '../../lib/rulings';
@@ -8,6 +9,11 @@ import { useDrafts } from '../../state/DraftsContext';
 import { usePicks } from '../../state/PicksContext';
 import { ScreenHead } from '../ScreenHead';
 import { DraftCard } from './DraftCard';
+import { demoWriter } from './demoWriter';
+import { StarterWriting } from './StarterWriting';
+
+/** In the "A model call fails" sample state, this creator's starter fails twice. */
+const FAILING_HANDLE = '@glow.with.gia';
 
 const judgmentsByText = new Map(cachedJudgments.judgments.map(({ message, ...j }) => [message, j]));
 
@@ -24,7 +30,29 @@ export function DraftsScreen() {
       ),
     [picks, brief, actions],
   );
+  const preview = useSampleState('drafts');
+  const [, setParams] = useSearchParams();
+  const writer = useMemo(() => demoWriter(preview === 'failed' ? FAILING_HANDLE : null), [preview]);
   const c = counts(rows);
+
+  if (preview === 'writing' || preview === 'failed') {
+    return (
+      <>
+        <ScreenHead
+          title="Review drafts"
+          sub="Starters are written from each creator’s past DMs. Review can start as soon as the first one is ready."
+        />
+        <SampleStatePicker screen="drafts" />
+        <StarterWriting
+          key={preview}
+          creators={rows.map((r) => r.creator)}
+          brief={brief}
+          write={writer}
+          onReview={() => setParams({}, { replace: true })}
+        />
+      </>
+    );
+  }
   const toApprove = rows.filter((r) => r.status === 'passing').map((r) => r.creator.handle);
   const toRemind = rows.filter((r) => r.status === 'with_creator' && !r.reminded).map((r) => r.creator.handle);
 
@@ -50,6 +78,7 @@ export function DraftsScreen() {
           </div>
         }
       />
+      <SampleStatePicker screen="drafts" />
       <ol aria-label="How a DM gets approved" className="flow">
         <li>1 Starter drafted from past DMs</li>
         <li>2 Creator edits or accepts</li>
