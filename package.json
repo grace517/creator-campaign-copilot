@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",
+    "@vercel/analytics": "^2.0.1",
     "papaparse": "^5.7.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",

@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
@@ -30,5 +31,7 @@ createRoot(document.getElementById('root')!).render(
       </CampaignsProvider>
       </BrandKitProvider>
     </BrowserRouter>
+    {/* Vercel Web Analytics: cookie-free page views on the deployed site; does nothing until it's enabled in Vercel. */}
+    <Analytics />
   </StrictMode>,
 );
