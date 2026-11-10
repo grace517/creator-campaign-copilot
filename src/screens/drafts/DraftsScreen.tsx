@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { Link, useParams } from 'react-router';
 import { cachedJudgments, cachedStarters, demoState, roster } from '../../data';
-import { buildRows, counts, sortRows } from '../../lib/drafts';
+import { buildRows, counts, learnedRulings, sortRows } from '../../lib/drafts';
+import { RULING_KINDS } from '../../lib/rulings';
 import { useBrief } from '../../state/BriefContext';
 import { useDrafts } from '../../state/DraftsContext';
 import { usePicks } from '../../state/PicksContext';
@@ -14,7 +15,8 @@ export function DraftsScreen() {
   const { campaignId = '' } = useParams();
   const { brief } = useBrief();
   const { picks } = usePicks();
-  const { actions, approve, remind } = useDrafts();
+  const { actions, approve, remind, unrule } = useDrafts();
+  const learned = learnedRulings(actions.rulings);
   const rows = useMemo(
     () =>
       sortRows(
@@ -68,6 +70,28 @@ export function DraftsScreen() {
           <div className="sub">Still with the creator</div>
         </div>
       </div>
+      {learned.length > 0 && (
+        <section className="card learned" aria-label="What the checks learned">
+          <h2 className="card-title">What the claim check learned ({learned.length})</h2>
+          <p className="sub">
+            Your rulings, sent as precedent with every claim check for this brand. The check applies each principle to
+            similar wording; none of them can make a banned claim acceptable.
+          </p>
+          <ul>
+            {learned.map((l) => (
+              <li key={l.phrase}>
+                <span>
+                  <strong>“{l.phrase}”</strong> · {RULING_KINDS[l.ruling].label}
+                  <span className="sub"> · from {l.handle}{l.note ? ` · “${l.note}”` : ''}</span>
+                </span>
+                <button type="button" className="btn-link" onClick={() => unrule(l.message)}>
+                  Undo
+                </button>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {rows.length === 0 ? (
         <div className="card placeholder">
           No creators picked yet. <Link to={`/campaigns/${campaignId}/roster`}>Pick creators</Link> to draft their

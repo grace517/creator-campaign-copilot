@@ -2,6 +2,21 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: Addressing an audience isn't a claim, and the brand teaches the check by overriding it
+
+**Decision:** Addressing an audience ("Redness-prone friends") isn't a product claim. Rather than writing this into the base prompt, the demo shows how a brand teaches the check:
+- **Override:** on a blocked "Needs a person" draft, the reviewer says why it's OK: it addresses an audience, it's the creator's own experience, or it's an approved claim reworded. They can add an optional note.
+- **Result:** the draft turns green, Approve unlocks, and the ruling appears under "What the claim check learned", where it can be undone.
+- **Learning:** every later claim check gets the brand's rulings as policy. That's each kind's principle plus the phrases ruled on, so the model applies the principle to new wording.
+
+**Why:**
+- **Rules vary by brand:** a regulated brand may treat audience callouts differently, so the base prompt stays neutral and each brand's rulings carry its policy.
+- **A principle, not a phrase:** the first version sent only the ruled phrase. In CI evals the model then passed that exact phrase but stayed unsure on a different one. Sending the principle is what lets it generalize.
+- **Safety holds:** eval cases 24–27 check that a ruling clears the phrase it covers (24), carries to different audience wording (25), and never excuses a banned claim after the callout (26, 27).
+
+**Not covered by this ruling:** "the barrier repair serum for shift skin" (@nightshift.nia) describes who the product suits rather than addressing anyone, which is closer to a suitability claim. It stays "Needs a person" pending the brand's call.
+**Would change if:** brands want rulings reviewed before they take effect, or shared across brands. That would need a review step and a database; rulings are in memory in v1.
+
 ## 2026-11-10: The demo cache is model output, generated in CI and reviewed before it's committed
 
 **Decision:**

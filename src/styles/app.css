@@ -880,6 +880,96 @@ html {
   resize: vertical;
 }
 
+.btn-link {
+  font: inherit;
+  font-size: 13px;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--blue);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.override {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid #e8c77a;
+  border-radius: 8px;
+  background: #fffaf0;
+}
+.override fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.override legend {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.override__option {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.override__note {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.override__note input {
+  font: inherit;
+  font-size: 14px;
+  color: var(--text);
+  padding: 8px 10px;
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+}
+.override p {
+  margin: 0;
+}
+.draft__ruled {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--green);
+  background: var(--green-bg);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+.learned {
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-color: #b9dcc7;
+}
+.learned p {
+  margin: 0;
+}
+.learned ul {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.learned li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+}
+
 @media (max-width: 640px) {
   .counts {
     grid-template-columns: minmax(0, 1fr);
