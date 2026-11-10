@@ -455,6 +455,238 @@ a:hover {
   color: var(--red);
 }
 
+/* Shared text and tags */
+.muted {
+  color: var(--muted);
+}
+.strong {
+  font-weight: 600;
+}
+.sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+.text-green {
+  color: var(--green);
+}
+.text-red {
+  color: var(--red);
+}
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.tag--blue {
+  background: #eaf0ff;
+  color: var(--blue-hover);
+}
+.tag--block {
+  margin-top: 4px;
+}
+button.btn-primary {
+  font: inherit;
+  font-weight: 600;
+  border: 0;
+  cursor: pointer;
+}
+button.btn-primary:disabled {
+  background: #a9b6e3;
+  cursor: not-allowed;
+}
+
+/* Warnings (amber) */
+.warning {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 13px;
+  color: #6b4600;
+  background: #fff3d9;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+.warning__link {
+  color: #6b4600;
+  font-weight: 600;
+}
+.warning__link:hover {
+  color: #4a3000;
+}
+.warning__actions {
+  display: flex;
+  gap: 6px;
+}
+.btn-warning,
+.btn-link-warning {
+  font: inherit;
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  color: #6b4600;
+  cursor: pointer;
+}
+.btn-warning {
+  border: 1px solid #d9b66a;
+  background: #fff;
+}
+.btn-link-warning {
+  border: 0;
+  background: transparent;
+}
+
+/* Roster */
+.summary {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.summary__top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+.summary__block {
+  margin: 0;
+  font-size: 13px;
+  color: var(--red);
+}
+.meter {
+  height: 10px;
+  background: var(--bubble);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.meter__fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--blue);
+  transition: width 0.2s;
+}
+.meter__fill--near {
+  background: #d99a1e;
+}
+.meter__fill--over {
+  background: var(--red);
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  font-size: 13px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+}
+.legend__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+}
+.dot--green {
+  background: var(--green);
+}
+.dot--red {
+  background: var(--red);
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+}
+.filter {
+  font: inherit;
+  padding: 7px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+select.filter {
+  appearance: none;
+  -webkit-appearance: none;
+  /* Size to the chosen option, like the design's buttons, not to the longest one. */
+  field-sizing: content;
+}
+.filter.is-active {
+  border-color: var(--blue);
+  background: #eaf0ff;
+  color: var(--blue-hover);
+}
+.table-wrap {
+  overflow-x: auto;
+}
+.roster {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.roster th {
+  text-align: left;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.roster td {
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--bubble);
+}
+.roster .roster__pick {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.roster .roster__fee {
+  padding-right: 16px;
+}
+.roster input[type='checkbox'] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--blue);
+}
+.roster tr.is-flagged td {
+  background: #fff8e8;
+  border-bottom-color: #fff8e8;
+}
+.roster__warn-row td {
+  background: #fff8e8;
+  padding: 0 16px 12px 8px;
+}
+.roster__empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 24px;
+}
+.roster tbody tr:last-child td {
+  border-bottom: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+.roster tr:target td {
+  outline: 2px solid #d9b66a;
+  outline-offset: -2px;
+}
+
 @media (max-width: 640px) {
   .app-bar,
   .page {
