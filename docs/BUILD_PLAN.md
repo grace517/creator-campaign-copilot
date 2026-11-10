@@ -63,7 +63,7 @@ Run the cheap, exact checks in code; use the model only for judgment calls.
 - Nudges on Creator status.
 - Hook tags from post captions (already filled in the sample results).
 
-Everything else is code: the exact checks, readiness groups, CPA, CPL, CPM, beat or at par or missed, and pool assignment.
+Everything else is code: the exact checks, readiness groups, CPA, cost per sign-up, CPM, beat or at par or missed, and pool assignment.
 
 ## Build order (one PR each)
 

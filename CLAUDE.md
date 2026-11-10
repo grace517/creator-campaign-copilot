@@ -7,7 +7,7 @@ This repo is a prototype: Creator Campaign Copilot. Read `docs/PRODUCT.md`, `doc
 - All data is fictional sample data from `data/`. Never add real brands, creators, or customer data.
 - Don't use any real company's name, logo, or branding anywhere in the app.
 - Keep the Claude API key in an environment secret. Never commit it.
-- Pool assignment, readiness groups, and every metric (CPA, CPL, CPM) are computed in code from `data/`. The sample data must produce the pools in `data/pools.json` (`expected_sample_result`).
+- Pool assignment, readiness groups, and every metric (CPA, cost per sign-up, CPM) are computed in code from `data/`. The sample data must produce the pools in `data/pools.json` (`expected_sample_result`).
 - Exact checks (disclosure, link, keyword, length, exact banned phrases) run in code. Use the model only for judgment calls (paraphrased or unapproved claims).
 - After changing the checks, run the eval cases in `evals/cases.json` and update the pass rate in `evals/README.md`.
 - Log any product decision in `docs/DECISIONS.md` (newest first).
