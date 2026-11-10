@@ -26,10 +26,11 @@ Creator content (past DMs, captions, edits) goes into prompts as quoted data ins
 - Sound like the creator's past DMs: length, punctuation, casing, emoji habits. Use captions only when there are no past DMs, and say so in `voice_source`.
 - First line starts with the disclosure. Include the offer and the full DM link exactly once.
 - Use only approved claims, word for word or as a light rephrase listed in `claims_used`. No other product claims.
+- Don't say who the product is for or what skin it suits ("for shift skin") unless that's an approved claim ("suitable for sensitive skin"). The creator's own routine and addressing followers are fine.
 - The caption call to action asks followers to comment the creator's code.
 - Stay under `dm_max_chars`.
 
-The code checks run on the output before anyone sees it. A starter that fails a check is regenerated once; if it fails again, the row shows the failure for a person to fix.
+The code checks run on the output before anyone sees it, then the claim judgment (call 2). A starter that fails either, or that the judgment is unsure about, is regenerated once with the failure as feedback; if it fails again, the row shows the failure for a person to fix.
 
 ## 2. Claim judgment
 

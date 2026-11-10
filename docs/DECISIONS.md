@@ -14,7 +14,7 @@ Newest first. Each entry: what I decided, why, and what would change my mind.
 - **A principle, not a phrase:** the first version sent only the ruled phrase. In CI evals the model then passed that exact phrase but stayed unsure on a different one. Sending the principle is what lets it generalize.
 - **Safety holds:** eval cases 24–27 check that a ruling clears the phrase it covers (24), carries to different audience wording (25), and never excuses a banned claim after the callout (26, 27).
 
-**Not covered by this ruling:** "the barrier repair serum for shift skin" (@nightshift.nia) describes who the product suits rather than addressing anyone, which is closer to a suitability claim. It stays "Needs review" pending the brand's call.
+**Fixed at the source instead:** "the barrier repair serum for shift skin" (@nightshift.nia) was our own AI's starter, describing who the product suits. That's closer to a suitability claim, and the phrase was unclear even to a person. Rather than asking the brand to rule on it, the starter prompt now keeps "who it's for" within the approved claims, and the claim check runs during generation, so a flagged or unsure starter is regenerated once. Her starter is now "the serum that made it into my post-shift routine", and all 10 starters pass.
 **Would change if:** brands want rulings reviewed before they take effect, or shared across brands. That would need a review step and a database; rulings are in memory in v1.
 
 ## 2026-11-10: The demo cache is model output, generated in CI and reviewed before it's committed
