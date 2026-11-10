@@ -1418,13 +1418,52 @@ html {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
 }
-.custom-pool__foot .sub {
-  flex: 1 1 400px;
+.custom-pool__foot {
+  justify-content: flex-end;
 }
-.rules {
-  margin: 0;
-  font-size: 12px;
+.custom-pool__title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.infotip {
+  position: relative;
+  display: inline-flex;
+}
+.infotip__btn {
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
   color: var(--muted);
+  font: 600 11px/1 var(--font);
+  font-style: italic;
+  cursor: help;
+}
+.infotip__btn:hover,
+.infotip__btn[aria-expanded='true'] {
+  border-color: var(--text);
+  color: var(--text);
+}
+.infotip__body {
+  /* Placed by InfoTip when it opens: under the button, 16px inside the screen. */
+  position: fixed;
+  z-index: 20;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--text);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  box-shadow: 0 6px 20px rgb(21 23 28 / 0.18);
+  /* Not displayed while closed, so it never widens the page; aria-describedby still reads hidden text. */
+  display: none;
+}
+.infotip__body.is-open {
+  display: block;
 }
 .data {
   scroll-margin-top: 16px;

@@ -5,7 +5,6 @@ import {
   campaignTotals,
   computeResults,
   convertingHooks,
-  customPreview,
   funnel,
   poolStat,
   verdict,
@@ -63,23 +62,24 @@ describe('verdict wording', () => {
 });
 
 describe('custom pools', () => {
-  it('previews the design’s sign-up pool: @theskinnurse beats it but is already a Converter, so it’s empty', () => {
-    const p = customPreview(brief, results, roster, [], signUps);
-    expect(p.beats).toEqual([{ handle: '@theskinnurse', value: '$7.89', placedIn: 'converters' }]);
-    expect(p.members).toEqual([]);
+  const membersOf = (pool: CustomPool) =>
+    computeResults(brief, results, roster, [pool])
+      .rows.filter((r) => r.pool === pool.id)
+      .map((r) => r.creator.handle);
+
+  it('stays empty when its only qualifier is placed earlier: @theskinnurse ($7.89 per sign-up) is a Converter', () => {
+    expect(membersOf(signUps)).toEqual([]);
   });
 
   it('takes creators when checked first, before Converters', () => {
-    const p = customPreview(brief, results, roster, [], { ...signUps, after: 'first' });
-    expect(p.members).toEqual(['@theskinnurse']);
+    expect(membersOf({ ...signUps, after: 'first' })).toEqual(['@theskinnurse']);
     const { rows: withFirst } = computeResults(brief, results, roster, [{ ...signUps, after: 'first' }]);
     expect(withFirst.find((r) => r.creator.handle === '@theskinnurse')).toMatchObject({ pool: 'custom-signups', decidedBy: 'custom' });
   });
 
   it('treats higher-is-better metrics the right way round', () => {
     // DM-to-purchase: @calm.complexion 33/398 = 8.3%; beats a 7% target only at 7.7% or more.
-    const p = customPreview(brief, results, roster, [], { ...signUps, metric: 'dm_to_purchase', target: 0.07, after: 'first' });
-    expect(p.members).toContain('@calm.complexion');
+    expect(membersOf({ ...signUps, metric: 'dm_to_purchase', target: 0.07, after: 'first' })).toContain('@calm.complexion');
   });
 });
 

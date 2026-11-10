@@ -2,6 +2,15 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: Pool rules move into a tooltip; the custom pool form drops its preview
+
+**Decision:**
+- **Pool rules:** the "How pools are set" paragraph under the pool cards is now a tooltip next to "+ Create a custom pool". It opens on hover, focus, or tap, and closes on Escape, a second tap, or a click elsewhere.
+- **Custom pool form:** no longer shows the "Preview for this campaign" sentence. The form is name, metric, target, where it's checked, and Save to brand. A saved pool's card and the table show who it took.
+
+**Why:** Product call. The paragraph and the preview made the Readout long and dense. The rules matter most at the moment a brand writes its own, so they sit there, one tap away.
+**Would change if:** testers can't say how a creator landed in their pool without opening the tooltip, or save custom pools that come out empty and don't notice.
+
 ## 2026-11-10: Campaigns are separate; the brand kit's rules are live; history says only what the data shows
 
 **Decision:**
