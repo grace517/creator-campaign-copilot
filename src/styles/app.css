@@ -1339,6 +1339,9 @@ html {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 10px;
 }
+.pools__empty {
+  margin: 0;
+}
 .pool-card {
   border-top: 4px solid var(--pool);
   padding: 14px 16px;
