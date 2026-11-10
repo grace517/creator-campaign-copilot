@@ -2,7 +2,39 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
-## 2026-11-09: Claim judgment runs on Claude Opus 5.5 at high effort, and an unreadable answer means "Needs a person"
+## 2026-11-10: Addressing an audience isn't a claim, and the brand teaches the check by overriding it
+
+**Decision:** Addressing an audience ("Redness-prone friends") isn't a product claim. Rather than writing this into the base prompt, the demo shows how a brand teaches the check:
+- **Override:** on a blocked "Needs review" draft, the reviewer says why it's OK: it addresses an audience, it's the creator's own experience, or it's an approved claim reworded. They can add an optional note.
+- **Result:** the draft turns green, Approve unlocks, and the ruling appears under "What the claim check learned", where it can be undone.
+- **Learning:** every later claim check gets the brand's rulings as policy. That's each kind's principle plus the phrases ruled on, so the model applies the principle to new wording.
+
+**Why:**
+- **Rules vary by brand:** a regulated brand may treat audience callouts differently, so the base prompt stays neutral and each brand's rulings carry its policy.
+- **A principle, not a phrase:** the first version sent only the ruled phrase. In CI evals the model then passed that exact phrase but stayed unsure on a different one. Sending the principle is what lets it generalize.
+- **Safety holds:** eval cases 24–27 check that a ruling clears the phrase it covers (24), carries to different audience wording (25), and never excuses a banned claim after the callout (26, 27).
+
+**Fixed at the source instead:** "the barrier repair serum for shift skin" (@nightshift.nia) was our own AI's starter, describing who the product suits. That's closer to a suitability claim, and the phrase was unclear even to a person. Rather than asking the brand to rule on it, the starter prompt now keeps "who it's for" within the approved claims, and the claim check runs during generation, so a flagged or unsure starter is regenerated once. Her starter is now "the serum that made it into my post-shift routine", and all 10 starters pass.
+**Would change if:** brands want rulings reviewed before they take effect, or shared across brands. That would need a review step and a database; rulings are in memory in v1.
+
+## 2026-11-10: The demo cache is model output, generated in CI and reviewed before it's committed
+
+**Decision:**
+- **What's cached:** starter DMs for all ten creators and the claim judgments on every message the app shows now come from the real prompts, replacing the design copy.
+- **How it's made:** a GitHub Actions workflow (read-only, with the repository's API key) generates them and uploads them for review. A person checks them before they go in through a PR.
+- **Claim judgment context:** it now gets the product name and offer.
+
+**Why:**
+- **Real output:** the build plan's demo mode is "generated once from the real prompts", so the demo should show what the model actually writes and flags, not the design's ideal copy.
+- **Review step:** the first generation flagged the product's own name, "the barrier repair serum", as an unapproved claim in 3 of 6 starters, even though a name isn't a claim. Reviewing before committing is how that got caught. Giving the judgment the name fixed it, and both starters are now eval cases (22, 23).
+
+**Known difference from the design:**
+- **Three "Needs review" results:** the model marks three messages "unsure", so the Drafts counts differ from the mockup (2 passing and 3 needing review, not 3 and 2): @calm.complexion's edit and starter ("Redness-prone friends…") and @nightshift.nia's starter ("…for shift skin").
+- **Open question:** whether an audience callout counts as a claim is a product call, not a prompt tweak.
+
+**Would change if:** the brand decides audience callouts aren't claims. The judgment prompt would then say so, with eval cases first.
+
+## 2026-11-09: Claim judgment runs on Claude Opus 5.5 at high effort, and an unreadable answer means "Needs review"
 
 **Decision:**
 - **Model:** the claim judgment is pinned to `claude-opus-5-5` with effort `high`.

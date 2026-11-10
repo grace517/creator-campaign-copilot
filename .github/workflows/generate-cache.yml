@@ -1,0 +1,33 @@
+name: Generate demo cache
+
+# Runs the real prompts once to produce data/cached/*.json and uploads them as an artifact for review.
+# It never commits or pushes: a person (or the coding agent) reviews the files and opens a PR with them.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/generate-cache.ts
+
+permissions:
+  contents: read
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Generate
+        run: npm run generate-cache
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CACHE_OUT_DIR: generated
+      - uses: actions/upload-artifact@v4
+        with:
+          name: demo-cache
+          path: generated/
+          retention-days: 7

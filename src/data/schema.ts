@@ -127,7 +127,41 @@ export type StarterOutput = z.infer<typeof starterOutputSchema>;
 
 export const cachedStartersSchema = z.object({
   source: z.enum(['design', 'model']),
+  model: z.string().optional(),
+  generated_at: z.string().optional(),
   written_for: z.object({ product: z.string(), offer: z.string(), link: z.string().url() }),
-  starters: z.array(starterOutputSchema.extend({ handle })).min(1),
+  starters: z
+    .array(
+      starterOutputSchema.extend({
+        handle,
+        /** Exact checks the starter still failed after one regeneration (shown for a person to fix). */
+        failures: z.array(z.string()).default([]),
+      }),
+    )
+    .min(1),
 });
 export type CachedStarters = z.infer<typeof cachedStartersSchema>;
+
+/** Output of docs/PROMPTS.md call 2, cached by the exact message text it judged. */
+export const claimFindingSchema = z.object({
+  phrase: z.string(),
+  type: z.enum(['banned_paraphrase', 'unapproved_claim']),
+  matches: z.string(),
+  reason: z.string(),
+  suggested_fix: z.string(),
+});
+export type ClaimFinding = z.infer<typeof claimFindingSchema>;
+
+export const claimJudgmentSchema = z.object({
+  verdict: z.enum(['pass', 'fail', 'unsure']),
+  findings: z.array(claimFindingSchema),
+  note: z.string().optional(),
+});
+export type ClaimJudgment = z.infer<typeof claimJudgmentSchema>;
+
+export const cachedJudgmentsSchema = z.object({
+  model: z.string(),
+  generated_at: z.string(),
+  judgments: z.array(claimJudgmentSchema.extend({ message: z.string().min(1) })),
+});
+export type CachedJudgments = z.infer<typeof cachedJudgmentsSchema>;

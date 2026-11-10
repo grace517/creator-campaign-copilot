@@ -3,6 +3,7 @@ import { z } from 'zod';
 import {
   brandKitSchema,
   briefSchema,
+  cachedJudgmentsSchema,
   cachedStartersSchema,
   creatorSchema,
   demoStateSchema,
@@ -10,6 +11,7 @@ import {
   resultSchema,
   type BrandKit,
   type Brief,
+  type CachedJudgments,
   type CachedStarters,
   type Creator,
   type DemoState,
@@ -79,6 +81,10 @@ export function parseBrief(text: string): Brief {
 
 export function parseBrandKit(text: string): BrandKit {
   return validate(brandKitSchema, json(text), 'brand_kit.json');
+}
+
+export function parseCachedJudgments(text: string): CachedJudgments {
+  return validate(cachedJudgmentsSchema, json(text), 'cached/claim_judgments.json');
 }
 
 export function parseCachedStarters(text: string): CachedStarters {

@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router';
 import { App } from './App';
 import { BriefProvider } from './state/BriefContext';
+import { DraftsProvider } from './state/DraftsContext';
 import { PicksProvider } from './state/PicksContext';
 import './styles/app.css';
 
@@ -11,7 +12,9 @@ createRoot(document.getElementById('root')!).render(
     <BrowserRouter>
       <BriefProvider>
         <PicksProvider>
-          <App />
+          <DraftsProvider>
+            <App />
+          </DraftsProvider>
         </PicksProvider>
       </BriefProvider>
     </BrowserRouter>

@@ -1,4 +1,4 @@
-import { cachedStarters, roster } from '../../data';
+import { cachedJudgments, cachedStarters, roster } from '../../data';
 import type { Creator } from '../../data/schema';
 import { checkClaims, checkDisclosure, checkLink, type Check } from '../../lib/checks';
 import { useBrief } from '../../state/BriefContext';
@@ -14,6 +14,27 @@ export function voiceLine(c: Pick<Creator, 'past_dm_count'>): { text: string; lo
 
 /** Shows the message with links written the way the designs show them, without https://. */
 const display = (dm: string) => dm.replace(/https?:\/\//g, '');
+
+/**
+ * The three creators the Brief previews, as in the design: two with several past DMs and one low-confidence
+ * voice, so the brand sees the range of what followers will get.
+ */
+const PREVIEW = ['@dewy.dana', '@theskinnurse', '@marco.minimal'];
+const judgmentsByText = new Map(cachedJudgments.judgments.map((j) => [j.message, j]));
+
+/** The Claims chip: exact banned phrases and claims_used in code, then the cached claim judgment for this text. */
+function claimsCheck(dm: string, claimsUsed: string[], brief: Parameters<typeof checkClaims>[2]): Check {
+  const exact = checkClaims(dm, claimsUsed, brief);
+  if (!exact.passed) return exact;
+  const j = judgmentsByText.get(dm);
+  if (!j || j.verdict === 'pass') return exact;
+  const f = j.findings[0];
+  return {
+    name: 'claims',
+    passed: false,
+    reason: j.verdict === 'unsure' ? `Needs review: ${f?.reason ?? j.note ?? 'the claim check couldn’t decide.'}` : (f?.reason ?? 'Claims check failed.'),
+  };
+}
 
 export function StarterDms() {
   const { brief } = useBrief();
@@ -36,13 +57,16 @@ export function StarterDms() {
           re-run against your edits.
         </p>
       )}
-      {cachedStarters.starters.map((s) => {
+      {cachedStarters.starters
+        .filter((s) => PREVIEW.includes(s.handle))
+        .sort((a, b) => PREVIEW.indexOf(a.handle) - PREVIEW.indexOf(b.handle))
+        .map((s) => {
         const creator = byHandle.get(s.handle);
         if (!creator) return null;
         const voice = voiceLine(creator);
         const checks = [
           checkDisclosure(s.dm, brief),
-          checkClaims(s.dm, s.claims_used, brief),
+          claimsCheck(s.dm, s.claims_used, brief),
           checkLink(s.dm, creator, brief),
         ];
         const failed = checks.filter((c) => !c.passed);

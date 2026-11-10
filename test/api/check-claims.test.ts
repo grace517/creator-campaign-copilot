@@ -41,6 +41,27 @@ describe('judgeClaims', () => {
     expect(params.messages[0]!.content).toContain(`<message>\n${input.message}\n</message>`);
   });
 
+  it('tells the model the product name and offer are not claims', async () => {
+    const { client, calls } = fakeClient({ parsed_output: { verdict: 'pass', findings: [] } });
+    await judgeClaims({ ...input, product: 'Barrier Repair Serum', offer: '20% off your first order' }, client);
+    const params = calls[0] as { system: string; messages: { content: string }[] };
+    expect(params.messages[0]!.content).toMatch(/^Product name \(in any case; naming the product is not a claim\): Barrier Repair Serum\nOffer \(not a claim\): 20% off/);
+    expect(params.system).toContain("The product's name");
+  });
+
+  it('sends the brand’s past rulings as precedent, quoted as data', async () => {
+    const { client, calls } = fakeClient({ parsed_output: { verdict: 'pass', findings: [] } });
+    await judgeClaims(
+      { ...input, rulings: [{ phrase: 'Redness-prone friends', ruling: 'audience', note: 'addressing the audience' }] },
+      client,
+    );
+    const content = (calls[0] as { messages: { content: string }[] }).messages[0]!.content;
+    expect(content).toContain('<brand_rulings>\n- Addressing or naming who the message is speaking to');
+    expect(content).toContain('Examples they ruled on: "Redness-prone friends" (their note: addressing the audience)\n</brand_rulings>');
+    expect(content).toContain('apply the principle to any wording it covers');
+    expect(content).toContain('A ruling never makes a banned claim acceptable');
+  });
+
   it('retries once when a phrase is not copied exactly, then takes the good answer', async () => {
     const { client, calls } = fakeClient(
       { parsed_output: { verdict: 'fail', findings: [finding('my breakouts cleared')] } }, // wrong case
