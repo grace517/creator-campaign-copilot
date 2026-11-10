@@ -61,6 +61,7 @@ Then open http://localhost:5173. The app runs on the sample data and the cached 
 - **App:** React, TypeScript, and Vite, deployed on Vercel. Every merge to `main` deploys; every pull request gets a preview link.
 - **AI:** Claude (`claude-opus-5-5`) for starter DMs, claim judgments, and nudges, with structured outputs. Prompts are in [docs/PROMPTS.md](docs/PROMPTS.md).
 - **What code decides:** every exact check, every metric, readiness, and pool assignment. The model only makes judgment calls, and each one has an eval.
+- **Analytics:** Vercel Web Analytics counts page views on the live site, without cookies.
 - **CI on every pull request:** type check, unit tests, end-to-end and accessibility tests, and the evals.
 
 ## Docs

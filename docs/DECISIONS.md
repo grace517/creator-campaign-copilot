@@ -2,6 +2,13 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: Views are counted with Vercel Web Analytics and GitHub traffic
+
+**Decision:** the app counts page views with Vercel Web Analytics (`@vercel/analytics`), turned on in the Vercel dashboard. Repo views come from GitHub's Insights → Traffic, since the repo is public.
+
+**Why:** the owner wants to see when the live app and the repo are viewed, at little or no cost. Vercel Web Analytics is free on the current plan within its monthly allowance, uses no cookies (so no consent banner), and needs no new service. It records pages, referrers, countries, and devices, never who a visitor is.
+**Would change if:** traffic outgrows the free allowance, or testers' sessions need to be followed step by step, which would need consent.
+
 ## 2026-11-10: The Live AI toggle waits for a decision on spend
 
 **Decision:** feat/10 ships the end-to-end and accessibility tests and the README. The "Live AI" toggle from the build plan isn't in it: the public link stays in demo mode, and the `/api` functions stay off (`LIVE_AI_ENABLED` unset).
