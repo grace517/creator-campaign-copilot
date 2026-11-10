@@ -32,7 +32,7 @@ function claimsCheck(dm: string, claimsUsed: string[], brief: Parameters<typeof 
   return {
     name: 'claims',
     passed: false,
-    reason: j.verdict === 'unsure' ? `Needs a person: ${f?.reason ?? j.note ?? 'the claim check couldn’t decide.'}` : (f?.reason ?? 'Claims check failed.'),
+    reason: j.verdict === 'unsure' ? `Needs review: ${f?.reason ?? j.note ?? 'the claim check couldn’t decide.'}` : (f?.reason ?? 'Claims check failed.'),
   };
 }
 

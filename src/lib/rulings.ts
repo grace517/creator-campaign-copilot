@@ -1,5 +1,5 @@
 /**
- * A brand's ruling on a phrase the claim check was unsure about. Made when a person marks a "Needs a person"
+ * A brand's ruling on a phrase the claim check was unsure about. Made when a person marks a "Needs review"
  * message OK. Each kind carries a principle, not just the phrase, so the check can apply the same reasoning to
  * different wording: sent with every later claim check as the brand's precedent (api/_lib/claimJudgment.ts).
  * Shared by the app and the API.

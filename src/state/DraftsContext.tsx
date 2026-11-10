@@ -8,7 +8,7 @@ interface DraftsState {
   remind: (handles: string[]) => void;
   sendBack: (handle: string, fix: string) => void;
   edit: (handle: string, text: string) => void;
-  /** A person's ruling that clears "Needs a person" on this message and teaches later claim checks. */
+  /** A person's ruling that clears "Needs review" on this message and teaches later claim checks. */
   rule: (message: string, ruling: MessageRuling) => void;
   unrule: (message: string) => void;
 }

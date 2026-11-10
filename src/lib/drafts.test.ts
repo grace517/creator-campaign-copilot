@@ -29,12 +29,18 @@ describe('Drafts rows on the sample data', () => {
     expect(sam.flagged.length).toBeGreaterThan(0);
     for (const p of sam.flagged) expect(sam.message).toContain(p);
     expect(sam.judgment?.findings[0]?.type).toBe('banned_paraphrase');
+    // Two problems, two separate issues, each tied to the phrase it highlights.
+    expect(sam.issues.length).toBe(sam.flagged.length);
+    expect(sam.issues.map((i) => i.phrase)).toEqual(sam.flagged);
+    expect(sam.issues.every((i) => i.fix)).toBe(true);
   });
 
   it('fails @budgetbeautyb’s edit on the exact link check, without asking the model', () => {
     const b = row('@budgetbeautyb');
     expect(b).toMatchObject({ status: 'needs_fix', chip: 'Link check failed', judgment: null, flagged: ['https://fernway.example.com/serum'] });
-    expect(b.reasons[0]).toMatch(/missing this creator's code \(\?code=BUDGET20\)/);
+    expect(b.issues).toHaveLength(1);
+    expect(b.issues[0]).toMatchObject({ phrase: 'https://fernway.example.com/serum', fix: 'restore the full link' });
+    expect(b.issues[0]!.text).toMatch(/missing this creator's code \(\?code=BUDGET20\)/);
   });
 
   it('passes creators who accepted the starter as-is, with "kept word for word"', () => {
@@ -51,7 +57,7 @@ describe('Drafts rows on the sample data', () => {
 
   it('sorts problems first, then messages back from creators, then ones still with the creator', () => {
     const order = rows().map((r) => r.status);
-    const rank = { needs_fix: 0, needs_person: 0, passing: 1, approved: 1, with_creator: 2 } as const;
+    const rank = { needs_fix: 0, needs_review: 0, passing: 1, approved: 1, with_creator: 2 } as const;
     expect(order.map((s) => rank[s])).toEqual([...order.map((s) => rank[s])].sort());
     expect(counts(rows()).withCreator).toBe(3);
   });
@@ -64,10 +70,10 @@ describe('brand actions', () => {
     expect(row('@sunlit.sam', approved).status).toBe('needs_fix'); // a failed check still blocks
   });
 
-  it('re-runs the checks on a brand edit; new wording without a cached judgment needs a person until marked OK', () => {
+  it('re-runs the checks on a brand edit; new wording without a cached judgment needs review until marked OK', () => {
     const text = '#ad Fragrance-free. 20% off your first order: https://fernway.example.com/serum?code=NURSE20';
     const edited = { ...NO_ACTIONS, edits: new Map([['@theskinnurse', text]]) };
-    expect(row('@theskinnurse', edited)).toMatchObject({ message: text, status: 'needs_person', judgmentMissing: true });
+    expect(row('@theskinnurse', edited)).toMatchObject({ message: text, status: 'needs_review', judgmentMissing: true });
     expect(row('@theskinnurse', { ...edited, rulings: new Map([[text, { handle: '@theskinnurse', phrases: [], ruling: 'audience' as const }]]) }).status).toBe('passing');
     const broken = { ...NO_ACTIONS, edits: new Map([['@theskinnurse', 'It cures acne']]) };
     expect(row('@theskinnurse', broken).status).toBe('needs_fix');
@@ -95,10 +101,10 @@ describe('a human override', () => {
     ]),
   });
 
-  it('turns a blocked "Needs a person" draft green and approvable, keeping the ruling on the row', () => {
-    expect(calm()).toMatchObject({ status: 'needs_person', chip: 'Needs a person', unsure: true });
+  it('turns a blocked "Needs review" draft green and approvable, keeping the ruling on the row', () => {
+    expect(calm()).toMatchObject({ status: 'needs_review', chip: 'Needs review', unsure: true });
     const after = row('@calm.complexion', ruled());
-    expect(after).toMatchObject({ status: 'passing', chip: 'Marked OK by you', unsure: false, flagged: [], reasons: [] });
+    expect(after).toMatchObject({ status: 'passing', chip: 'Marked OK by you', unsure: false, flagged: [], issues: [] });
     expect(after.ruling?.ruling).toBe('audience');
     expect(row('@calm.complexion', { ...ruled(), approved: new Set(['@calm.complexion']) }).status).toBe('approved');
   });

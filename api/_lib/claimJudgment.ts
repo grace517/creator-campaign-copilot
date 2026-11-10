@@ -8,7 +8,7 @@ export type { Ruling };
 /**
  * Claim judgment, docs/PROMPTS.md call 2: the one judgment call in the checks. Runs after the exact checks pass,
  * on every starter and every creator edit. Flags paraphrased banned claims and product claims not on the
- * approved list. "unsure" blocks approval the same as "fail" and shows "Needs a person".
+ * approved list. "unsure" blocks approval the same as "fail" and shows "Needs review".
  *
  * Server-only: imported by api/ functions and the eval runner, never by browser code.
  */
@@ -33,7 +33,7 @@ export type Judgment = z.infer<typeof judgmentSchema>;
 export type JudgmentResult = Judgment & {
   /** "model" when the model answered in shape; "error" when it didn't after one retry, or declined. */
   source: 'model' | 'error';
-  /** Why the result is "unsure" without findings, for the "Needs a person" card. */
+  /** Why the result is "unsure" without findings, for the "Needs review" card. */
   note?: string;
 };
 

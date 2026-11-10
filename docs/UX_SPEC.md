@@ -115,7 +115,7 @@ Status and readout are the screens a brand checks on a phone; brief, roster, and
 
 - **Roster, first campaign:** every creator shows "new", never blanks or zeros; the roster sorts by fee and says it will sort by CPA after the first readout.
 - **Drafts, writing starters:** a progress bar ("3 of 8") and rows that fill in as each starter finishes, so review can start early.
-- **Drafts, the AI is unsure:** the phrase is highlighted, "Needs a person" explains both readings, and Approve is blocked. **Mark as OK for this message** is logged and added to the eval set.
+- **Drafts, the AI is unsure:** the phrase is highlighted, "Needs review" explains both readings, and Approve is blocked. **Mark as OK for this message** is logged and added to the eval set.
 - **Drafts, a model call fails:** one automatic retry, then "Couldn't write a starter" with **Try again** and **Write it yourself**. Other rows aren't affected.
 - **Status, an account disconnects mid-campaign:** pinned above everything until fixed. Says what stopped (DMs), what's still working (comments), how many people are waiting, and the 24-hour window to reply. **Send reconnect link**.
 - **Readout, results still coming in:** labeled "Early results" with how many posts have run 7 days. Pools aren't set until the last post reaches 7 days.

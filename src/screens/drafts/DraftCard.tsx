@@ -1,6 +1,6 @@
 import { useId, useState, type ReactNode } from 'react';
 import { displayUrl } from '../../lib/checks';
-import { voiceText, type DraftRow } from '../../lib/drafts';
+import { voiceText, type DraftRow, type Issue } from '../../lib/drafts';
 import { RULING_KINDS, type RulingKind } from '../../lib/rulings';
 import { useDrafts } from '../../state/DraftsContext';
 
@@ -38,7 +38,7 @@ export function DraftCard({ row }: { row: DraftRow }) {
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(row.message);
   const editId = useId();
-  const problem = row.status === 'needs_fix' || row.status === 'needs_person';
+  const problem = row.status === 'needs_fix' || row.status === 'needs_review';
   const voice = voiceText(row);
   const stage = STAGE[row.stage];
   const chipCls =
@@ -52,7 +52,7 @@ export function DraftCard({ row }: { row: DraftRow }) {
 
   return (
     <article
-      className={`card draft${row.status === 'needs_fix' ? ' draft--fail' : row.status === 'needs_person' ? ' draft--unsure' : ''}`}
+      className={`card draft${row.status === 'needs_fix' ? ' draft--fail' : row.status === 'needs_review' ? ' draft--unsure' : ''}`}
       aria-label={`${row.creator.handle}: ${row.chip}`}
     >
       <div className="draft__who">
@@ -95,13 +95,8 @@ export function DraftCard({ row }: { row: DraftRow }) {
         </div>
         <div className={voice.low ? 'sub text-amber' : 'sub'}>{voice.text}</div>
         {row.sentBackFix && <div className="sub">Sent back: {row.sentBackFix}</div>}
-        {row.reasons.length > 0 && (
-          <div className={row.unsure ? 'draft__reason draft__reason--unsure' : 'draft__reason'}>
-            {row.unsure && <strong>Needs a person. </strong>}
-            {row.reasons.join(' ')}
-          </div>
-        )}
-        {ruling && row.status === 'needs_person' && (
+        {row.issues.length > 0 && <Issues issues={row.issues} unsure={row.unsure} />}
+        {ruling && row.status === 'needs_review' && (
           <OverrideForm
             phrases={row.flagged}
             onCancel={() => setRuling(false)}
@@ -155,7 +150,7 @@ export function DraftCard({ row }: { row: DraftRow }) {
               <span id={`why-${row.creator.code}`} className="sr-only">
                 Approve is blocked until the failed check is fixed or a person marks it OK.
               </span>
-              {row.status === 'needs_person' && !ruling && (
+              {row.status === 'needs_review' && !ruling && (
                 <button type="button" className="btn-small" onClick={() => setRuling(true)}>
                   Mark as OK for this message
                 </button>
@@ -163,7 +158,12 @@ export function DraftCard({ row }: { row: DraftRow }) {
               <button
                 type="button"
                 className="btn-small"
-                onClick={() => sendBack(row.creator.handle, row.reasons[0] ?? 'Please revise.')}
+                onClick={() =>
+                  sendBack(
+                    row.creator.handle,
+                    row.issues.map((i) => (i.fix ? `${capitalize(i.fix)}.` : i.text)).join(' ') || 'Please revise.',
+                  )
+                }
               >
                 Send back with fix
               </button>
@@ -232,5 +232,44 @@ function OverrideForm({
         </button>
       </div>
     </form>
+  );
+}
+
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+/**
+ * What's wrong with a message. One issue reads as a short block; several become a numbered list, each starting
+ * with the phrase it's about, so the list lines up with the highlights in the message.
+ */
+function Issues({ issues, unsure }: { issues: Issue[]; unsure: boolean }) {
+  const many = issues.length > 1;
+  const title = unsure ? 'Needs review' : many ? `${issues.length} issues to fix` : null;
+  const body = (i: Issue) => (
+    <>
+      <div>
+        {i.phrase && <q className="issue__phrase">{displayUrl(i.phrase)}</q>}
+        {i.phrase && ': '}
+        {i.text}
+      </div>
+      {i.fix && (
+        <div className="issue__fix">
+          <strong>Suggested fix:</strong> {capitalize(i.fix)}.
+        </div>
+      )}
+    </>
+  );
+  return (
+    <div className={unsure ? 'issues issues--unsure' : 'issues'}>
+      {title && <div className="issues__title">{title}</div>}
+      {many ? (
+        <ol>
+          {issues.map((i, n) => (
+            <li key={n}>{body(i)}</li>
+          ))}
+        </ol>
+      ) : (
+        body(issues[0]!)
+      )}
+    </div>
   );
 }

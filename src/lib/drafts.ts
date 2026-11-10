@@ -11,7 +11,7 @@ import type { RulingKind } from './rulings';
  */
 
 export type Stage = 'with_creator' | 'edited' | 'accepted';
-export type Status = 'with_creator' | 'passing' | 'needs_fix' | 'needs_person' | 'approved';
+export type Status = 'with_creator' | 'passing' | 'needs_fix' | 'needs_review' | 'approved';
 
 export interface BrandActions {
   approved: ReadonlySet<string>;
@@ -43,6 +43,20 @@ export const NO_ACTIONS: BrandActions = {
   rulings: new Map(),
 };
 
+/** One problem with a message: the phrase it's about (when there is one), what's wrong, and the suggested fix. */
+export interface Issue {
+  phrase?: string;
+  text: string;
+  fix?: string;
+}
+
+/** Splits "… Suggested fix: restore the full link." off an exact check's reason. */
+function issueFromCheck(c: Check): Issue {
+  const reason = c.reason ?? `${CHECK_LABEL[c.name]} check failed.`;
+  const [text, fix] = reason.split(/\s*Suggested fix:\s*/);
+  return { phrase: c.phrase, text: text!.trim(), fix: fix?.trim().replace(/\.$/, '') };
+}
+
 export interface DraftRow {
   creator: Creator;
   stage: Stage;
@@ -59,15 +73,15 @@ export interface DraftRow {
   status: Status;
   /** Phrases to highlight in the message, in order of appearance, when checks name them. */
   flagged: string[];
-  /** The claim check couldn't decide and no person has marked it OK: "Needs a person", including on a starter. */
+  /** The claim check couldn't decide and no person has marked it OK: "Needs review", including on a starter. */
   unsure: boolean;
   /** One explanation per failure, with the suggested fix. */
-  reasons: string[];
+  issues: Issue[];
   /** "Claims check failed", "All 6 checks pass", … */
   chip: string;
   sentBackFix: string | null;
   reminded: boolean;
-  /** A person's ruling that cleared "Needs a person" on this exact message. */
+  /** A person's ruling that cleared "Needs review" on this exact message. */
   ruling: MessageRuling | null;
 }
 
@@ -119,19 +133,26 @@ export function buildRows(input: {
     let status: Status;
     if (stage === 'with_creator') status = 'with_creator';
     else if (failing) status = 'needs_fix';
-    else if (unsure) status = 'needs_person';
+    else if (unsure) status = 'needs_review';
     else if (actions.approved.has(creator.handle)) status = 'approved';
     else status = 'passing';
 
-    const reasons = [
-      ...failedExact.map((c) => c.reason ?? `${CHECK_LABEL[c.name]} check failed.`),
+    const issues: Issue[] = [
+      ...failedExact.map(issueFromCheck),
       ...(judgment?.verdict === 'fail' || (judgment?.verdict === 'unsure' && !okByPerson)
-        ? judgment.findings.map((f) => `${f.reason}${f.suggested_fix ? ` Suggested fix: “${f.suggested_fix}”, from the approved claims.` : ''}`)
+        ? judgment.findings.map((f) => ({
+            phrase: f.phrase,
+            text: f.reason,
+            fix: f.suggested_fix ? `use “${f.suggested_fix}” from the approved claims` : undefined,
+          }))
         : []),
     ];
-    if (unsure && judgment?.findings.length === 0) reasons.push(judgment.note ?? 'The claim check couldn’t decide.');
+    if (unsure && judgment?.findings.length === 0) issues.push({ text: judgment.note ?? 'The claim check couldn’t decide.' });
     if (judgmentMissing && !okByPerson) {
-      reasons.push('This wording hasn’t been through the claim check: demo mode only has checks for the saved messages. Read it and mark it OK, or send it back.');
+      issues.push({
+        text: 'This wording hasn’t been through the claim check: demo mode only has checks for the saved messages.',
+        fix: 'read it and mark it OK, or send it back',
+      });
     }
 
     // Every phrase a check names, in order of appearance, deduplicated and present in the message.
@@ -149,7 +170,7 @@ export function buildRows(input: {
         : failing
           ? `${failedLabels.join(' and ')} check${failedLabels.length > 1 ? 's' : ''} failed`
           : unsure
-            ? 'Needs a person'
+            ? 'Needs review'
             : okByPerson && (judgment?.verdict === 'unsure' || judgmentMissing)
               ? 'Marked OK by you'
               : stage === 'with_creator'
@@ -170,7 +191,7 @@ export function buildRows(input: {
         status,
         flagged,
         unsure: unsure && !failing,
-        reasons: status === 'with_creator' && !failing && !unsure ? [] : reasons,
+        issues: status === 'with_creator' && !failing && !unsure ? [] : issues,
         chip,
         sentBackFix,
         reminded: actions.reminded.has(creator.handle),
@@ -180,7 +201,7 @@ export function buildRows(input: {
   });
 }
 
-const RANK: Record<Status, number> = { needs_fix: 0, needs_person: 0, passing: 1, approved: 1, with_creator: 2 };
+const RANK: Record<Status, number> = { needs_fix: 0, needs_review: 0, passing: 1, approved: 1, with_creator: 2 };
 
 /** Problems first, then messages back from creators, then ones still with the creator; data order within each. */
 export const sortRows = (rows: DraftRow[]) =>
@@ -189,7 +210,7 @@ export const sortRows = (rows: DraftRow[]) =>
 export function counts(rows: DraftRow[]) {
   return {
     passing: rows.filter((r) => r.status === 'passing' || r.status === 'approved').length,
-    needsFix: rows.filter((r) => r.status === 'needs_fix' || r.status === 'needs_person').length,
+    needsFix: rows.filter((r) => r.status === 'needs_fix' || r.status === 'needs_review').length,
     withCreator: rows.filter((r) => r.status === 'with_creator').length,
     approvable: rows.filter((r) => r.status === 'passing').length,
     remindable: rows.filter((r) => r.status === 'with_creator' && !r.reminded).length,
