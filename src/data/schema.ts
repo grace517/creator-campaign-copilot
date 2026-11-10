@@ -165,3 +165,18 @@ export const cachedJudgmentsSchema = z.object({
   judgments: z.array(claimJudgmentSchema.extend({ message: z.string().min(1) })),
 });
 export type CachedJudgments = z.infer<typeof cachedJudgmentsSchema>;
+
+/** Output of docs/PROMPTS.md call 3, keyed by creator, missing step, and deadline. */
+export const cachedNudgesSchema = z.object({
+  model: z.string(),
+  generated_at: z.string(),
+  nudges: z.array(
+    z.object({
+      handle,
+      missing: z.enum(['accept', 'connect', 'test_dm', 'approve_dm']),
+      deadline: isoDate,
+      message: z.string().min(1).max(280),
+    }),
+  ),
+});
+export type CachedNudges = z.infer<typeof cachedNudgesSchema>;

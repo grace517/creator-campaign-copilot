@@ -6,11 +6,11 @@ import {
   CampaignsScreen,
   CreatorsScreen,
   ReadoutScreen,
-  StatusScreen,
 } from './screens/Placeholders';
 import { BriefScreen } from './screens/brief/BriefScreen';
 import { DraftsScreen } from './screens/drafts/DraftsScreen';
 import { RosterScreen } from './screens/roster/RosterScreen';
+import { StatusScreen } from './screens/status/StatusScreen';
 
 function Shell() {
   return (

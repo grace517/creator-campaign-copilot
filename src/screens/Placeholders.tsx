@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 import { Link } from 'react-router';
-import { demoState } from '../data';
 
 /**
  * Placeholder bodies for each screen. Titles and primary actions match the designs; each body names the PR
@@ -28,21 +27,6 @@ export function ScreenHead({ eyebrow, title, sub, action }: { eyebrow?: string; 
   );
 }
 
-
-export function StatusScreen() {
-  const [, m, d] = demoState.status_snapshot.today.split('-').map(Number);
-  const month = new Date(2000, m! - 1, 1).toLocaleString('en-US', { month: 'short' });
-  return (
-    <>
-      <ScreenHead
-        eyebrow={`Today, ${month} ${d}`}
-        title="Creator status"
-        sub="Each creator must be ready 3 days before their post date."
-      />
-      <Placeholder pr="feat/06-status">Readiness summary, at-risk cards with nudges, and the pipeline table.</Placeholder>
-    </>
-  );
-}
 
 export function ReadoutScreen() {
   return (

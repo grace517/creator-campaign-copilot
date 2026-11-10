@@ -4,6 +4,7 @@ import {
   brandKitSchema,
   briefSchema,
   cachedJudgmentsSchema,
+  cachedNudgesSchema,
   cachedStartersSchema,
   creatorSchema,
   demoStateSchema,
@@ -12,6 +13,7 @@ import {
   type BrandKit,
   type Brief,
   type CachedJudgments,
+  type CachedNudges,
   type CachedStarters,
   type Creator,
   type DemoState,
@@ -85,6 +87,10 @@ export function parseBrandKit(text: string): BrandKit {
 
 export function parseCachedJudgments(text: string): CachedJudgments {
   return validate(cachedJudgmentsSchema, json(text), 'cached/claim_judgments.json');
+}
+
+export function parseCachedNudges(text: string): CachedNudges {
+  return validate(cachedNudgesSchema, json(text), 'cached/nudges.json');
 }
 
 export function parseCachedStarters(text: string): CachedStarters {

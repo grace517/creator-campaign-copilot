@@ -63,7 +63,7 @@ The code checks run on the output before anyone sees it, then the claim judgment
 
 **When:** Creator status, for each at-risk or waiting creator.
 
-**Input:** creator's handle and first name if known, post date, ready deadline, today, the missing step (accept, connect account, send test DM, approve DM), and the setup link for that step.
+**Input:** creator's handle and first name if known, their code (also their comment keyword, so a test-DM nudge can name it), post date, ready deadline, today, the missing step (accept, connect account, send test DM, approve DM), and the setup link for that step.
 
 **Output:**
 ```json
@@ -71,6 +71,8 @@ The code checks run on the output before anyone sees it, then the claim judgment
 ```
 
 **Rules:** friendly and short; names the one missing step and the deadline; includes the link when the step has one; no guilt, no exclamation pile-ups. The brand can edit before sending.
+
+Code checks on the output: under 280 characters, the setup link present when the step has one, at most one exclamation mark. A nudge that fails is redrafted once with the problem as feedback; if it fails again, the card offers Edit instead of a draft.
 
 ## 4. Hook tag
 
