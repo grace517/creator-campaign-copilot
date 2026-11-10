@@ -1,4 +1,5 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router';
 import { results, roster } from '../../data';
 import { usd } from '../../lib/format';
 import {
@@ -15,7 +16,7 @@ import {
 import { parseUsd } from '../../state/brief';
 import { useBrief } from '../../state/BriefContext';
 import { useReadout } from '../../state/ReadoutContext';
-import { ScreenHead } from '../Placeholders';
+import { ScreenHead } from '../ScreenHead';
 import { CampaignData } from './CampaignData';
 import { poolList, type PoolInfo } from './pools';
 import { Scatter } from './Scatter';
@@ -32,6 +33,14 @@ export function ReadoutScreen() {
   const hooks = convertingHooks(rows);
   const [poolFilter, setPoolFilter] = useState<string | null>(null);
   const hooksUsed = hooks.length > 0 && hooks.every((h) => readout.hooksForNextBrief.includes(h));
+  const { hash } = useLocation();
+  // "+ New pool" on Creators and Brand kit links here (#new-pool): bring the form into view and focus it.
+  useEffect(() => {
+    if (hash !== '#new-pool') return;
+    const form = document.getElementById('new-pool');
+    form?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    form?.querySelector('input')?.focus({ preventScroll: true });
+  }, [hash]);
 
   const showPool = (id: string) => {
     setPoolFilter(id);
@@ -210,6 +219,7 @@ function CustomPoolForm({
 
   return (
     <form
+      id="new-pool"
       className="card custom-pool"
       aria-label="Create a custom pool"
       onSubmit={(e) => {

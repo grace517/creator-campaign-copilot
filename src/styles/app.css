@@ -1583,6 +1583,244 @@ html {
   padding: 10px 16px 14px;
 }
 
+/* App screens: Campaigns, Creators, Brand kit */
+.home {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.home th,
+.home td {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--bubble);
+}
+.home thead th {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.home tbody th {
+  font-weight: 600;
+}
+.home tbody th a {
+  color: var(--text);
+}
+.home th:first-child,
+.home td:first-child {
+  padding-left: 16px;
+}
+.home th:last-child,
+.home td:last-child {
+  padding-right: 16px;
+}
+.home tbody tr:last-child th,
+.home tbody tr:last-child td {
+  border-bottom: 0;
+}
+.home .num {
+  text-align: right;
+}
+.step-dots {
+  display: inline-flex;
+  gap: 4px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.step-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--border);
+}
+.step-dots .is-done {
+  background: var(--green);
+}
+.step-dots .is-current {
+  background: var(--surface);
+  box-shadow: inset 0 0 0 2px var(--green);
+}
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 14px;
+}
+.home-card {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.home-card__p {
+  margin: 0;
+}
+.home-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+.home-stat {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+}
+.filter--dashed {
+  border-style: dashed;
+  text-decoration: none;
+  color: var(--text);
+}
+.pool-tab {
+  color: var(--pool);
+}
+.pool-tab.is-active {
+  border-color: var(--pool);
+  background: var(--pool-bg);
+  color: var(--pool);
+  box-shadow: inset 0 0 0 1px var(--pool);
+}
+.pool-banner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--pool-bg);
+}
+.pool-banner__name {
+  color: var(--pool);
+}
+.history {
+  padding: 14px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.history__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px;
+}
+.history__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.history__p {
+  margin: 0;
+}
+.kit-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+.kit-card {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.kit-card p {
+  margin: 0;
+}
+.kit-card__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+.kit-card__head a.btn-small {
+  text-decoration: none;
+}
+.chip--removable {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.chip--removable button {
+  font: inherit;
+  font-size: 12px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+.chip--removable button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.chip--add {
+  font: inherit;
+  font-size: 13px;
+  border: 1px dashed var(--border-strong);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.chip-add {
+  display: inline-flex;
+  gap: 6px;
+}
+.chip-add input {
+  font: inherit;
+  font-size: 13px;
+  padding: 4px 8px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+}
+.kit-learned ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+}
+.kit-pools {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.kit-pools li {
+  display: grid;
+  grid-template-columns: 24px 160px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--bubble);
+  font-size: 13px;
+}
+.kit-pools li:last-child {
+  border-bottom: 0;
+}
+.kit-pools__n {
+  color: var(--muted);
+}
+.pool-chip--wide {
+  display: block;
+  padding: 3px 10px;
+}
+
+@media (max-width: 640px) {
+  .kit-pools li {
+    grid-template-columns: 20px minmax(0, 1fr);
+  }
+  .kit-pools li > span:nth-child(n + 3) {
+    grid-column: 2;
+  }
+}
+
 @media (max-width: 900px) {
   .custom-pool__fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));

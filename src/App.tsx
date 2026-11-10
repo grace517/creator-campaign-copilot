@@ -1,11 +1,9 @@
 import { Navigate, Outlet, Route, Routes } from 'react-router';
 import { AppBar } from './components/AppBar';
 import { CampaignLayout } from './components/CampaignLayout';
-import {
-  BrandKitScreen,
-  CampaignsScreen,
-  CreatorsScreen,
-} from './screens/Placeholders';
+import { BrandKitScreen } from './screens/app/BrandKitScreen';
+import { CampaignsScreen } from './screens/app/CampaignsScreen';
+import { CreatorsScreen } from './screens/app/CreatorsScreen';
 import { BriefScreen } from './screens/brief/BriefScreen';
 import { DraftsScreen } from './screens/drafts/DraftsScreen';
 import { ReadoutScreen } from './screens/readout/ReadoutScreen';

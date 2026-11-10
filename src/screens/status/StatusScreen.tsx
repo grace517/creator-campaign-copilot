@@ -18,7 +18,7 @@ import {
 import { useBrief } from '../../state/BriefContext';
 import { usePicks } from '../../state/PicksContext';
 import { useStatus } from '../../state/StatusContext';
-import { ScreenHead } from '../Placeholders';
+import { ScreenHead } from '../ScreenHead';
 
 const snap = demoState.status_snapshot;
 

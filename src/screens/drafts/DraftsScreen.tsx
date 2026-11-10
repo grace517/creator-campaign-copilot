@@ -6,7 +6,7 @@ import { RULING_KINDS } from '../../lib/rulings';
 import { useBrief } from '../../state/BriefContext';
 import { useDrafts } from '../../state/DraftsContext';
 import { usePicks } from '../../state/PicksContext';
-import { ScreenHead } from '../Placeholders';
+import { ScreenHead } from '../ScreenHead';
 import { DraftCard } from './DraftCard';
 
 const judgmentsByText = new Map(cachedJudgments.judgments.map(({ message, ...j }) => [message, j]));
