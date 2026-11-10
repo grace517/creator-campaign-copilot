@@ -144,7 +144,7 @@ export function StatusScreen() {
         </ul>
       </section>
 
-      <section aria-label="All creators" className="card table-wrap desktop-only">
+      <section aria-label="All creators" className="card table-wrap desktop-only" tabIndex={0}>
         <table className="pipeline">
           <thead>
             <tr>

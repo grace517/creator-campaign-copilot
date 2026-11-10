@@ -143,15 +143,15 @@ function WritingRow({
     return (
       <li className="writing__row">
         <strong>{c.handle}</strong>
-        <span className="skeleton" aria-label="Writing">
-          <span />
-          <span />
+        <span className="skeleton">
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
+          <span className="sr-only">Writing…</span>
         </span>
       </li>
     );
   }
   if (state.kind === 'done') {
-    const total = exactChecks({ dm: state.dm, captionCta: state.captionCta || undefined, code: c.code }, brief).length;
     const failed = failedChecks(state, c, brief);
     if (failed.length === 0) {
       return (
@@ -160,7 +160,9 @@ function WritingRow({
             <strong>{c.handle}</strong>
             {state.byBrand && <span className="sub"> · written by you</span>}
           </span>
-          <span className="pill pill--green">All {total} checks pass</span>
+          {/* Model starters arrive with their claim judgment (the cache holds it); a starter the brand writes gets
+              the claim judgment when the creator sends their version back, so only the exact checks have run. */}
+          <span className="pill pill--green">{state.byBrand ? 'Exact checks pass' : 'All 6 checks pass'}</span>
         </li>
       );
     }

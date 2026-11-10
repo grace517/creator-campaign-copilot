@@ -95,7 +95,7 @@ export function CreatorsScreen() {
         </div>
       )}
 
-      <section className="card table-wrap" aria-label="Creators">
+      <section className="card table-wrap" aria-label="Creators" tabIndex={0}>
         <table className="home">
           <thead>
             <tr>

@@ -58,7 +58,7 @@ export function Scatter({ rows, goal, pools }: { rows: CreatorResult[]; goal: nu
     <div className="scatter">
       <svg
         viewBox={`0 0 ${W} ${H}`}
-        role="img"
+        role="group"
         aria-label={`Purchases against fee for each creator. Points above the dashed line beat the ${usd(goal)} paid social CPA.`}
       >
         {yTicks.map((t) => (

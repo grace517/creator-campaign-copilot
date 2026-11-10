@@ -75,7 +75,7 @@ export function CampaignsScreen() {
         ))}
       </div>
 
-      <section className="card table-wrap" aria-label="Campaigns">
+      <section className="card table-wrap" aria-label="Campaigns" tabIndex={0}>
         <table className="home">
           <thead>
             <tr>

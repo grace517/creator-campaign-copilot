@@ -129,7 +129,7 @@ export function CampaignData({
         </div>
       </div>
 
-      <div className="table-wrap">
+      <div className="table-wrap" role="region" aria-label="Results table" tabIndex={0}>
         {view === 'table' ? (
           <table className="results">
             <thead>
