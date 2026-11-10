@@ -25,7 +25,7 @@ export function SummaryBar({
           <strong>{usd(s.committed)}</strong> committed of {usd(budget)} budget
         </div>
         <div className={s.newState === 'over' ? 'text-red' : 'muted'}>
-          {s.picked} creator{s.picked === 1 ? '' : 's'} · {s.newPicked} new (limit {maxNew})
+          {s.picked} creator{s.picked === 1 ? '' : 's'} · {s.newPicked} new{Number.isFinite(maxNew) ? ` (limit ${maxNew})` : ''}
         </div>
       </div>
       <div role="img" aria-label={`${share} percent of budget committed`} className="meter">

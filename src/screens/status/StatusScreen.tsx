@@ -1,4 +1,5 @@
 import { useId, useMemo, useState } from 'react';
+import { SampleStatePicker, useSampleState } from '../../components/SampleState';
 import { cachedNudges, demoState, roster } from '../../data';
 import type { Creator } from '../../data/schema';
 import { usd } from '../../lib/format';
@@ -54,6 +55,7 @@ export function StatusScreen() {
   const sentence = summarySentence(rows);
   const atRisk = rows.filter((r) => r.group === 'at_risk');
   const replaced = rows.filter((r) => r.replacedBy);
+  const preview = useSampleState('status');
 
   return (
     <>
@@ -62,6 +64,9 @@ export function StatusScreen() {
         title="Creator status"
         sub={`Each creator must be ready ${brief.ready_deadline_days_before_post} days before their post date.`}
       />
+
+      <SampleStatePicker screen="status" />
+      {preview === 'disconnected' && <Disconnected />}
 
       <section aria-label="Readiness" className="card readiness">
         <div className="readiness__sentence">
@@ -110,7 +115,36 @@ export function StatusScreen() {
         </section>
       )}
 
-      <section aria-label="All creators" className="card table-wrap">
+      <section aria-label="Everyone else" className="phone-only">
+        <h2 className="card-title">Everyone else</h2>
+        <ul className="card phone-list">
+          {rows
+            .filter((r) => r.group !== null && r.group !== 'at_risk')
+            .map((r) => {
+              const chip = PHONE_CHIP[r.group as Exclude<Group, 'at_risk'>];
+              const replacedWho = replaced.find((x) => x.replacedBy === r.creator.handle)?.creator.handle;
+              const detail = replacedWho
+                ? `replaced ${replacedWho}`
+                : r.group === 'ready'
+                  ? null
+                  : `deadline ${shortDate(r.deadline)}`;
+              return (
+                <li key={r.creator.handle}>
+                  <div>
+                    <strong>{r.creator.handle}</strong>
+                    <div className="sub">
+                      Posts {shortDate(r.creator.post_date)}
+                      {detail && ` · ${detail}`}
+                    </div>
+                  </div>
+                  <span className={`pill ${chip.cls}`}>{chip.label}</span>
+                </li>
+              );
+            })}
+        </ul>
+      </section>
+
+      <section aria-label="All creators" className="card table-wrap desktop-only">
         <table className="pipeline">
           <thead>
             <tr>
@@ -135,6 +169,49 @@ export function StatusScreen() {
         </table>
       </section>
     </>
+  );
+}
+
+/** Phone list: one status chip per creator who isn't at risk. */
+const PHONE_CHIP: Record<Exclude<Group, 'at_risk'>, { label: string; cls: string }> = {
+  ready: { label: 'Ready', cls: 'pill--green' },
+  on_track: { label: 'On track', cls: 'pill--blue' },
+  waiting: { label: 'No reply', cls: 'pill--grey' },
+};
+
+/**
+ * "An account disconnects mid-campaign" (docs/UX_SPEC.md), pinned above everything until fixed, because DMs stop
+ * silently otherwise. The moment and the waiting count are illustrative, as in the design: the sample data is a
+ * snapshot from before posting starts.
+ */
+const DISCONNECT = { handle: '@theskinnurse', at: '9:14', on: '2026-12-05', waiting: 212 };
+
+function Disconnected() {
+  const [sent, setSent] = useState(false);
+  const creator = roster.find((c) => c.handle === DISCONNECT.handle)!;
+  const postDay = creator.post_date === DISCONNECT.on;
+  return (
+    <section role="alert" aria-label="Account disconnected" className="card disconnect">
+      <p className="disconnect__what">
+        <strong>{creator.handle}’s Instagram disconnected</strong> at {DISCONNECT.at} on {shortDate(DISCONNECT.on)}
+        {postDay ? ', the day of their post' : ''}. Comments are still coming in, but no DMs are going out.
+      </p>
+      <p className="sub sub--13">
+        {DISCONNECT.waiting} comments with {creator.code} are waiting. They’ll get their DM when the account
+        reconnects, within 24 hours of commenting.
+      </p>
+      <div className="draft__actions">
+        {sent ? (
+          <span className="pill pill--green" role="status">
+            Reconnect link sent to {creator.handle}
+          </span>
+        ) : (
+          <button type="button" className="btn-small btn-small--primary btn-small--tall" onClick={() => setSent(true)}>
+            Send reconnect link
+          </button>
+        )}
+      </div>
+    </section>
   );
 }
 

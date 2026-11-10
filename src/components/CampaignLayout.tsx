@@ -39,6 +39,9 @@ export function CampaignLayout() {
             </nav>
             <h1>{campaign.name}</h1>
             <div className="campaign-header__meta">{meta}</div>
+            <div className="campaign-header__step">
+              Step {STEPS.findIndex((s) => s.path === step) + 1} of {STEPS.length}: {PHONE_STEP_LABEL[step]}
+            </div>
           </div>
           <CampaignSwitcher campaignId={campaign.id} step={step} />
         </div>
@@ -48,6 +51,15 @@ export function CampaignLayout() {
     </CurrentCampaign>
   );
 }
+
+/** On a phone the stepper gives way to "Step N of 5: <screen name>". */
+const PHONE_STEP_LABEL: Record<StepPath, string> = {
+  brief: 'Brief',
+  roster: 'Roster',
+  drafts: 'Drafts',
+  status: 'Creator status',
+  readout: 'Readout',
+};
 
 function hasStep(c: CampaignRef, step: StepPath): boolean {
   if (c.kind === 'sample') return true;

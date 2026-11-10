@@ -1,7 +1,9 @@
 import { useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router';
-import { roster } from '../../data';
+import { SampleStatePicker, useSampleState } from '../../components/SampleState';
+import { roster as sampleRoster } from '../../data';
 import { usd } from '../../lib/format';
+import { isFirstCampaign, withoutHistory } from '../../lib/states';
 import {
   NO_FILTERS,
   blocker,
@@ -23,15 +25,22 @@ export function RosterScreen() {
   const { campaignId = '' } = useParams();
   const { brief } = useBrief();
   const { picks } = usePicks();
-  const [sort, setSort] = useState<SortKey>('cpa');
+  const preview = useSampleState('roster');
+  const roster = useMemo(() => (preview === 'first-campaign' ? withoutHistory(sampleRoster) : sampleRoster), [preview]);
+  const first = isFirstCampaign(roster);
+  // No past CPA to sort by on a first campaign, so fee until the first readout.
+  const [chosenSort, setSort] = useState<SortKey | null>(null);
+  const sort: SortKey = chosenSort ?? (first ? 'fee' : 'cpa');
   const [filters, setFilters] = useState<Filters>(NO_FILTERS);
 
-  const summary = summarize(roster, picks, brief.campaign_budget_usd, brief.max_new_creators);
+  // Everyone is new on a first campaign, so the new-creator limit doesn't apply.
+  const maxNew = first ? Infinity : brief.max_new_creators;
+  const summary = summarize(roster, picks, brief.campaign_budget_usd, maxNew);
   const mix = mixWarning(roster, picks, summary.remaining, brief.paid_social_cpa_benchmark_usd);
-  const block = blocker(summary, brief.max_new_creators);
+  const block = blocker(summary, maxNew);
   const rows = useMemo(
     () => filterCreators(sortCreators(roster, sort), filters, picks, summary.remaining),
-    [sort, filters, picks, summary.remaining],
+    [roster, sort, filters, picks, summary.remaining],
   );
   const label = `Draft messages for ${summary.picked} creator${summary.picked === 1 ? '' : 's'}`;
 
@@ -51,10 +60,17 @@ export function RosterScreen() {
           )
         }
       />
+      <SampleStatePicker screen="roster" />
+      {first && (
+        <p className="card notice notice--blue" role="note">
+          This is your first campaign, so no one has past results yet. We’ll sort by fee for now; after this campaign’s
+          readout, the roster sorts by CPA and opens with your pools.
+        </p>
+      )}
       <SummaryBar
         summary={summary}
         budget={brief.campaign_budget_usd}
-        maxNew={brief.max_new_creators}
+        maxNew={maxNew}
         mix={mix}
         block={block}
         onShowFixes={(handles) => setFilters({ ...NO_FILTERS, only: handles })}

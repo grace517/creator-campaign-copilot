@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router';
 import { InfoTip } from '../../components/InfoTip';
+import { SampleStatePicker, useSampleState } from '../../components/SampleState';
 import { results, roster } from '../../data';
 import { usd } from '../../lib/format';
 import {
@@ -19,6 +20,7 @@ import { useBrief } from '../../state/BriefContext';
 import { useReadout } from '../../state/ReadoutContext';
 import { ScreenHead } from '../ScreenHead';
 import { CampaignData } from './CampaignData';
+import { CpaRanked, EarlyResults, PoolList } from './PhoneReadout';
 import { poolList } from './pools';
 import { Scatter } from './Scatter';
 
@@ -51,9 +53,21 @@ export function ReadoutScreen() {
     document.getElementById('campaign-data')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const preview = useSampleState('readout');
+  if (preview === 'early') {
+    return (
+      <>
+        <ScreenHead eyebrow="Sample results" title="Readout" />
+        <SampleStatePicker screen="readout" />
+        <EarlyResults goal={targets.cpa_usd} />
+      </>
+    );
+  }
+
   return (
     <>
       <ScreenHead eyebrow="Sample results" title="Readout" />
+      <SampleStatePicker screen="readout" />
 
       <section aria-label="Verdict" className="card verdict">
         <h3 className="verdict__headline">{v.headline}</h3>
@@ -93,8 +107,10 @@ export function ReadoutScreen() {
             </span>
           )}
         </div>
-        <Scatter rows={rows} goal={targets.cpa_usd} pools={pools} />
-        <div className="verdict__foot">
+        <div className="desktop-only">
+          <Scatter rows={rows} goal={targets.cpa_usd} pools={pools} />
+        </div>
+        <div className="verdict__foot desktop-only">
           <span className="sub">Across: creator fee · Up: purchases</span>
           <span className="pool-legend">
             {shownPools.map((p) => (
@@ -107,7 +123,11 @@ export function ReadoutScreen() {
         </div>
       </section>
 
-      <section aria-label="Creator pools" className="pools">
+      <CpaRanked rows={rows} goal={targets.cpa_usd} pools={pools} />
+      <PoolList rows={rows} pools={shownPools} />
+      <p className="card phone-only phone-note">See the full table, the funnel, and custom pools on desktop.</p>
+
+      <section aria-label="Creator pools" className="pools desktop-only">
         <div className="pools__head">
           <h3 className="card-title">Where each creator goes next</h3>
           <span className="sub">Click a pool to see its creators in the table below. Saved pools filter the next roster.</span>
@@ -182,6 +202,7 @@ export function ReadoutScreen() {
       </section>
 
       <CampaignData
+        className="desktop-only"
         rows={rows}
         targets={targets}
         pools={shownPools}

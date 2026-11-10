@@ -39,6 +39,7 @@ export function CampaignData({
   poolFilter,
   onPoolFilter,
   cpsIsGoal,
+  className = '',
 }: {
   rows: CreatorResult[];
   targets: Targets;
@@ -47,6 +48,7 @@ export function CampaignData({
   onPoolFilter: (id: string | null) => void;
   /** Whether the sign-up column's target is the brand's goal or the campaign average. */
   cpsIsGoal: boolean;
+  className?: string;
 }) {
   const [view, setView] = useState<View>('table');
   const [creator, setCreator] = useState<string>('all');
@@ -63,7 +65,7 @@ export function CampaignData({
   const weak = outlier ? weakestStep(outlier, rows) : null;
 
   return (
-    <section id="campaign-data" aria-label="Campaign data" className="card data">
+    <section id="campaign-data" aria-label="Campaign data" className={`card data ${className}`}>
       <div className="data__bar">
         <div className="data__left">
           <div role="tablist" aria-label="Views" className="tabs">
