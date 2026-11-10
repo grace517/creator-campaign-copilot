@@ -1,11 +1,12 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router';
+import { InfoTip } from '../../components/InfoTip';
 import { results, roster } from '../../data';
 import { usd } from '../../lib/format';
 import {
   CUSTOM_METRICS,
   computeResults,
   convertingHooks,
-  customPreview,
   poolStat,
   verdict,
   versusGoal,
@@ -15,9 +16,9 @@ import {
 import { parseUsd } from '../../state/brief';
 import { useBrief } from '../../state/BriefContext';
 import { useReadout } from '../../state/ReadoutContext';
-import { ScreenHead } from '../Placeholders';
+import { ScreenHead } from '../ScreenHead';
 import { CampaignData } from './CampaignData';
-import { poolList, type PoolInfo } from './pools';
+import { poolList } from './pools';
 import { Scatter } from './Scatter';
 
 export function ReadoutScreen() {
@@ -32,6 +33,14 @@ export function ReadoutScreen() {
   const hooks = convertingHooks(rows);
   const [poolFilter, setPoolFilter] = useState<string | null>(null);
   const hooksUsed = hooks.length > 0 && hooks.every((h) => readout.hooksForNextBrief.includes(h));
+  const { hash } = useLocation();
+  // "+ New pool" on Creators and Brand kit links here (#new-pool): bring the form into view and focus it.
+  useEffect(() => {
+    if (hash !== '#new-pool') return;
+    const form = document.getElementById('new-pool');
+    form?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    form?.querySelector('input')?.focus({ preventScroll: true });
+  }, [hash]);
 
   const showPool = (id: string) => {
     setPoolFilter(id);
@@ -145,15 +154,8 @@ export function ReadoutScreen() {
           })}
         </div>
 
-        <CustomPoolForm pools={pools} existing={readout.customPools} onSave={readout.addCustomPool} />
+        <CustomPoolForm existing={readout.customPools} onSave={readout.addCustomPool} />
 
-        <p className="rules">
-          <strong>How pools are set.</strong> Beat: 10% or more better than the target. At par: within 10% either way.
-          Missed: more than 10% worse. Targets come from the brief; reach has none, so it uses the campaign average. A
-          creator joins the first pool they qualify for, in order: beat CPA (Converters), beat cost per lead (Lead
-          builders), beat reach cost (Reach). Anyone who beats nothing goes to Test again on a first campaign, otherwise
-          Don’t rebook. Custom pools use the same rule, checked in the order you set.
-        </p>
       </section>
 
       <CampaignData rows={rows} targets={targets} pools={pools} poolFilter={poolFilter} onPoolFilter={setPoolFilter} />
@@ -168,16 +170,7 @@ const AFTER_LABEL: Record<CustomPool['after'], string> = {
   reach: 'After Reach',
 };
 
-function CustomPoolForm({
-  pools,
-  existing,
-  onSave,
-}: {
-  pools: PoolInfo[];
-  existing: CustomPool[];
-  onSave: (p: CustomPool) => void;
-}) {
-  const { brief } = useBrief();
+function CustomPoolForm({ existing, onSave }: { existing: CustomPool[]; onSave: (p: CustomPool) => void }) {
   const [name, setName] = useState('Sign-up drivers');
   const [metric, setMetric] = useState<CustomMetric>('cost_per_signup');
   const [targetText, setTargetText] = useState('$10.00 or less');
@@ -187,29 +180,9 @@ function CustomPoolForm({
   const target = parsed === null ? null : isPct ? parsed / 100 : parsed;
   const draft: CustomPool | null =
     target !== null && name.trim() ? { id: `custom-${name.trim().toLowerCase().replace(/\W+/g, '-')}`, name: name.trim(), metric, target, after } : null;
-  const preview = draft ? customPreview(brief, results, roster, existing, draft) : null;
-  const poolName = (id: string) => pools.find((p) => p.id === id)?.name ?? id;
-  const unit = metric === 'cost_per_signup' ? 'per sign-up' : '';
-
-  let previewText = 'Enter a name and a target to preview who this pool would take.';
-  if (preview && draft) {
-    const n = preview.beats.length;
-    if (n === 0) previewText = 'No creator in this campaign beats this target.';
-    else {
-      const list = preview.beats.map((b) => `${b.handle}, ${b.value}${unit ? ` ${unit}` : ''}`).join('; ');
-      const taken = preview.beats.filter((b) => b.placedIn !== draft.id);
-      previewText = `${n} creator${n === 1 ? '' : 's'} ${n === 1 ? 'beats' : 'beat'} this target (${list})`;
-      if (preview.members.length === 0) {
-        previewText += `, but ${n === 1 ? 'that creator is' : 'they are'} already ${taken.map((t) => `a ${poolName(t.placedIn).replace(/s$/, '')}`).join(', ')}, so this pool would be empty.`;
-      } else {
-        previewText += `. This pool would take ${preview.members.join(', ')}.`;
-      }
-    }
-    previewText += ' Same beat rule: 10% or more better than the target.';
-  }
-
   return (
     <form
+      id="new-pool"
       className="card custom-pool"
       aria-label="Create a custom pool"
       onSubmit={(e) => {
@@ -218,7 +191,16 @@ function CustomPoolForm({
       }}
     >
       <div className="custom-pool__head">
-        <h4>+ Create a custom pool</h4>
+        <div className="custom-pool__title">
+          <h4>+ Create a custom pool</h4>
+          <InfoTip label="How pools are set">
+            <strong>How pools are set.</strong> Beat: 10% or more better than the target. At par: within 10% either way.
+            Missed: more than 10% worse. Targets come from the brief; reach has none, so it uses the campaign average. A
+            creator joins the first pool they qualify for, in order: beat CPA (Converters), beat cost per lead (Lead
+            builders), beat reach cost (Reach). Anyone who beats nothing goes to Test again on a first campaign,
+            otherwise Don’t rebook. Custom pools use the same rule, checked in the order you set.
+          </InfoTip>
+        </div>
         <span className="sub">Saved to your brand, applied to every future readout</span>
       </div>
       <div className="custom-pool__fields">
@@ -260,9 +242,6 @@ function CustomPoolForm({
         </label>
       </div>
       <div className="custom-pool__foot">
-        <span className="sub" role="status">
-          Preview for this campaign: {previewText}
-        </span>
         <button
           type="submit"
           className="btn-small"

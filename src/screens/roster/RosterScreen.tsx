@@ -14,7 +14,7 @@ import {
 } from '../../lib/roster';
 import { useBrief } from '../../state/BriefContext';
 import { usePicks } from '../../state/PicksContext';
-import { ScreenHead } from '../Placeholders';
+import { ScreenHead } from '../ScreenHead';
 import { FilterBar } from './FilterBar';
 import { RosterTable } from './RosterTable';
 import { SummaryBar } from './SummaryBar';

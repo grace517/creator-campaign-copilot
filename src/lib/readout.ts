@@ -211,28 +211,6 @@ function customPreviewValue(cp: CustomPool, members: CreatorResult[]): string {
   return `${formatCustom(cp.metric, avg)} ${cp.metric === 'cost_per_signup' ? 'per sign-up' : CUSTOM_METRICS[cp.metric].label.toLowerCase()}, target ${formatCustom(cp.metric, cp.target)}`;
 }
 
-/**
- * Who would land in a custom pool this campaign, and who beats its target but is placed earlier: the design's
- * preview ("1 creator beats this target, but that creator is already a Converter, so this pool would be empty").
- */
-export function customPreview(
-  brief: BriefTargets,
-  results: Result[],
-  roster: Creator[],
-  existing: CustomPool[],
-  draft: CustomPool,
-): { beats: { handle: string; value: string; placedIn: string }[]; members: string[] } {
-  const { rows } = computeResults(brief, results, roster, [...existing, draft]);
-  const beats = rows
-    .filter((r) => customBeats(draft.metric, customValue(draft.metric, r.result, r.creator), draft.target))
-    .map((r) => ({
-      handle: r.creator.handle,
-      value: formatCustom(draft.metric, customValue(draft.metric, r.result, r.creator)!),
-      placedIn: r.pool,
-    }));
-  return { beats, members: rows.filter((r) => r.pool === draft.id).map((r) => r.creator.handle) };
-}
-
 export interface FunnelStep {
   count: number;
   /** Share of the step before; null for impressions. */

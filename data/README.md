@@ -5,6 +5,7 @@ All fictional. The app reads these files directly; there's no database in v1.
 | File | What it holds |
 |---|---|
 | `brand_kit.json` | The brand's voice, where the disclosure goes, and the product catalog (name, link, default offer). A new brief starts from it |
+| `campaigns.json` | The campaigns on Campaigns home: the sample campaign (the one with full data) and summaries of three others |
 | `brief.json` | The campaign: product, offer, product link, code parameter, claims, disclosure, window, budget, new-creator limit, paid social CPA benchmark, and the secondary goal |
 | `roster.csv` | Ten contracted creators: code (their comment keyword and checkout code), fee, post date, status, backup flag, past results with this brand (CPA, CPL, DM-to-purchase rate, engagement), past DM count and a sample DM, and two sample captions |
 | `results.csv` | Campaign results per creator: hook, impressions, comments, keyword comments, DMs sent (leads), link clicks, purchases, sign-ups |

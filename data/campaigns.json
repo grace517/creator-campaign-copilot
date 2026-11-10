@@ -1,0 +1,37 @@
+{
+  "_note": "Fictional campaigns for Campaigns home (design/Campaigns.dc.html). Only the Barrier Serum launch has full data (brief.json, roster.csv, results.csv, demo_state.json); its row on Campaigns home is computed from the app. The others are summaries, so the home table and switcher have something to show.",
+  "sample_campaign_id": "barrier-serum-launch",
+  "campaigns": [
+    { "id": "barrier-serum-launch", "name": "Barrier Serum launch" },
+    {
+      "id": "holiday-gift-set",
+      "name": "Holiday gift set",
+      "step": 4,
+      "next_for_you": "2 creators at risk of missing their deadline",
+      "needs_you": true,
+      "creators": 12,
+      "committed_usd": 41200,
+      "budget_usd": 45000
+    },
+    {
+      "id": "spf-relaunch",
+      "name": "SPF relaunch",
+      "step": 3,
+      "next_for_you": "3 creator edits need a fix",
+      "needs_you": true,
+      "creators": 6,
+      "committed_usd": 15900,
+      "budget_usd": 18000
+    },
+    {
+      "id": "night-cream-teaser",
+      "name": "Night cream teaser",
+      "step": 1,
+      "next_for_you": "Finish the brief: offer and posting window",
+      "needs_you": false,
+      "creators": null,
+      "committed_usd": 0,
+      "budget_usd": 12000
+    }
+  ]
+}

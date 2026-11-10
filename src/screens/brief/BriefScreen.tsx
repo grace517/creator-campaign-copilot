@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router';
-import { ScreenHead } from '../Placeholders';
+import { ScreenHead } from '../ScreenHead';
 import { BrandKitCard } from './BrandKitCard';
 import { BriefFields } from './BriefFields';
 import { StarterDms } from './StarterDms';

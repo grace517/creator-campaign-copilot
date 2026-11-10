@@ -2,6 +2,38 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: Pool rules move into a tooltip; the custom pool form drops its preview
+
+**Decision:**
+- **Pool rules:** the "How pools are set" paragraph under the pool cards is now a tooltip next to "+ Create a custom pool". It opens on hover, focus, or tap, and closes on Escape, a second tap, or a click elsewhere.
+- **Custom pool form:** no longer shows the "Preview for this campaign" sentence. The form is name, metric, target, where it's checked, and Save to brand. A saved pool's card and the table show who it took.
+
+**Why:** Product call. The paragraph and the preview made the Readout long and dense. The rules matter most at the moment a brand writes its own, so they sit there, one tap away.
+**Would change if:** testers can't say how a creator landed in their pool without opening the tooltip, or save custom pools that come out empty and don't notice.
+
+## 2026-11-10: Campaigns are separate; the brand kit's rules are live; history says only what the data shows
+
+**Decision:**
+- **Each campaign keeps its own brief and picks.**
+  - **Sample campaign:** the Barrier Serum launch is the one sample with data for every step.
+  - **New campaigns:** "+ New campaign" and "Start a campaign with these N" create real ones. They're prefilled from the brand kit, and a pool's creators are already picked. They work through Brief and Roster.
+  - **Later steps:** Drafts, Status, and Readout on any other campaign say plainly that the sample campaign is where those steps live, with a link to it.
+- **Brand kit:** claims, the disclosure tag, and the DM length limit are live. Every brief reads them, so an edit there changes every check at once. Goals and products only seed new briefs; a running campaign keeps the goals it was briefed with.
+- **"How a creator changes pools" only states what the data proves.** The design shows @marco.minimal as "Test again, then Don't rebook". But his first campaign's impressions aren't in the data, so he might have qualified for Reach. The history says what's known: "first campaign, $115 CPA, missed CPA and cost per lead → Don't rebook, $119 CPA, missed again".
+
+**Not built yet (copy adjusted so nothing promises them):**
+- pinning a creator to a pool by hand
+- dragging to reorder pools
+- CSV import and "Connect ad account" (shown, disabled)
+- a "None" secondary goal
+
+**Why:**
+- **Separate campaigns:** with one shared brief, the other campaigns in the switcher showed the sample's data under their own names, and "start from a pool" had nowhere to go.
+- **Live brand kit:** this is what makes "set once, every check runs against them" true.
+- **History:** a readout that invents history would undercut the screens whose job is "every claim is checkable".
+
+**Would change if:** the prototype gets a database. Then started campaigns could run every step, and pool history could store each campaign's pool instead of working it out.
+
 ## 2026-11-10: How the readout's verdict and funnel note are worked out
 
 **Decision:**

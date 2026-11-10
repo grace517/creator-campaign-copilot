@@ -1,9 +1,10 @@
-import { brandKit } from '../../data';
+import { useBrandKit } from '../../state/BrandKitContext';
 import { useBrief } from '../../state/BriefContext';
 
 /** The brand kit's rules as this brief uses them, read-only here; they're edited in Brand kit. */
 export function BrandKitCard() {
   const { brief } = useBrief();
+  const { kit } = useBrandKit();
   return (
     <div className="card brief-card">
       <div className="brief-card__head">
@@ -13,12 +14,12 @@ export function BrandKitCard() {
       <div className="field-grid">
         <div>
           <div className="label">Voice</div>
-          <div>{brandKit.voice}</div>
+          <div>{kit.voice}</div>
         </div>
         <div>
           <div className="label">Disclosure</div>
           <div>
-            {brief.disclosure}, {brandKit.disclosure_placement}
+            {brief.disclosure}, {kit.disclosure_placement}
           </div>
         </div>
       </div>
