@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "evals": "tsx scripts/run-evals.ts",
-    "generate-cache": "tsx scripts/generate-cache.ts"
+    "generate-cache": "tsx scripts/generate-cache.ts",
+    "generate-nudges": "tsx scripts/generate-nudges.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",
