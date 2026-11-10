@@ -180,3 +180,26 @@ export const cachedNudgesSchema = z.object({
   ),
 });
 export type CachedNudges = z.infer<typeof cachedNudgesSchema>;
+
+/** data/campaigns.json: the sample campaign (full data) plus summaries of the others. */
+export const campaignsFileSchema = z
+  .object({
+    sample_campaign_id: z.string().min(1),
+    campaigns: z
+      .array(
+        z.object({
+          id: z.string().regex(/^[a-z0-9-]+$/),
+          name: z.string().min(1),
+          step: z.number().int().min(1).max(5).optional(),
+          next_for_you: z.string().optional(),
+          needs_you: z.boolean().optional(),
+          creators: z.number().int().nonnegative().nullable().optional(),
+          committed_usd: z.number().nonnegative().optional(),
+          budget_usd: z.number().positive().optional(),
+        }),
+      )
+      .min(1),
+  })
+  .refine((f) => f.campaigns.some((c) => c.id === f.sample_campaign_id), 'sample_campaign_id must be one of the campaigns');
+export type CampaignsFile = z.infer<typeof campaignsFileSchema>;
+export type CampaignSummary = CampaignsFile['campaigns'][number];

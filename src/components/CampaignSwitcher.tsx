@@ -1,13 +1,14 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { Link } from 'react-router';
-import { campaigns } from '../data';
+import { useCampaigns } from '../state/CampaignsContext';
 import type { StepPath } from '../steps';
 
 export function CampaignSwitcher({ campaignId, step }: { campaignId: string; step: StepPath }) {
   const [open, setOpen] = useState(false);
   const menuId = useId();
   const root = useRef<HTMLDivElement>(null);
-  const others = campaigns.filter((c) => c.id !== campaignId);
+  const { all } = useCampaigns();
+  const others = all.filter((c) => c.id !== campaignId);
 
   useEffect(() => {
     if (!open) return;

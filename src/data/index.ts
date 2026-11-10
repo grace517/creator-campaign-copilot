@@ -1,5 +1,6 @@
 import brandKitText from '../../data/brand_kit.json?raw';
 import briefText from '../../data/brief.json?raw';
+import campaignsText from '../../data/campaigns.json?raw';
 import cachedJudgmentsText from '../../data/cached/claim_judgments.json?raw';
 import cachedNudgesText from '../../data/cached/nudges.json?raw';
 import cachedStartersText from '../../data/cached/starter_dms.json?raw';
@@ -13,6 +14,7 @@ import {
   parseCachedJudgments,
   parseCachedNudges,
   parseCachedStarters,
+  parseCampaigns,
   parseDemoState,
   parsePools,
   parseResults,
@@ -30,5 +32,8 @@ export const cachedStarters = parseCachedStarters(cachedStartersText);
 export const cachedJudgments = parseCachedJudgments(cachedJudgmentsText);
 export const cachedNudges = parseCachedNudges(cachedNudgesText);
 
-export { campaigns, currentCampaign, type CampaignSummary } from './campaigns';
+const campaignsFile = parseCampaigns(campaignsText);
+/** Campaigns from data/campaigns.json. The sample campaign is the one with full data. */
+export const sampleCampaigns = campaignsFile.campaigns;
+export const SAMPLE_CAMPAIGN_ID = campaignsFile.sample_campaign_id;
 export type * from './schema';

@@ -19,6 +19,7 @@ describe('data loaders', () => {
       'cached/claim_judgments.json',
       'cached/nudges.json',
       'cached/starter_dms.json',
+      'campaigns.json',
       'demo_state.json',
       'pools.json',
       'results.csv',
