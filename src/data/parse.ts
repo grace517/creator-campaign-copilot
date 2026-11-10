@@ -1,12 +1,16 @@
 import Papa from 'papaparse';
 import { z } from 'zod';
 import {
+  brandKitSchema,
   briefSchema,
+  cachedStartersSchema,
   creatorSchema,
   demoStateSchema,
   poolsConfigSchema,
   resultSchema,
+  type BrandKit,
   type Brief,
+  type CachedStarters,
   type Creator,
   type DemoState,
   type PoolsConfig,
@@ -71,6 +75,14 @@ const json = (text: string) => stripNotes(JSON.parse(text));
 
 export function parseBrief(text: string): Brief {
   return validate(briefSchema, json(text), 'brief.json');
+}
+
+export function parseBrandKit(text: string): BrandKit {
+  return validate(brandKitSchema, json(text), 'brand_kit.json');
+}
+
+export function parseCachedStarters(text: string): CachedStarters {
+  return validate(cachedStartersSchema, json(text), 'cached/starter_dms.json');
 }
 
 export function parsePools(text: string): PoolsConfig {

@@ -1,6 +1,7 @@
 import { Link, Navigate, Outlet, useLocation, useParams } from 'react-router';
-import { brief, campaigns, currentCampaign } from '../data';
+import { campaigns, currentCampaign } from '../data';
 import { dateRange, usd } from '../lib/format';
+import { useBrief } from '../state/BriefContext';
 import { STEPS, type StepPath } from '../steps';
 import { CampaignSwitcher } from './CampaignSwitcher';
 import { Stepper } from './Stepper';
@@ -9,6 +10,7 @@ import { Stepper } from './Stepper';
 export function CampaignLayout() {
   const { campaignId = '' } = useParams();
   const { pathname } = useLocation();
+  const { brief } = useBrief();
   const campaign = campaigns.find((c) => c.id === campaignId);
   if (!campaign) return <Navigate to="/campaigns" replace />;
 

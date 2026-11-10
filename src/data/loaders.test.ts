@@ -1,15 +1,27 @@
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { brief, demoState, poolsConfig, results, roster } from './index';
+import { brandKit, brief, cachedStarters, demoState, poolsConfig, results, roster } from './index';
 import { parseBrief, parseRoster } from './parse';
 
 const dataDir = join(__dirname, '../../data');
 
 describe('data loaders', () => {
   it('has a loader for every data file', () => {
-    const files = readdirSync(dataDir).filter((f) => f !== 'README.md').sort();
-    expect(files).toEqual(['brief.json', 'demo_state.json', 'pools.json', 'results.csv', 'roster.csv']);
+    const walk = (dir: string, prefix = ''): string[] =>
+      readdirSync(dir).flatMap((f) =>
+        statSync(join(dir, f)).isDirectory() ? walk(join(dir, f), `${prefix}${f}/`) : [`${prefix}${f}`],
+      );
+    const files = walk(dataDir).filter((f) => f !== 'README.md').sort();
+    expect(files).toEqual([
+      'brand_kit.json',
+      'brief.json',
+      'cached/starter_dms.json',
+      'demo_state.json',
+      'pools.json',
+      'results.csv',
+      'roster.csv',
+    ]);
   });
 
   it('parses brief.json', () => {
@@ -53,6 +65,18 @@ describe('data loaders', () => {
   it('parses demo_state.json', () => {
     expect(demoState.drafts_snapshot).toHaveLength(8);
     expect(demoState.status_snapshot.today).toBe('2026-11-30');
+  });
+
+  it('parses brand_kit.json', () => {
+    expect(brandKit.voice).toBe('Warm, plain-spoken, ingredient-literate');
+    expect(brandKit.products.map((p) => p.name)).toEqual(['Barrier Repair Serum', 'Daily Gel Cleanser', 'Overnight Cream']);
+    expect(brandKit.products[0]!.link).toBe(brief.link);
+  });
+
+  it('parses cached/starter_dms.json, written for the sample brief and rostered creators', () => {
+    expect(cachedStarters.written_for).toEqual({ product: brief.product, offer: brief.offer, link: brief.link });
+    const handles = new Set(roster.map((c) => c.handle));
+    for (const s of cachedStarters.starters) expect(handles).toContain(s.handle);
   });
 
   it('fails loudly, naming the file and field, on bad data', () => {

@@ -1,0 +1,23 @@
+{
+  "_note": "Fictional sample brand kit. Set once; every new brief starts from it. Claims and the disclosure tag live in brief.json, which a new brief copies from here.",
+  "voice": "Warm, plain-spoken, ingredient-literate",
+  "disclosure_placement": "first line of every message",
+  "last_changed": "2026-11-02",
+  "products": [
+    {
+      "name": "Barrier Repair Serum",
+      "link": "https://fernway.example.com/serum",
+      "default_offer": "20% off your first order"
+    },
+    {
+      "name": "Daily Gel Cleanser",
+      "link": "https://fernway.example.com/cleanser",
+      "default_offer": "15% off"
+    },
+    {
+      "name": "Overnight Cream",
+      "link": "https://fernway.example.com/night",
+      "default_offer": "Free mini with purchase"
+    }
+  ]
+}

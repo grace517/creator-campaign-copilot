@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Link, useParams } from 'react-router';
+import { Link } from 'react-router';
 import { demoState } from '../data';
 
 /**
@@ -15,7 +15,7 @@ function Placeholder({ pr, children }: { pr: string; children: ReactNode }) {
   );
 }
 
-function ScreenHead({ eyebrow, title, sub, action }: { eyebrow?: string; title: string; sub?: string; action?: ReactNode }) {
+export function ScreenHead({ eyebrow, title, sub, action }: { eyebrow?: string; title: string; sub?: string; action?: ReactNode }) {
   return (
     <div className="screen-head">
       <div>
@@ -25,28 +25,6 @@ function ScreenHead({ eyebrow, title, sub, action }: { eyebrow?: string; title: 
       </div>
       {action}
     </div>
-  );
-}
-
-function useCampaignPath() {
-  const { campaignId = '' } = useParams();
-  return (step: string) => `/campaigns/${campaignId}/${step}`;
-}
-
-export function BriefScreen() {
-  const to = useCampaignPath();
-  return (
-    <>
-      <ScreenHead
-        title="Brief"
-        action={
-          <Link className="btn-primary" to={to('roster')}>
-            Next: pick creators
-          </Link>
-        }
-      />
-      <Placeholder pr="feat/02-brief">Brand kit card, campaign fields and goals, and starter DMs for three creators.</Placeholder>
-    </>
   );
 }
 

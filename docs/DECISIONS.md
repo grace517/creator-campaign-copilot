@@ -2,6 +2,12 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: The Brief's starter preview is cached; edits re-run the checks, not the wording
+
+**Decision:** In demo mode, the three starter DMs beside the brief come from `data/cached/starter_dms.json`. Editing the brief re-runs the Disclosure, Claims, and Link checks on them at once. The wording stays as cached, and a note says so once the brief differs from the one they were written for. For now the cached text is copied from the Brief design, labeled `"source": "design"`. It gets regenerated from the real prompt when starter generation lands (feat/05-drafts), where the build plan puts it.
+**Why:** The public link shouldn't spend API credits on every keystroke, and no model output exists yet to cache. Re-running the checks keeps "updates as you edit the brief" true where it matters most: change the product link and every starter's Link check fails, with the reason, before anyone moves on.
+**Would change if:** testers expect the wording itself to change as they type, in which case the Live AI toggle should regenerate starters (debounced) when the brief changes.
+
 ## 2026-11-09: Public demo runs on cached AI output; live AI sits behind a toggle
 
 **Decision:** The hosted prototype serves cached model outputs by default, generated from the real prompts. A rate-limited "Live AI" toggle calls the API through a serverless function.
