@@ -16,6 +16,7 @@ describe('data loaders', () => {
     expect(files).toEqual([
       'brand_kit.json',
       'brief.json',
+      'cached/claim_judgments.json',
       'cached/starter_dms.json',
       'demo_state.json',
       'pools.json',
