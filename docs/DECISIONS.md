@@ -2,6 +2,27 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-09: Claim judgment runs on Claude Opus 5.5 at high effort, and an unreadable answer means "Needs a person"
+
+**Decision:**
+- **Model:** the claim judgment is pinned to `claude-opus-5-5` with effort `high`.
+- **Fallback:** server-side fallback is on, so a safety decline is re-run on another model instead of failing.
+- **Bad answers:** one bad-shape answer (wrong JSON, or a highlighted phrase not copied exactly from the message) gets one retry. After a second bad answer, or a refusal, the result is "unsure": approval is blocked and a person decides.
+- **Live endpoint:** `/api/check-claims` stays off (503) unless `LIVE_AI_ENABLED=true`.
+
+**Why:**
+- **Misses ship:** a missed health claim goes out under a creator's name, while a false flag costs a click. That's why effort is high and why "can't tell" never becomes "pass".
+- **Pinned model:** keeps eval results comparable from run to run.
+- **Endpoint off by default:** keeps a public preview link from spending credits before the Live AI toggle and its rate limit exist (feat/10).
+
+**Would change if:** evals show a cheaper effort or model holds 100% recall with ≤10% false flags. That change would be its own PR with a full eval run, per docs/TESTING.md.
+
+## 2026-11-09: Exact checks count "#ad" anywhere, as a whole tag
+
+**Decision:** The disclosure check passes when the message contains `#ad`, `#sponsored`, or "paid partnership" anywhere, in any case. `#ad` must be a whole tag ("#adorable" doesn't count). The brand kit asks for the disclosure on the first line, but the check doesn't enforce position.
+**Why:** The build plan defines the check as "contains". The eval set doesn't test placement. Failing every message with `#ad` at the end would add false flags the targets don't allow for.
+**Would change if:** the brand's legal guidance requires the disclosure up front. The check would then fail any disclosure after the first line, with eval cases added for it first.
+
 ## 2026-11-09: Roster warning thresholds, and what counts as one niche
 
 **Decision:**

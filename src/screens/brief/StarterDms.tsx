@@ -3,7 +3,7 @@ import type { Creator } from '../../data/schema';
 import { checkClaims, checkDisclosure, checkLink, type Check } from '../../lib/checks';
 import { useBrief } from '../../state/BriefContext';
 
-const CHIP_LABEL: Record<Check['name'], string> = { disclosure: 'Disclosure', claims: 'Claims', link: 'Link' };
+const CHIP_LABEL: Partial<Record<Check['name'], string>> = { disclosure: 'Disclosure', claims: 'Claims', link: 'Link' };
 
 /** "Voice from 3 past DMs"; under two past DMs it's low confidence, and with none the voice comes from captions. */
 export function voiceLine(c: Pick<Creator, 'past_dm_count'>): { text: string; low: boolean } {
