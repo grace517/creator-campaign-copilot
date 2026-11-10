@@ -69,7 +69,7 @@ describe('Creators and pools', () => {
     expect(missedTwice(resultRows, targets)).toEqual([
       {
         handle: '@marco.minimal',
-        before: { pool: null, detail: 'first campaign, $115 CPA, missed CPA and cost per lead' },
+        before: { pool: null, detail: 'first campaign, $115 CPA, missed the CPA goal' },
         after: { pool: 'dont_rebook', detail: '$119 CPA, missed again' },
       },
     ]);

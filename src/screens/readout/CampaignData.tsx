@@ -38,12 +38,15 @@ export function CampaignData({
   pools,
   poolFilter,
   onPoolFilter,
+  cpsIsGoal,
 }: {
   rows: CreatorResult[];
   targets: Targets;
   pools: PoolInfo[];
   poolFilter: string | null;
   onPoolFilter: (id: string | null) => void;
+  /** Whether the sign-up column's target is the brand's goal or the campaign average. */
+  cpsIsGoal: boolean;
 }) {
   const [view, setView] = useState<View>('table');
   const [creator, setCreator] = useState<string>('all');
@@ -136,14 +139,16 @@ export function CampaignData({
                 <th scope="col" className="num">Impressions</th>
                 <th scope="col" className="num">Leads</th>
                 <th scope="col" className="num">Purchases</th>
-                <th scope="col" className="num">Sign-ups</th>
+                <th scope="col" className="num">Email/SMS sign-ups</th>
                 <th scope="col" className="goal">
                   <div>CPA</div>
                   <div className="goal__target">Goal {usd(targets.cpa_usd)}</div>
                 </th>
                 <th scope="col" className="goal">
-                  <div>Cost per lead</div>
-                  <div className="goal__target">Goal {usd2(targets.cpl_usd)}</div>
+                  <div>Cost per sign-up</div>
+                  <div className="goal__target">
+                    {cpsIsGoal ? 'Goal' : 'Average'} {usd2(targets.cps_usd)}
+                  </div>
                 </th>
                 <th scope="col" className="goal">
                   <div>Per 1,000 impressions</div>
@@ -176,7 +181,7 @@ export function CampaignData({
                         <td className="num">{r.result.purchases}</td>
                         <td className="num">{r.result.email_sms_signups}</td>
                         <GoalCell value={r.cpa} fmt={usd} standing={r.standing.cpa} decided={r.decidedBy === 'cpa'} />
-                        <GoalCell value={r.cpl} fmt={usd2} standing={r.standing.cpl} decided={r.decidedBy === 'cpl'} />
+                        <GoalCell value={r.cps} fmt={usd2} standing={r.standing.cps} decided={r.decidedBy === 'cps'} />
                         <GoalCell value={r.cpm} fmt={usd2} standing={r.standing.cpm} decided={r.decidedBy === 'cpm'} />
                       </tr>
                     ))}

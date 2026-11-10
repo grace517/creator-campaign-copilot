@@ -1,5 +1,5 @@
 import { useId, useState } from 'react';
-import { usd } from '../../lib/format';
+import { usd, usd2 } from '../../lib/format';
 import { displayUrl } from '../../lib/checks';
 import { useBrief } from '../../state/BriefContext';
 import { formatWindow, parseLink, parseUsd, parseWindow, type SecondaryMetric } from '../../state/brief';
@@ -67,16 +67,22 @@ function ParsedField<T>({
   );
 }
 
-const SECONDARY_OPTIONS: { metric: SecondaryMetric; label: (target: number | null) => string }[] = [
-  { metric: 'cpl_usd', label: (t) => `Leads: under $${(t ?? 4).toFixed(2)} per lead` },
-  { metric: 'email_sms_signups', label: () => 'Email and SMS sign-ups' },
-  { metric: 'reach', label: () => 'Reach' },
+const SECONDARY_OPTIONS: { metric: SecondaryMetric; label: string }[] = [
+  { metric: 'email_sms_signups', label: 'Email and SMS sign-ups' },
+  { metric: 'reach', label: 'Reach' },
 ];
+
+/** "" (no target, so the campaign average) or a dollar amount; null when the text isn't either. */
+function parseOptionalUsd(s: string): { value: number | null } | null {
+  if (s.trim() === '') return { value: null };
+  const n = parseUsd(s.replace(/\s*per (email or SMS )?sign-up$/i, ''));
+  return n === null ? null : { value: n };
+}
 
 export function BriefFields() {
   const { brief, update } = useBrief();
-  // Remember the lead target so switching away from leads and back restores it.
-  const [leadTarget, setLeadTarget] = useState(brief.secondary_goal.target ?? 4);
+  // Remember the sign-up target so switching to reach and back restores it.
+  const [signupTarget, setSignupTarget] = useState(brief.secondary_goal.metric === 'email_sms_signups' ? brief.secondary_goal.target : null);
   const exampleCode = 'NURSE20';
   const text = (label: string, key: 'product' | 'offer') => (
     <label className="field">
@@ -131,17 +137,33 @@ export function BriefFields() {
             value={brief.secondary_goal.metric}
             onChange={(e) => {
               const metric = e.target.value as SecondaryMetric;
-              if (brief.secondary_goal.target !== null) setLeadTarget(brief.secondary_goal.target);
-              update({ secondary_goal: { metric, target: metric === 'cpl_usd' ? leadTarget : null } });
+              update({ secondary_goal: { metric, target: metric === 'email_sms_signups' ? signupTarget : null } });
             }}
           >
             {SECONDARY_OPTIONS.map((o) => (
               <option key={o.metric} value={o.metric}>
-                {o.label(o.metric === 'cpl_usd' ? leadTarget : null)}
+                {o.label}
               </option>
             ))}
           </select>
         </label>
+        {brief.secondary_goal.metric === 'email_sms_signups' ? (
+          <ParsedField
+            wide
+            label="Target cost per sign-up (optional)"
+            value={{ value: brief.secondary_goal.target }}
+            format={(v) => (v.value === null ? '' : `${usd2(v.value)} per sign-up`)}
+            parse={parseOptionalUsd}
+            commit={({ value }) => {
+              setSignupTarget(value);
+              update({ secondary_goal: { metric: 'email_sms_signups', target: value } });
+            }}
+            error="Enter a dollar amount, like $10.00, or leave it blank."
+            hint="Leave blank to compare each creator with the campaign’s average cost per sign-up. Creators who beat it, and not CPA, become List builders."
+          />
+        ) : (
+          <p className="field__hint field--wide">Reach compares each creator’s cost per 1,000 impressions with the campaign average.</p>
+        )}
       </div>
     </div>
   );

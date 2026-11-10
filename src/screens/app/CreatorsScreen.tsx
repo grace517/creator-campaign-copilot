@@ -109,7 +109,7 @@ export function CreatorsScreen() {
                 Last CPA
               </th>
               <th scope="col" className="num">
-                Last CPL
+                Last cost per sign-up
               </th>
               <th scope="col" className="num">
                 Fee
@@ -138,7 +138,7 @@ export function CreatorsScreen() {
                 <td>{r.creator.niche}</td>
                 <td className="num">{r.campaigns}</td>
                 <td className="num">{r.lastCpa === null ? (r.campaigns === 0 ? <span className="tag tag--blue">new</span> : '–') : usd(r.lastCpa)}</td>
-                <td className="num">{r.lastCpl === null ? '–' : usd2(r.lastCpl)}</td>
+                <td className="num">{r.lastCps === null ? '–' : usd2(r.lastCps)}</td>
                 <td className="num">{usd(r.creator.fee_usd)}</td>
                 <td>{r.lastCampaign ?? '–'}</td>
               </tr>
