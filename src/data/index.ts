@@ -1,6 +1,7 @@
 import brandKitText from '../../data/brand_kit.json?raw';
 import briefText from '../../data/brief.json?raw';
 import cachedJudgmentsText from '../../data/cached/claim_judgments.json?raw';
+import cachedNudgesText from '../../data/cached/nudges.json?raw';
 import cachedStartersText from '../../data/cached/starter_dms.json?raw';
 import demoStateText from '../../data/demo_state.json?raw';
 import poolsText from '../../data/pools.json?raw';
@@ -10,6 +11,7 @@ import {
   parseBrandKit,
   parseBrief,
   parseCachedJudgments,
+  parseCachedNudges,
   parseCachedStarters,
   parseDemoState,
   parsePools,
@@ -26,6 +28,7 @@ export const demoState = parseDemoState(demoStateText);
 export const brandKit = parseBrandKit(brandKitText);
 export const cachedStarters = parseCachedStarters(cachedStartersText);
 export const cachedJudgments = parseCachedJudgments(cachedJudgmentsText);
+export const cachedNudges = parseCachedNudges(cachedNudgesText);
 
 export { campaigns, currentCampaign, type CampaignSummary } from './campaigns';
 export type * from './schema';

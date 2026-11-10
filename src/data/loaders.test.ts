@@ -17,6 +17,7 @@ describe('data loaders', () => {
       'brand_kit.json',
       'brief.json',
       'cached/claim_judgments.json',
+      'cached/nudges.json',
       'cached/starter_dms.json',
       'demo_state.json',
       'pools.json',

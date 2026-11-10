@@ -2,6 +2,12 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: A late swap may go over the new-creator limit, and says so first
+
+**Decision:** On Creator status, "Swap in a backup" offers every unpicked backup under contract, cheapest past CPA first. If a backup is new and would take the campaign over its new-creator limit, the option says so in amber ("puts you at 3 new creators (limit 2)"), but the swap is still allowed. "Swap in a backup" shows only when the at-risk creator hasn't accepted or connected yet. One who's connected and only needs a test DM gets a nudge, not a replacement.
+**Why:** By the time someone is at risk, the choice is a new backup or a missed post. The limit protects the campaign's mix at picking time; it shouldn't silently cost a post a few days out. Saying so before the swap keeps the trade-off visible. The sample data shows the case: the only backup left, @lena.layers, is new.
+**Would change if:** brands treat the new-creator limit as a hard rule (for example, a contract term). The option would then be disabled, with the reason.
+
 ## 2026-11-10: Addressing an audience isn't a claim, and the brand teaches the check by overriding it
 
 **Decision:** Addressing an audience ("Redness-prone friends") isn't a product claim. Rather than writing this into the base prompt, the demo shows how a brand teaches the check:
