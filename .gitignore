@@ -5,4 +5,6 @@ node_modules/
 dist/
 .vercel/
 coverage/
+test-results/
+playwright-report/
 .DS_Store

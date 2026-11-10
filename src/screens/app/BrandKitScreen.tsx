@@ -158,7 +158,7 @@ export function BrandKitScreen() {
         </ol>
       </section>
 
-      <section className="card kit-card table-wrap" aria-label="Products">
+      <section className="card kit-card table-wrap" aria-label="Products" tabIndex={0}>
         <h2 className="card-title">Products</h2>
         <table className="home">
           <thead>

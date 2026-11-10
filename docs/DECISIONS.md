@@ -2,6 +2,13 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: The Live AI toggle waits for a decision on spend
+
+**Decision:** feat/10 ships the end-to-end and accessibility tests and the README. The "Live AI" toggle from the build plan isn't in it: the public link stays in demo mode, and the `/api` functions stay off (`LIVE_AI_ENABLED` unset).
+
+**Why:** a toggle on a public link lets anyone with it spend the brand's API credits. A per-visitor rate limit that holds across serverless instances needs a shared store, which is a new service and a cost decision, not a coding one.
+**Would change if:** the owner chooses a spend cap and a rate-limit store, or a password-protected link for a few testers. Either becomes its own PR.
+
 ## 2026-11-10: States are previewed with a "Sample state" picker; phone screens lead with what a brand checks
 
 **Decision:**

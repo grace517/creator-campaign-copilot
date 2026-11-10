@@ -20,7 +20,7 @@ export function RosterTable({
 }) {
   const { picks, kept, toggle, keep } = usePicks();
   return (
-    <div className="card table-wrap">
+    <div className="card table-wrap" role="region" aria-label="Creators to pick" tabIndex={0}>
       <table className="roster">
         <thead>
           <tr>
