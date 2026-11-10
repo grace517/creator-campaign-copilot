@@ -1,6 +1,16 @@
 import { describe, expect, it } from 'vitest';
 import { brief, cachedStarters, roster } from '../data';
-import { checkClaims, checkDisclosure, checkLink, creatorLink } from './checks';
+import {
+  captionChecks,
+  checkBannedExact,
+  checkClaims,
+  checkDisclosure,
+  checkKeyword,
+  checkLength,
+  checkLink,
+  creatorLink,
+  exactChecks,
+} from './checks';
 
 const nurse = { code: 'NURSE20' };
 const good = `#ad The serum I recommend. 20% off: ${brief.link}?code=NURSE20`;
@@ -59,5 +69,51 @@ describe('starter preview checks', () => {
     it('fails once the brief link changes', () => {
       expect(checkLink(good, nurse, { ...brief, link: 'https://fernway.example.com/serum-v2' }).passed).toBe(false);
     });
+    it('names the wrong link so the UI can highlight it, or says there is none', () => {
+      expect(checkLink('#ad 20% off at https://fernway-deals.example.net/serum.', nurse, brief)).toMatchObject({
+        passed: false,
+        phrase: 'https://fernway-deals.example.net/serum',
+      });
+      expect(checkLink('#ad 20% off!', nurse, brief).reason).toMatch(/^No link/);
+    });
+  });
+});
+
+describe('exact checks: edge cases from docs/TESTING.md', () => {
+  it('disclosure: #ad mid-sentence counts; #adorable does not', () => {
+    expect(checkDisclosure('Loving this #ad serum', brief).passed).toBe(true);
+    expect(checkDisclosure('So #adorable', brief).passed).toBe(false);
+    expect(checkDisclosure('so good #adlife', brief).passed).toBe(false);
+  });
+
+  it('length: exactly at the limit passes, one over fails, emoji count as one character', () => {
+    expect(checkLength('x'.repeat(500), brief).passed).toBe(true);
+    expect(checkLength('x'.repeat(501), brief)).toMatchObject({ passed: false, reason: '501 characters; the limit is 500. Cut 1.' });
+    expect(checkLength('🫶'.repeat(500), brief).passed).toBe(true);
+  });
+
+  it('keyword: the creator code as a whole word, any case', () => {
+    expect(checkKeyword('#ad Comment NURSE20 and I will DM you', nurse).passed).toBe(true);
+    expect(checkKeyword('#ad comment nurse20!', nurse).passed).toBe(true);
+    expect(checkKeyword('#ad Comment NURSE200', nurse).passed).toBe(false);
+    expect(checkKeyword('#ad Comment SERUM', nurse).passed).toBe(false);
+  });
+
+  it('banned claims: exact phrase in any case or spacing, and returns the phrase', () => {
+    expect(checkBannedExact('It CURES   acne', brief)).toMatchObject({ passed: false, phrase: 'CURES   acne' });
+    expect(checkBannedExact('Clinically Proven formula', brief).passed).toBe(false);
+    expect(checkBannedExact('My breakouts cleared up', brief).passed).toBe(true); // paraphrase: the model's job
+    expect(checkBannedExact('it secures acne-prone skin', brief).passed).toBe(true); // not a whole-word match
+  });
+
+  it('runs every exact check on a DM and caption together', () => {
+    const failed = exactChecks(
+      { dm: 'This cures acne: https://fernway.example.com/serum', captionCta: 'Comment SERUM', code: 'NURSE20' },
+      brief,
+    )
+      .filter((c) => !c.passed)
+      .map((c) => c.name);
+    expect(failed).toEqual(['disclosure', 'link', 'banned_claim', 'disclosure', 'keyword']);
+    expect(captionChecks('#ad Comment NURSE20', 'NURSE20', brief).every((c) => c.passed)).toBe(true);
   });
 });
