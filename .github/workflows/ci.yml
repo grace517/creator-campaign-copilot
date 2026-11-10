@@ -20,6 +20,17 @@ jobs:
         run: npm run typecheck
       - name: Unit tests
         run: npm test
+      - name: End-to-end and accessibility tests
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+      - name: Upload the Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
       - name: Evals
         # Exact checks always run. The model's claim judgment runs only when the ANTHROPIC_API_KEY repository
         # secret is set (about 10 short calls per run); without it those cases are reported as "not run".

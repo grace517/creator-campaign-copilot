@@ -13,6 +13,7 @@
     "typecheck": "tsc -b",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "playwright test",
     "evals": "tsx scripts/run-evals.ts",
     "generate-cache": "tsx scripts/generate-cache.ts",
     "generate-nudges": "tsx scripts/generate-nudges.ts"
@@ -26,6 +27,8 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.0",
     "@types/node": "^26.6.6",
     "@types/papaparse": "^5.5.2",
     "@types/react": "^19.3.0",
