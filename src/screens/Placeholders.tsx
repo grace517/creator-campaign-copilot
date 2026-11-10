@@ -28,17 +28,6 @@ export function ScreenHead({ eyebrow, title, sub, action }: { eyebrow?: string; 
   );
 }
 
-export function DraftsScreen() {
-  return (
-    <>
-      <ScreenHead
-        title="Review drafts"
-        sub="Creators edit their starter DM in their own words. Every version is re-checked before you approve it."
-      />
-      <Placeholder pr="feat/05-drafts">One card per creator with their DM, stage, voice line, and checks.</Placeholder>
-    </>
-  );
-}
 
 export function StatusScreen() {
   const [, m, d] = demoState.status_snapshot.today.split('-').map(Number);
