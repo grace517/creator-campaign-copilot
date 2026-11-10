@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo, useState, type ReactNode } from 'react';
-import { NO_ACTIONS, type BrandActions } from '../lib/drafts';
+import { NO_ACTIONS, type BrandActions, type MessageRuling } from '../lib/drafts';
 
 /** The brand's actions on Drafts, held in memory (no database in v1). */
 interface DraftsState {
@@ -8,7 +8,9 @@ interface DraftsState {
   remind: (handles: string[]) => void;
   sendBack: (handle: string, fix: string) => void;
   edit: (handle: string, text: string) => void;
-  markOk: (message: string) => void;
+  /** A person's ruling that clears "Needs a person" on this message and teaches later claim checks. */
+  rule: (message: string, ruling: MessageRuling) => void;
+  unrule: (message: string) => void;
 }
 
 const DraftsContext = createContext<DraftsState | null>(null);
@@ -35,7 +37,16 @@ export function DraftsProvider({ children }: { children: ReactNode }) {
           approved.delete(h); // an edited message needs approving again
           return { ...a, approved, edits: new Map(a.edits).set(h, text) };
         }),
-      markOk: (m) => setActions((a) => ({ ...a, markedOk: add(a.markedOk, [m]) })),
+      rule: (m, r) => setActions((a) => ({ ...a, rulings: new Map(a.rulings).set(m, r) })),
+      unrule: (m) =>
+        setActions((a) => {
+          const rulings = new Map(a.rulings);
+          rulings.delete(m);
+          const approved = new Set(a.approved);
+          const handle = a.rulings.get(m)?.handle;
+          if (handle) approved.delete(handle); // undoing the ruling un-approves what it allowed
+          return { ...a, rulings, approved };
+        }),
     };
   }, [actions]);
   return <DraftsContext.Provider value={value}>{children}</DraftsContext.Provider>;

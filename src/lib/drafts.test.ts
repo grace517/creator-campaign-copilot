@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { brief, cachedJudgments, cachedStarters, demoState, roster } from '../data';
-import { NO_ACTIONS, buildRows, counts, sortRows, voiceText, type BrandActions } from './drafts';
+import { NO_ACTIONS, buildRows, counts, learnedRulings, sortRows, voiceText, type BrandActions } from './drafts';
 
 const picks = new Set(demoState.drafts_snapshot.map((d) => d.handle));
 const judgments = new Map(cachedJudgments.judgments.map(({ message, ...j }) => [message, j]));
@@ -68,7 +68,7 @@ describe('brand actions', () => {
     const text = '#ad Fragrance-free. 20% off your first order: https://fernway.example.com/serum?code=NURSE20';
     const edited = { ...NO_ACTIONS, edits: new Map([['@theskinnurse', text]]) };
     expect(row('@theskinnurse', edited)).toMatchObject({ message: text, status: 'needs_person', judgmentMissing: true });
-    expect(row('@theskinnurse', { ...edited, markedOk: new Set([text]) }).status).toBe('passing');
+    expect(row('@theskinnurse', { ...edited, rulings: new Map([[text, { handle: '@theskinnurse', phrases: [], ruling: 'audience' as const }]]) }).status).toBe('passing');
     const broken = { ...NO_ACTIONS, edits: new Map([['@theskinnurse', 'It cures acne']]) };
     expect(row('@theskinnurse', broken).status).toBe('needs_fix');
   });
@@ -83,5 +83,35 @@ describe('brand actions', () => {
   it('shows a newly picked creator with no demo history as still with the creator', () => {
     const lena = rows(NO_ACTIONS, new Set([...picks, '@lena.layers'])).find((r) => r.creator.handle === '@lena.layers')!;
     expect(lena).toMatchObject({ stage: 'with_creator', status: 'with_creator' });
+  });
+});
+
+describe('a human override', () => {
+  const calm = () => row('@calm.complexion');
+  const ruled = (): BrandActions => ({
+    ...NO_ACTIONS,
+    rulings: new Map([
+      [calm().message, { handle: '@calm.complexion', phrases: calm().flagged, ruling: 'audience' as const, note: 'addressing an audience' }],
+    ]),
+  });
+
+  it('turns a blocked "Needs a person" draft green and approvable, keeping the ruling on the row', () => {
+    expect(calm()).toMatchObject({ status: 'needs_person', chip: 'Needs a person', unsure: true });
+    const after = row('@calm.complexion', ruled());
+    expect(after).toMatchObject({ status: 'passing', chip: 'Marked OK by you', unsure: false, flagged: [], reasons: [] });
+    expect(after.ruling?.ruling).toBe('audience');
+    expect(row('@calm.complexion', { ...ruled(), approved: new Set(['@calm.complexion']) }).status).toBe('approved');
+  });
+
+  it('records the ruled phrases as precedent for later claim checks, once each', () => {
+    expect(learnedRulings(ruled().rulings)).toEqual([
+      expect.objectContaining({ phrase: 'Redness-prone friends', ruling: 'audience', handle: '@calm.complexion' }),
+    ]);
+  });
+
+  it('never clears a failed check: a ruling on a failing message changes nothing', () => {
+    const sam = row('@sunlit.sam');
+    const actions = { ...NO_ACTIONS, rulings: new Map([[sam.message, { handle: '@sunlit.sam', phrases: sam.flagged, ruling: 'audience' as const }]]) };
+    expect(row('@sunlit.sam', actions).status).toBe('needs_fix');
   });
 });

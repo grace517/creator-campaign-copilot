@@ -21,7 +21,7 @@ const bodySchema = z.object({
     .array(
       z.object({
         phrase: z.string().min(1).max(300),
-        ruling: z.enum(['not_a_claim', 'approved_claim']),
+        ruling: z.enum(['audience', 'experience', 'approved_claim']),
         note: z.string().max(300).optional(),
       }),
     )

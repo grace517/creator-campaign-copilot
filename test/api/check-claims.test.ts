@@ -52,13 +52,14 @@ describe('judgeClaims', () => {
   it('sends the brand’s past rulings as precedent, quoted as data', async () => {
     const { client, calls } = fakeClient({ parsed_output: { verdict: 'pass', findings: [] } });
     await judgeClaims(
-      { ...input, rulings: [{ phrase: 'Redness-prone friends', ruling: 'not_a_claim', note: 'addressing the audience' }] },
+      { ...input, rulings: [{ phrase: 'Redness-prone friends', ruling: 'audience', note: 'addressing the audience' }] },
       client,
     );
     const content = (calls[0] as { messages: { content: string }[] }).messages[0]!.content;
-    expect(content).toContain('<brand_rulings>\n- "Redness-prone friends": not a claim (for example, addressing an audience) (their note: addressing the audience)\n</brand_rulings>');
-    expect(content).toContain('apply the same reasoning to similar wording');
-    expect(content).toContain('never make a banned claim acceptable');
+    expect(content).toContain('<brand_rulings>\n- Addressing or naming who the message is speaking to');
+    expect(content).toContain('Examples they ruled on: "Redness-prone friends" (their note: addressing the audience)\n</brand_rulings>');
+    expect(content).toContain('apply the principle to any wording it covers');
+    expect(content).toContain('A ruling never makes a banned claim acceptable');
   });
 
   it('retries once when a phrase is not copied exactly, then takes the good answer', async () => {

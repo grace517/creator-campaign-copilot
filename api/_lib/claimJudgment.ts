@@ -1,6 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk';
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod';
 import { z } from 'zod';
+import { RULING_KINDS, type Ruling, type RulingKind } from '../../src/lib/rulings.js';
+
+export type { Ruling };
 
 /**
  * Claim judgment, docs/PROMPTS.md call 2: the one judgment call in the checks. Runs after the exact checks pass,
@@ -51,18 +54,6 @@ export interface JudgmentInput {
   rulings?: Ruling[];
 }
 
-export const RULING_LABEL = {
-  not_a_claim: 'Not a claim (for example, addressing an audience)',
-  approved_claim: 'An approved claim, reworded',
-} as const;
-
-export interface Ruling {
-  /** The exact phrase the check was unsure about. */
-  phrase: string;
-  ruling: keyof typeof RULING_LABEL;
-  /** Optional words from the person who ruled. */
-  note?: string;
-}
 
 const SYSTEM = `You review direct messages that creators send to their followers in a paid skincare campaign. The brand is legally responsible for every product claim in them. Your job is the judgment call that exact phrase matching can't make.
 
@@ -87,11 +78,14 @@ function userPrompt(input: JudgmentInput): string {
   const context = basics.length ? [basics.join('\n')] : [];
   if (input.rulings?.length) {
     // Phrases came from creator messages: quoted as data, like the message itself.
-    const lines = input.rulings.map(
-      (r) => `- "${r.phrase}": ${RULING_LABEL[r.ruling].toLowerCase()}${r.note ? ` (their note: ${r.note})` : ''}`,
-    );
+    // Grouped by kind: each kind's principle is the policy, the phrases are examples the brand ruled on.
+    const kinds = [...new Set(input.rulings.map((r) => r.ruling))] as RulingKind[];
+    const policies = kinds.map((k) => {
+      const examples = input.rulings!.filter((r) => r.ruling === k).map((r) => `"${r.phrase}"${r.note ? ` (their note: ${r.note})` : ''}`);
+      return `- ${RULING_KINDS[k].principle}\n  Examples they ruled on: ${examples.join('; ')}`;
+    });
     context.push(
-      `The brand reviewed phrases you were unsure about before and ruled on them. Treat these rulings as the brand's policy: apply the same reasoning to similar wording, not only the exact phrase. They never make a banned claim acceptable.\n<brand_rulings>\n${lines.join('\n')}\n</brand_rulings>`,
+      `The brand reviewed phrases you were unsure about before. Their rulings are the brand's policy: apply the principle to any wording it covers, not only the examples. A ruling never makes a banned claim acceptable.\n<brand_rulings>\n${policies.join('\n')}\n</brand_rulings>`,
     );
   }
   return `${context.length ? `${context.join('\n\n')}\n\n` : ''}Approved claims:\n${list(input.approved_claims)}\n\nBanned claims:\n${list(input.banned_claims)}\n\n<message>\n${input.message}\n</message>`;

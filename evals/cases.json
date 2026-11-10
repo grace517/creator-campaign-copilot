@@ -171,7 +171,7 @@
       "rulings": [
         {
           "phrase": "Redness-prone friends",
-          "ruling": "not_a_claim",
+          "ruling": "audience",
           "note": "addressing an audience isn't a claim"
         }
       ],
@@ -179,16 +179,16 @@
     },
     {
       "id": 25,
-      "dm": "#ad the barrier repair serum for shift skin. fragrance-free, lightweight, layers under sunscreen. 20% off your first order, link below, you're welcome https://fernway.example.com/serum?code=BARRIER20",
+      "dm": "#ad Hey dry-skin crew, this is the serum I keep talking about. fragrance-free and made with ceramides and niacinamide. 20% off your first order: https://fernway.example.com/serum?code=BARRIER20",
       "expected_fail": [],
       "rulings": [
         {
           "phrase": "Redness-prone friends",
-          "ruling": "not_a_claim",
+          "ruling": "audience",
           "note": "addressing an audience isn't a claim"
         }
       ],
-      "note": "Generalization: the ruling names only 'Redness-prone friends', yet a similar audience callout ('for shift skin') should also pass."
+      "note": "Generalization: the ruling's example is only 'Redness-prone friends', yet a different audience address ('Hey dry-skin crew') should pass too."
     },
     {
       "id": 26,
@@ -199,7 +199,7 @@
       "rulings": [
         {
           "phrase": "Redness-prone friends",
-          "ruling": "not_a_claim",
+          "ruling": "audience",
           "note": "addressing an audience isn't a claim"
         }
       ],
@@ -214,7 +214,7 @@
       "rulings": [
         {
           "phrase": "Redness-prone friends",
-          "ruling": "not_a_claim",
+          "ruling": "audience",
           "note": "addressing an audience isn't a claim"
         }
       ],

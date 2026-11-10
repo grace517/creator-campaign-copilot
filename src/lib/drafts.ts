@@ -1,6 +1,7 @@
 import type { CachedStarters, ClaimJudgment, Creator, DemoState } from '../data/schema';
 import type { CampaignBrief } from '../state/brief';
 import { exactChecks, type Check } from './checks';
+import type { RulingKind } from './rulings';
 
 /**
  * Drafts: one row per picked creator. The starter comes from the cache (demo mode); the creator's side (stage,
@@ -19,8 +20,19 @@ export interface BrandActions {
   sentBack: ReadonlyMap<string, string>;
   /** Handle → the brand's own edit of the message. */
   edits: ReadonlyMap<string, string>;
-  /** Messages a person read and marked OK when the judgment was unsure or couldn't run. */
-  markedOk: ReadonlySet<string>;
+  /**
+   * Message → a person's ruling when the claim check was unsure or couldn't run. The phrases become precedent for
+   * later claim checks (see learnedRulings).
+   */
+  rulings: ReadonlyMap<string, MessageRuling>;
+}
+
+export interface MessageRuling {
+  handle: string;
+  /** The phrases the check was unsure about; empty when it never ran (a brand edit in demo mode). */
+  phrases: string[];
+  ruling: RulingKind;
+  note?: string;
 }
 
 export const NO_ACTIONS: BrandActions = {
@@ -28,7 +40,7 @@ export const NO_ACTIONS: BrandActions = {
   reminded: new Set(),
   sentBack: new Map(),
   edits: new Map(),
-  markedOk: new Set(),
+  rulings: new Map(),
 };
 
 export interface DraftRow {
@@ -55,6 +67,8 @@ export interface DraftRow {
   chip: string;
   sentBackFix: string | null;
   reminded: boolean;
+  /** A person's ruling that cleared "Needs a person" on this exact message. */
+  ruling: MessageRuling | null;
 }
 
 const CHECK_LABEL: Record<string, string> = {
@@ -95,7 +109,8 @@ export function buildRows(input: {
     const failedExact = checks.filter((c) => !c.passed);
     const judgment = failedExact.length === 0 ? (judgments.get(message) ?? null) : null;
     const judgmentMissing = failedExact.length === 0 && judgment === null;
-    const okByPerson = actions.markedOk.has(message);
+    const ruling = actions.rulings.get(message) ?? null;
+    const okByPerson = ruling !== null;
 
     const claimFail = judgment?.verdict === 'fail';
     const unsure = !okByPerson && (judgment?.verdict === 'unsure' || judgmentMissing);
@@ -135,9 +150,11 @@ export function buildRows(input: {
           ? `${failedLabels.join(' and ')} check${failedLabels.length > 1 ? 's' : ''} failed`
           : unsure
             ? 'Needs a person'
-            : stage === 'with_creator'
-              ? 'Starter passes all 6 checks'
-              : 'All 6 checks pass';
+            : okByPerson && (judgment?.verdict === 'unsure' || judgmentMissing)
+              ? 'Marked OK by you'
+              : stage === 'with_creator'
+                ? 'Starter passes all 6 checks'
+                : 'All 6 checks pass';
 
     return [
       {
@@ -157,6 +174,7 @@ export function buildRows(input: {
         chip,
         sentBackFix,
         reminded: actions.reminded.has(creator.handle),
+        ruling: okByPerson && (judgment?.verdict === 'unsure' || judgmentMissing) ? ruling : null,
       },
     ];
   });
@@ -189,4 +207,15 @@ export function voiceText(row: Pick<DraftRow, 'stage' | 'shareChanged' | 'creato
   const low = n < 2;
   const text = n === 0 ? 'No past DMs, voice from captions, low confidence' : `Voice from ${n} past DM${n === 1 ? '' : 's'}${low ? ', low confidence' : ''}`;
   return { text, low };
+}
+
+/** Every phrase a person has ruled on, deduplicated: sent with each later claim check as the brand's precedent. */
+export function learnedRulings(rulings: ReadonlyMap<string, MessageRuling>) {
+  const seen = new Map<string, { phrase: string; ruling: RulingKind; note?: string; handle: string; message: string }>();
+  for (const [message, r] of rulings) {
+    for (const phrase of r.phrases) {
+      if (!seen.has(phrase)) seen.set(phrase, { phrase, ruling: r.ruling, note: r.note, handle: r.handle, message });
+    }
+  }
+  return [...seen.values()];
 }

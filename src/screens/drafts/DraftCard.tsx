@@ -1,6 +1,7 @@
 import { useId, useState, type ReactNode } from 'react';
 import { displayUrl } from '../../lib/checks';
 import { voiceText, type DraftRow } from '../../lib/drafts';
+import { RULING_KINDS, type RulingKind } from '../../lib/rulings';
 import { useDrafts } from '../../state/DraftsContext';
 
 const STAGE: Record<DraftRow['stage'], { label: string; cls: string }> = {
@@ -32,7 +33,8 @@ function Message({ text, flagged, unsure }: { text: string; flagged: string[]; u
 }
 
 export function DraftCard({ row }: { row: DraftRow }) {
-  const { approve, remind, sendBack, edit, markOk } = useDrafts();
+  const { approve, remind, sendBack, edit, rule, unrule } = useDrafts();
+  const [ruling, setRuling] = useState(false);
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(row.message);
   const editId = useId();
@@ -99,6 +101,35 @@ export function DraftCard({ row }: { row: DraftRow }) {
             {row.reasons.join(' ')}
           </div>
         )}
+        {ruling && row.status === 'needs_person' && (
+          <OverrideForm
+            phrases={row.flagged}
+            onCancel={() => setRuling(false)}
+            onSave={(kind, note) => {
+              rule(row.message, { handle: row.creator.handle, phrases: row.flagged, ruling: kind, note });
+              setRuling(false);
+            }}
+          />
+        )}
+        {row.ruling && (
+          <div className="draft__ruled" role="status">
+            <span>
+              <strong>✓ Marked OK by you</strong>
+              {row.ruling.phrases.length > 0 && (
+                <>
+                  : “{row.ruling.phrases.join('”, “')}”. {RULING_KINDS[row.ruling.ruling].label}
+                </>
+              )}
+              .{' '}
+              {row.ruling.phrases.length > 0
+                ? 'The claim check learned this and applies it to similar wording from now on.'
+                : 'You read the new wording; it wasn’t sent to the claim check.'}
+            </span>
+            <button type="button" className="btn-link" onClick={() => unrule(row.message)}>
+              Undo
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="draft__side">
@@ -124,8 +155,8 @@ export function DraftCard({ row }: { row: DraftRow }) {
               <span id={`why-${row.creator.code}`} className="sr-only">
                 Approve is blocked until the failed check is fixed or a person marks it OK.
               </span>
-              {row.status === 'needs_person' && (
-                <button type="button" className="btn-small" onClick={() => markOk(row.message)}>
+              {row.status === 'needs_person' && !ruling && (
+                <button type="button" className="btn-small" onClick={() => setRuling(true)}>
                   Mark as OK for this message
                 </button>
               )}
@@ -149,5 +180,57 @@ export function DraftCard({ row }: { row: DraftRow }) {
         </div>
       </div>
     </article>
+  );
+}
+
+/** "Why is this OK?" The answer clears this message and becomes precedent for later claim checks. */
+function OverrideForm({
+  phrases,
+  onSave,
+  onCancel,
+}: {
+  phrases: string[];
+  onSave: (kind: RulingKind, note?: string) => void;
+  onCancel: () => void;
+}) {
+  const [kind, setKind] = useState<RulingKind>('audience');
+  const [note, setNote] = useState('');
+  const name = useId();
+  return (
+    <form
+      className="override"
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSave(kind, note.trim() || undefined);
+      }}
+    >
+      <fieldset>
+        <legend>
+          Why is {phrases.length ? `“${phrases.join('”, “')}”` : 'this wording'} OK?
+        </legend>
+        {(Object.keys(RULING_KINDS) as RulingKind[]).map((k) => (
+          <label key={k} className="override__option">
+            <input type="radio" name={name} value={k} checked={kind === k} onChange={() => setKind(k)} />
+            {RULING_KINDS[k].label}
+          </label>
+        ))}
+        <label className="override__note">
+          Note for your team (optional)
+          <input type="text" value={note} maxLength={300} onChange={(e) => setNote(e.target.value)} />
+        </label>
+      </fieldset>
+      <p className="sub">
+        This clears the message for approval and is sent as your brand’s precedent with every later claim check, so
+        the check treats similar wording the same way. A ruling never makes a banned claim acceptable.
+      </p>
+      <div className="draft__actions">
+        <button type="submit" className="btn-small btn-small--primary">
+          Mark OK and teach the check
+        </button>
+        <button type="button" className="btn-small" onClick={onCancel}>
+          Cancel
+        </button>
+      </div>
+    </form>
   );
 }
