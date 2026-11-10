@@ -2,6 +2,19 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: States are previewed with a "Sample state" picker; phone screens lead with what a brand checks
+
+**Decision:**
+- **Sample state picker:** the sample campaign never reaches its empty, loading, and error states on its own, so Roster, Drafts, Status, and Readout each have a "Sample state" picker (also `?state=` in the URL, so a state can be linked to and tested). "As designed" is the default. The logic behind each state is real; only what triggers it is a preview.
+- **First campaign:** every creator shows "new", the roster sorts by fee, and the new-creator limit is lifted, since everyone is new.
+- **Writing starters:** starters are written one at a time with one automatic retry, and rows fill in as each finishes. In demo mode the text comes from the cache after a short wait. A starter the brand writes itself runs the same exact checks, and **Send to creators** stays blocked until every starter passes.
+- **Account disconnects:** **Send reconnect link** only. The design's **Call creator** is left out: the sample data has no phone numbers. The time and the 212 waiting comments are illustrative, as in the design.
+- **Early results:** shown as of Dec 13, when 5 of 8 posts have run 7 days. "So far" is computed from the data ($69 CPA, not the design's illustrative $44), and the verdict, pools, and table wait until the last post settles on Dec 18.
+- **Phone:** the stepper becomes "Step N of 5", and the menu lists the campaign's five steps so a phone can still move between them. Readout on a phone shows the verdict, CPA by creator, and pools; the table, funnel, and custom pools point to desktop.
+
+**Why:** States have to be seen to be reviewed and tested, without changing the designed demo. A brand checks status and results on a phone, so those screens lead with what to act on.
+**Would change if:** live AI (feat/10) makes the writing and failure states reachable for real, in which case the Drafts previews can go.
+
 ## 2026-11-10: Sign-ups replace cost per lead as the secondary goal; empty pools are hidden
 
 **Decision:**

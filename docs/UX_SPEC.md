@@ -120,3 +120,4 @@ Status and readout are the screens a brand checks on a phone; brief, roster, and
 - **Drafts, a model call fails:** one automatic retry, then "Couldn't write a starter" with **Try again** and **Write it yourself**. Other rows aren't affected.
 - **Status, an account disconnects mid-campaign:** pinned above everything until fixed. Says what stopped (DMs), what's still working (comments), how many people are waiting, and the 24-hour window to reply. **Send reconnect link**.
 - **Readout, results still coming in:** labeled "Early results" with how many posts have run 7 days. Pools aren't set until the last post reaches 7 days.
+- **Seeing these in the prototype:** the sample campaign never reaches these states on its own, so each of these screens has a "Sample state" picker (or `?state=` in the URL: `first-campaign`, `writing`, `failed`, `disconnected`, `early`).
