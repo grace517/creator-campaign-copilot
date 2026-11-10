@@ -21,5 +21,8 @@ jobs:
       - name: Unit tests
         run: npm test
       - name: Evals
-        # The eval runner arrives in feat/04-checks; this step runs once package.json defines it.
-        run: npm run evals --if-present
+        # Exact checks always run. The model's claim judgment runs only when the ANTHROPIC_API_KEY repository
+        # secret is set (about 10 short calls per run); without it those cases are reported as "not run".
+        run: npm run evals
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
