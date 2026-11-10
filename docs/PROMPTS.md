@@ -35,7 +35,7 @@ The code checks run on the output before anyone sees it. A starter that fails a 
 
 **When:** after the exact checks pass, on every starter and every creator edit.
 
-**Input:** the message; approved and banned claims from the brief.
+**Input:** the message; approved and banned claims from the brief; the product name and offer, so neither is mistaken for a claim (without the name, the model flagged "the barrier repair serum" as an unapproved claim).
 
 **Output:**
 ```json
@@ -54,7 +54,7 @@ The code checks run on the output before anyone sees it. A starter that fails a 
 ```
 
 **Rules:**
-- A product claim is anything about what the product does, contains, or is proven to do. Offers, prices, and personal routine ("I use it every night") are not claims.
+- A product claim is anything about what the product does, contains, or is proven to do. The product name, offers, prices, and personal routine ("I use it every night") are not claims.
 - `phrase` must be copied exactly from the message, so the app can highlight it.
 - When in doubt between fail and pass, return `unsure`. The app shows "Needs a person" and blocks approval, the same as a fail.
 

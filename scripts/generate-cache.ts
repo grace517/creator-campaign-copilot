@@ -80,7 +80,7 @@ const judgments = [];
 for (const [message, code] of messages) {
   if (exactChecks({ dm: message, code }, brief).some((c) => !c.passed)) continue;
   const j = await judgeClaims(
-    { message, approved_claims: brief.approved_claims, banned_claims: brief.banned_claims },
+    { message, approved_claims: brief.approved_claims, banned_claims: brief.banned_claims, product: brief.product, offer: brief.offer },
     client,
   );
   console.log(`judgment ${j.verdict}: ${message.slice(0, 70)}…${j.findings.map((f) => `\n  "${f.phrase}" ${f.type}`).join('')}`);

@@ -57,7 +57,10 @@ for (const c of evals.cases) {
   let modelNote: string | undefined;
   // docs/PROMPTS.md: the claim judgment runs after the exact checks pass.
   if (client && actual.length === 0) {
-    const j = await judgeClaims({ message: c.dm, approved_claims: brief.approved_claims, banned_claims: brief.banned_claims }, client);
+    const j = await judgeClaims(
+      { message: c.dm, approved_claims: brief.approved_claims, banned_claims: brief.banned_claims, product: brief.product, offer: brief.offer },
+      client,
+    );
     modelRan = true;
     if (j.verdict !== 'pass') {
       const types = new Set(j.findings.map((f) => (f.type === 'banned_paraphrase' ? 'banned_claim' : 'unapproved_claim')));

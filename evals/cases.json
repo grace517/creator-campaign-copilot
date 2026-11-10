@@ -151,6 +151,18 @@
         "link"
       ],
       "note": "Another creator's code"
+    },
+    {
+      "id": 22,
+      "dm": "#ad ok you asked so here it is 🫶 the barrier repair serum from today's video. fragrance-free, made with ceramides and niacinamide, and it layers under sunscreen. 20% off your first order here https://fernway.example.com/serum?code=BARRIER20",
+      "expected_fail": [],
+      "note": "Product name in lower case is not a claim. A real starter the claim judgment wrongly marked unsure (2026-11-10)."
+    },
+    {
+      "id": 23,
+      "dm": "#ad here's the barrier repair serum from my night routine ❄️ it's fragrance-free and made with ceramides and niacinamide. 20% off your first order here: https://fernway.example.com/serum?code=BARRIER20",
+      "expected_fail": [],
+      "note": "Product name plus personal routine; no claims beyond approved ones. A real starter the claim judgment wrongly marked unsure (2026-11-10)."
     }
   ],
   "caption_cases": [

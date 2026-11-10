@@ -41,6 +41,14 @@ describe('judgeClaims', () => {
     expect(params.messages[0]!.content).toContain(`<message>\n${input.message}\n</message>`);
   });
 
+  it('tells the model the product name and offer are not claims', async () => {
+    const { client, calls } = fakeClient({ parsed_output: { verdict: 'pass', findings: [] } });
+    await judgeClaims({ ...input, product: 'Barrier Repair Serum', offer: '20% off your first order' }, client);
+    const params = calls[0] as { system: string; messages: { content: string }[] };
+    expect(params.messages[0]!.content).toMatch(/^Product name \(in any case; naming the product is not a claim\): Barrier Repair Serum\nOffer \(not a claim\): 20% off/);
+    expect(params.system).toContain("The product's name");
+  });
+
   it('retries once when a phrase is not copied exactly, then takes the good answer', async () => {
     const { client, calls } = fakeClient(
       { parsed_output: { verdict: 'fail', findings: [finding('my breakouts cleared')] } }, // wrong case
