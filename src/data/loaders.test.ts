@@ -30,7 +30,7 @@ describe('data loaders', () => {
   it('parses brief.json', () => {
     expect(brief.product).toBe('Barrier Repair Serum');
     expect(brief.paid_social_cpa_benchmark_usd).toBe(65);
-    expect(brief.secondary_goal).toEqual({ metric: 'cpl_usd', target: 4 });
+    expect(brief.secondary_goal).toEqual({ metric: 'email_sms_signups', target: null });
     expect(brief).not.toHaveProperty('_note');
   });
 
@@ -58,7 +58,7 @@ describe('data loaders', () => {
   it('parses pools.json', () => {
     expect(poolsConfig.order.map((p) => p.id)).toEqual([
       'converters',
-      'lead_builders',
+      'list_builders',
       'reach',
       'test_again',
       'dont_rebook',

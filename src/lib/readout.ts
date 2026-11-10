@@ -16,13 +16,14 @@ export interface CreatorResult {
   creator: Creator;
   result: Result;
   cpa: number | null;
-  cpl: number | null;
+  /** Cost per email or SMS sign-up. */
+  cps: number | null;
   cpm: number | null;
-  standing: Record<'cpa' | 'cpl' | 'cpm', Standing | null>;
+  standing: Record<'cpa' | 'cps' | 'cpm', Standing | null>;
   /** A default pool id, or a custom pool's id. */
   pool: string;
   /** The metric that placed the creator in their pool: outlined in the table. */
-  decidedBy: 'cpa' | 'cpl' | 'cpm' | 'custom';
+  decidedBy: 'cpa' | 'cps' | 'cpm' | 'custom';
 }
 
 /** A brand's own pool (docs/UX_SPEC.md: custom pools). Same beat rule as the defaults. */
@@ -32,11 +33,10 @@ export interface CustomPool {
   metric: CustomMetric;
   target: number;
   /** Checked first, or right after this default pool. */
-  after: 'first' | 'converters' | 'lead_builders' | 'reach';
+  after: 'first' | 'converters' | 'list_builders' | 'reach';
 }
 
 export const CUSTOM_METRICS = {
-  cost_per_signup: { label: 'Cost per email or SMS sign-up', lowerIsBetter: true, unit: 'usd' },
   dm_to_purchase: { label: 'DM-to-purchase rate', lowerIsBetter: false, unit: 'pct' },
   engagement: { label: 'Engagement rate (comments per impression)', lowerIsBetter: false, unit: 'pct' },
 } as const;
@@ -44,10 +44,8 @@ export type CustomMetric = keyof typeof CUSTOM_METRICS;
 
 const ratio = (a: number, b: number) => (b === 0 ? null : a / b);
 
-export function customValue(metric: CustomMetric, r: Result, c: Creator): number | null {
+export function customValue(metric: CustomMetric, r: Result, _creator: Creator): number | null {
   switch (metric) {
-    case 'cost_per_signup':
-      return ratio(c.fee_usd, r.email_sms_signups);
     case 'dm_to_purchase':
       return ratio(r.purchases, r.dms_sent);
     case 'engagement':
@@ -61,14 +59,14 @@ export function customBeats(metric: CustomMetric, value: number | null, target: 
   return CUSTOM_METRICS[metric].lowerIsBetter ? value <= target * 0.9 : value >= target * 1.1;
 }
 
-const DEFAULT_ORDER: { id: PoolId; metric: 'cpa' | 'cpl' | 'cpm' }[] = [
+const DEFAULT_ORDER: { id: PoolId; metric: 'cpa' | 'cps' | 'cpm' }[] = [
   { id: 'converters', metric: 'cpa' },
-  { id: 'lead_builders', metric: 'cpl' },
+  { id: 'list_builders', metric: 'cps' },
   { id: 'reach', metric: 'cpm' },
 ];
 
 /** The order pools are checked in, with custom pools inserted where the brand put them. */
-export function poolOrder(custom: CustomPool[]): ({ kind: 'default'; id: PoolId; metric: 'cpa' | 'cpl' | 'cpm' } | { kind: 'custom'; pool: CustomPool })[] {
+export function poolOrder(custom: CustomPool[]): ({ kind: 'default'; id: PoolId; metric: 'cpa' | 'cps' | 'cpm' } | { kind: 'custom'; pool: CustomPool })[] {
   const order: ReturnType<typeof poolOrder> = [];
   for (const c of custom.filter((p) => p.after === 'first')) order.push({ kind: 'custom', pool: c });
   for (const d of DEFAULT_ORDER) {
@@ -92,7 +90,7 @@ export function computeResults(
     const m = creatorMetrics(result, creator);
     const s = {
       cpa: standing(m.cpa_usd, targets.cpa_usd),
-      cpl: standing(m.cpl_usd, targets.cpl_usd),
+      cps: standing(m.cps_usd, targets.cps_usd),
       cpm: standing(m.cpm_usd, targets.cpm_usd),
     };
     let pool: string | null = null;
@@ -110,7 +108,7 @@ export function computeResults(
       }
     }
     if (!pool) pool = creator.past_campaigns === 0 ? 'test_again' : 'dont_rebook';
-    return { creator, result, cpa: m.cpa_usd, cpl: m.cpl_usd, cpm: m.cpm_usd, standing: s, pool, decidedBy };
+    return { creator, result, cpa: m.cpa_usd, cps: m.cps_usd, cpm: m.cpm_usd, standing: s, pool, decidedBy };
   });
   return { rows, targets };
 }
@@ -168,7 +166,14 @@ const money = (n: number, decimals = 0) =>
   `$${n.toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals })}`;
 
 /** Each pool card's one stat, same format on every card: the value that placed them, against its target. */
-export function poolStat(pool: string, members: CreatorResult[], targets: Targets, custom: CustomPool[] = []): string {
+export function poolStat(
+  pool: string,
+  members: CreatorResult[],
+  targets: Targets,
+  custom: CustomPool[] = [],
+  /** Whether the sign-up target is the brand's goal (true) or the campaign average. */
+  cpsIsGoal = false,
+): string {
   if (members.length === 0) return 'No creators this campaign';
   const f = fees(members);
   const r = (k: keyof Result) => sum(members, (m) => m.result[k] as number);
@@ -177,9 +182,10 @@ export function poolStat(pool: string, members: CreatorResult[], targets: Target
       const cpa = f / r('purchases');
       return `${money(cpa)} CPA, ${pctOff(cpa, targets.cpa_usd)}% under the ${money(targets.cpa_usd)} goal`;
     }
-    case 'lead_builders': {
-      const cpl = f / r('dms_sent');
-      return `${money(cpl, 2)} per lead, ${pctOff(cpl, targets.cpl_usd)}% under the ${money(targets.cpl_usd, 2)} goal`;
+    case 'list_builders': {
+      const cps = f / r('email_sms_signups');
+      const against = cpsIsGoal ? `the ${money(targets.cps_usd, 2)} goal` : 'average';
+      return `${money(cps, 2)} per sign-up, ${pctOff(cps, targets.cps_usd)}% under ${against}`;
     }
     case 'reach': {
       const cpm = (f / r('impressions')) * 1000;
@@ -188,7 +194,7 @@ export function poolStat(pool: string, members: CreatorResult[], targets: Target
     case 'test_again':
     case 'dont_rebook': {
       const cpa = f / r('purchases');
-      const missedAll = members.every((m) => m.standing.cpa === 'missed' && m.standing.cpl === 'missed' && m.standing.cpm === 'missed');
+      const missedAll = members.every((m) => m.standing.cpa === 'missed' && m.standing.cps === 'missed' && m.standing.cpm === 'missed');
       const tail = pool === 'test_again' ? 'first campaign' : missedAll ? 'missed all three' : 'beat none of the three';
       return `${money(cpa)} CPA, ${pctOff(cpa, targets.cpa_usd)}% ${cpa > targets.cpa_usd ? 'over' : 'under'} goal, ${tail}`;
     }
@@ -200,15 +206,16 @@ export function poolStat(pool: string, members: CreatorResult[], targets: Target
   }
 }
 
-function formatCustom(metric: CustomMetric, v: number): string {
-  return CUSTOM_METRICS[metric].unit === 'usd' ? `${money(v, 2)}` : `${(v * 100).toFixed(1)}%`;
+/** Custom metrics are rates: 0.083 → "8.3%". */
+function formatCustom(_metric: CustomMetric, v: number): string {
+  return `${(v * 100).toFixed(1)}%`;
 }
 
 function customPreviewValue(cp: CustomPool, members: CreatorResult[]): string {
   const vals = members.map((m) => customValue(cp.metric, m.result, m.creator)).filter((v): v is number => v !== null);
   if (!vals.length) return '';
   const avg = vals.reduce((a, b) => a + b, 0) / vals.length;
-  return `${formatCustom(cp.metric, avg)} ${cp.metric === 'cost_per_signup' ? 'per sign-up' : CUSTOM_METRICS[cp.metric].label.toLowerCase()}, target ${formatCustom(cp.metric, cp.target)}`;
+  return `${formatCustom(cp.metric, avg)} ${CUSTOM_METRICS[cp.metric].label.toLowerCase()}, target ${formatCustom(cp.metric, cp.target)}`;
 }
 
 export interface FunnelStep {

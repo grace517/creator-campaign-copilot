@@ -2,6 +2,18 @@
 
 Newest first. Each entry: what I decided, why, and what would change my mind.
 
+## 2026-11-10: Sign-ups replace cost per lead as the secondary goal; empty pools are hidden
+
+**Decision:**
+- **Secondary goal:** email and SMS sign-ups is the default, with an optional target cost per sign-up. With no target, each creator is compared with the campaign average ($14.66 in the sample). Reach is the other option. Cost per lead is no longer a goal or a pool rule.
+- **Pool:** Lead builders becomes List builders: creators who beat the cost-per-sign-up target (and not CPA).
+- **Leads stay as a diagnostic:** in the Funnel view and the roster's past CPL, to show where a creator's DMs stall.
+- **Empty pools are hidden:** no card, legend entry, or filter option. One muted line under the cards names them, with Remove on custom pools.
+- **Sample data:** with no sign-up target, List builders is empty, so it's hidden. Setting a $17 target puts @budgetbeautyb in it.
+
+**Why:** Product call. A lead is a follower who commented the keyword. The DM thread lives on the creator's account, so the brand can't reach that person again unless they buy or sign up. A sign-up joins the brand's own list, which it can market to on every future launch. Empty pool cards were noise.
+**Would change if:** brands can reach commenters directly (for example, through their own account or an ad audience), or testers miss a pool they expected to see.
+
 ## 2026-11-10: Pool rules move into a tooltip; the custom pool form drops its preview
 
 **Decision:**
@@ -160,7 +172,7 @@ Newest first. Each entry: what I decided, why, and what would change my mind.
 
 ## 2026-11-09: The brief sets an optional secondary goal
 
-**Decision:** Beside the paid social CAC benchmark, the brand can pick one secondary goal with a target: cost per lead, email and SMS sign-ups, or reach.
+**Decision:** Beside the paid social CAC benchmark, the brand can pick one secondary goal with a target: cost per lead, email and SMS sign-ups, or reach. (Superseded 2026-11-10: sign-ups or reach; cost per lead dropped.)
 **Why:** CAC still decides, but a creator who misses it can be worth keeping for something else, like cheap leads. Without a stated secondary goal, the readout can only say "close to the line."
 **Would change if:** brands rarely set one, or set several, in which case the readout should show all three against campaign averages instead.
 
@@ -188,7 +200,7 @@ Newest first. Each entry: what I decided, why, and what would change my mind.
 **Why:** Followers should hear the creator, not the brand, so the creator owns the final words. That only works if most creators start from the suggestion, and if their edits can't slip a banned claim or a broken link past the brand. Past DMs are the closest proxy for DM voice; how much a creator rewrites is a running check on whether the starter sounded like them.
 **Would change if:** creators mostly ignore the starter and write from scratch, in which case the brief's preview space should show the rules instead of sample copy.
 
-## 2026-11-09: CAC decides rebooking; CPL is secondary
+## 2026-11-09: CAC decides rebooking; CPL is secondary (CPL superseded 2026-11-10 by sign-ups)
 
 **Decision:** Customer acquisition cost (CAC, cost per customer who purchases) is the deciding metric, compared against the brand's paid social CAC. Cost per lead (CPL, cost per person who comments the keyword and gets the DM) and email or SMS sign-ups are secondary.
 **Why:** A D2C brand weighs creators against its other acquisition channels, and paid social is the usual comparison. Reach and engagement explain results but don't pay back the fee.

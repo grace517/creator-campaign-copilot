@@ -15,7 +15,7 @@ import {
 
 const { rows, targets } = computeResults(brief, results, roster);
 const inPool = (p: string) => rows.filter((r) => r.pool === p);
-const signUps: CustomPool = { id: 'custom-signups', name: 'Sign-up drivers', metric: 'cost_per_signup', target: 10, after: 'converters' };
+const closers: CustomPool = { id: 'custom-closers', name: 'Strong closers', metric: 'dm_to_purchase', target: 0.07, after: 'converters' };
 
 describe('readout on the sample data', () => {
   it('assigns the same pools as pools.ts, matching expected_sample_result', () => {
@@ -41,15 +41,16 @@ describe('readout on the sample data', () => {
 
   it('writes each pool card’s stat as in the design', () => {
     expect(poolStat('converters', inPool('converters'), targets)).toBe('$42 CPA, 36% under the $65 goal');
-    expect(poolStat('lead_builders', inPool('lead_builders'), targets)).toBe('$3.54 per lead, 12% under the $4.00 goal');
+    // No one beats the average cost per sign-up without also beating CPA, so List builders is empty here.
+    expect(poolStat('list_builders', inPool('list_builders'), targets)).toBe('No creators this campaign');
     expect(poolStat('reach', inPool('reach'), targets)).toBe('$12.58 per 1,000 impressions, 28% under average');
-    expect(poolStat('test_again', inPool('test_again'), targets)).toBe('$74 CPA, 13% over goal, first campaign');
+    expect(poolStat('test_again', inPool('test_again'), targets)).toBe('$71 CPA, 9% over goal, first campaign');
     expect(poolStat('dont_rebook', inPool('dont_rebook'), targets)).toBe('$119 CPA, 83% over goal, missed all three');
   });
 
   it('marks the metric that placed each creator, for the outlined cell', () => {
     const decided = Object.fromEntries(rows.map((r) => [r.creator.handle, r.decidedBy]));
-    expect(decided).toMatchObject({ '@theskinnurse': 'cpa', '@budgetbeautyb': 'cpl', '@sunlit.sam': 'cpm', '@marco.minimal': 'cpa' });
+    expect(decided).toMatchObject({ '@theskinnurse': 'cpa', '@budgetbeautyb': 'cpa', '@sunlit.sam': 'cpm', '@marco.minimal': 'cpa' });
   });
 });
 
@@ -67,19 +68,19 @@ describe('custom pools', () => {
       .rows.filter((r) => r.pool === pool.id)
       .map((r) => r.creator.handle);
 
-  it('stays empty when its only qualifier is placed earlier: @theskinnurse ($7.89 per sign-up) is a Converter', () => {
-    expect(membersOf(signUps)).toEqual([]);
+  it('stays empty when its only qualifier is placed earlier: @calm.complexion (8.3% DM to purchase) is a Converter', () => {
+    expect(membersOf(closers)).toEqual([]);
   });
 
   it('takes creators when checked first, before Converters', () => {
-    expect(membersOf({ ...signUps, after: 'first' })).toEqual(['@theskinnurse']);
-    const { rows: withFirst } = computeResults(brief, results, roster, [{ ...signUps, after: 'first' }]);
-    expect(withFirst.find((r) => r.creator.handle === '@theskinnurse')).toMatchObject({ pool: 'custom-signups', decidedBy: 'custom' });
+    expect(membersOf({ ...closers, after: 'first' })).toEqual(['@calm.complexion']);
+    const { rows: withFirst } = computeResults(brief, results, roster, [{ ...closers, after: 'first' }]);
+    expect(withFirst.find((r) => r.creator.handle === '@calm.complexion')).toMatchObject({ pool: 'custom-closers', decidedBy: 'custom' });
   });
 
   it('treats higher-is-better metrics the right way round', () => {
-    // DM-to-purchase: @calm.complexion 33/398 = 8.3%; beats a 7% target only at 7.7% or more.
-    expect(membersOf({ ...signUps, metric: 'dm_to_purchase', target: 0.07, after: 'first' })).toContain('@calm.complexion');
+    // Higher is better: @theskinnurse (7.6%) is within 10% of a 7% target, so at par, not beat.
+    expect(membersOf({ ...closers, after: 'first' })).not.toContain('@theskinnurse');
   });
 });
 

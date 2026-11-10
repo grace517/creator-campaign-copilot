@@ -10,18 +10,18 @@
       "source": "brief.paid_social_cpa_benchmark_usd",
       "label": "Primary goal"
     },
-    "cpl_usd": {
-      "source": "brief.secondary_goal.target when secondary_goal.metric is cpl_usd, else campaign average",
+    "cps_usd": {
+      "source": "brief.secondary_goal.target when secondary_goal.metric is email_sms_signups and a target is set, else campaign average (total fees / total sign-ups)",
       "label": "Secondary goal"
     },
     "cpm_usd": {
-      "source": "campaign average (total fees / total impressions * 1000) unless the brief sets a reach goal",
+      "source": "campaign average (total fees / total impressions * 1000)",
       "label": "Reach"
     }
   },
   "metrics": {
     "cpa_usd": "fee_usd / purchases",
-    "cpl_usd": "fee_usd / dms_sent",
+    "cps_usd": "fee_usd / email_sms_signups",
     "cpm_usd": "fee_usd / impressions * 1000"
   },
   "order": [
@@ -32,9 +32,9 @@
       "use_next_for": "Launches and sales pushes, where CPA decides."
     },
     {
-      "id": "lead_builders",
-      "name": "Lead builders",
-      "rule": "cpl_usd is beat",
+      "id": "list_builders",
+      "name": "List builders",
+      "rule": "cps_usd is beat",
       "use_next_for": "List growth: waitlists, drops, sign-up offers."
     },
     {
@@ -64,13 +64,12 @@
       "@calm.complexion",
       "@nightshift.nia"
     ],
-    "lead_builders": [
-      "@budgetbeautyb"
-    ],
+    "list_builders": [],
     "reach": [
       "@sunlit.sam"
     ],
     "test_again": [
+      "@budgetbeautyb",
       "@glow.with.gia"
     ],
     "dont_rebook": [

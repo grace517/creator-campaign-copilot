@@ -31,8 +31,8 @@
   "max_new_creators": 2,
   "paid_social_cpa_benchmark_usd": 65,
   "secondary_goal": {
-    "metric": "cpl_usd",
-    "target": 4.0,
-    "_options": "cpl_usd, email_sms_signups, reach"
+    "metric": "email_sms_signups",
+    "target": null,
+    "_options": "email_sms_signups (cost per email or SMS sign-up), reach (cost per 1,000 impressions). target: dollars per sign-up, or null to use the campaign average."
   }
 }

@@ -4,7 +4,7 @@ import { z } from 'zod';
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'expected YYYY-MM-DD');
 const handle = z.string().regex(/^@[\w.]+$/, 'expected an @handle');
 
-export const secondaryGoalMetric = z.enum(['cpl_usd', 'email_sms_signups', 'reach']);
+export const secondaryGoalMetric = z.enum(['email_sms_signups', 'reach']);
 
 export const briefSchema = z.object({
   campaign_name: z.string().min(1),
@@ -23,7 +23,8 @@ export const briefSchema = z.object({
   campaign_budget_usd: z.number().positive(),
   max_new_creators: z.number().int().nonnegative(),
   paid_social_cpa_benchmark_usd: z.number().positive(),
-  secondary_goal: z.object({ metric: secondaryGoalMetric, target: z.number().positive() }),
+  /** target null: compare with the campaign average. */
+  secondary_goal: z.object({ metric: secondaryGoalMetric, target: z.number().positive().nullable() }),
 });
 export type Brief = z.infer<typeof briefSchema>;
 
@@ -64,13 +65,13 @@ export const resultSchema = z.object({
 });
 export type Result = z.infer<typeof resultSchema>;
 
-export const poolId = z.enum(['converters', 'lead_builders', 'reach', 'test_again', 'dont_rebook']);
+export const poolId = z.enum(['converters', 'list_builders', 'reach', 'test_again', 'dont_rebook']);
 export type PoolId = z.infer<typeof poolId>;
 
 export const poolsConfigSchema = z.object({
   thresholds: z.object({ beat: z.string(), at_par: z.string(), missed: z.string() }),
   targets: z.record(z.string(), z.object({ source: z.string(), label: z.string() })),
-  metrics: z.object({ cpa_usd: z.string(), cpl_usd: z.string(), cpm_usd: z.string() }),
+  metrics: z.object({ cpa_usd: z.string(), cps_usd: z.string(), cpm_usd: z.string() }),
   order: z
     .array(z.object({ id: poolId, name: z.string(), rule: z.string(), use_next_for: z.string() }))
     .length(5),

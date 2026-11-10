@@ -13,9 +13,11 @@ import { useReadout } from '../../state/ReadoutContext';
 import { poolList } from '../readout/pools';
 
 const SECONDARY: { metric: SecondaryMetric; label: (t: number | null) => string }[] = [
-  { metric: 'cpl_usd', label: (t) => `Leads: under $${(t ?? 4).toFixed(2)} per lead` },
-  { metric: 'email_sms_signups', label: () => 'Email and SMS sign-ups' },
-  { metric: 'reach', label: () => 'Reach' },
+  {
+    metric: 'email_sms_signups',
+    label: (t) => (t === null ? 'Sign-ups: cost per email or SMS sign-up vs campaign average' : `Sign-ups: under $${t.toFixed(2)} per email or SMS sign-up`),
+  },
+  { metric: 'reach', label: () => 'Reach: cost per 1,000 impressions vs campaign average' },
 ];
 
 /** Set once: every new campaign starts from these, and every check runs against them. */
@@ -94,7 +96,7 @@ export function BrandKitScreen() {
               value={kit.secondary_goal.metric}
               onChange={(e) => {
                 const metric = e.target.value as SecondaryMetric;
-                update({ secondary_goal: { metric, target: metric === 'cpl_usd' ? 4 : null } });
+                update({ secondary_goal: { metric, target: null } });
               }}
             >
               {SECONDARY.map((o) => (

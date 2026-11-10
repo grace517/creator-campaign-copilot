@@ -16,7 +16,7 @@ These are working assumptions from public sources. In a real product build, we'd
 4. **Fees are mostly fixed.** Creators are usually paid a flat fee per deliverable, sometimes plus an affiliate commission. The floor of a campaign's cost is known once contracts are signed.
 5. **The flow:** brief → creators accept → each creator connects and the automation is set → brand approves content and messages → creator posts → followers comment the keyword → DMs go out → clicks → purchases → readout → the brand sorts creators into pools for future campaigns.
 6. **The brand is on the hook for what's said.** Sponsored posts need a clear disclosure (such as #ad), and brands in regulated categories (skincare, supplements, finance) have claims they can and can't make. Messages go out under the creator's name, but the brand carries the risk.
-7. **Brands judge creators on cost per acquisition (CPA).** We assume the deciding metric for a D2C skincare brand is CPA from each creator (cost per purchase, from a new or returning customer), compared with CPA from paid social ads. Secondary: cost per lead (CPL), where a lead is someone who raises their hand by commenting the keyword and getting the DM; email or SMS sign-ups captured in the DM; and whether a creator's content is worth reusing as an ad. Reach and engagement help explain results but don't decide rebooking. This shapes both ends of the product: setup gives every creator a unique code, used as both their comment keyword and their checkout code, so each purchase traces to one creator whether the buyer taps the link or types the code, and the readout leads with CPA by creator.
+7. **Brands judge creators on cost per acquisition (CPA).** We assume the deciding metric for a D2C skincare brand is CPA from each creator (cost per purchase, from a new or returning customer), compared with CPA from paid social ads. Secondary: cost per email or SMS sign-up captured in the DM, since a sign-up joins the brand's own list and can be marketed to again; and whether a creator's content is worth reusing as an ad. Leads (people who comment the keyword and get the DM) stay in the funnel as a diagnostic, not a goal: the DM thread lives on the creator's account, so a lead who neither buys nor signs up is gone. Reach and engagement help explain results but don't decide rebooking. This shapes both ends of the product: setup gives every creator a unique code, used as both their comment keyword and their checkout code, so each purchase traces to one creator whether the buyer taps the link or types the code, and the readout leads with CPA by creator.
 
 ## Core problems
 
@@ -33,7 +33,7 @@ A brand manager can launch a campaign across a full creator roster in minutes, w
 
 ## What the prototype does
 
-1. **Campaign brief:** product, offer, link, approved claims, banned claims, posting window, campaign budget, the paid social CPA to beat, and an optional secondary goal (cost per lead, sign-ups, or reach).
+1. **Campaign brief:** product, offer, link, approved claims, banned claims, posting window, campaign budget, the paid social CPA to beat, and an optional secondary goal (email and SMS sign-ups, the default, or reach).
    - **Brand kit, set once:** voice, approved and banned claims, disclosure wording, and the product catalog. Every new brief starts prefilled from it, so campaigns stay on-brand without anyone retyping the rules.
    - **Start from a product link:** paste the product page and AI drafts the product, offer, and key benefits, using only approved claims. Anything on the page that isn't on the approved list gets flagged before it reaches a creator.
    - **Learn from past campaigns:** AI suggests the offer and hooks that brought in purchases at the lowest CPA last time, with the numbers behind the suggestion.
@@ -49,8 +49,8 @@ A brand manager can launch a campaign across a full creator roster in minutes, w
 4. **Checks:** disclosure present, only approved claims, correct link and keyword, and message length. Every failure shows its reason.
 5. **Approval board:** approve, send back with a fix, or remind each creator. Approve stays disabled while a check fails.
 6. **Creator status:** invited → accepted or declined → account connected → ready. Anyone not ready 3 days before their post date gets an AI-drafted nudge, and the brand can swap in a backup from the roster. The screen sums up every creator as ready, on track, waiting on a reply, or at risk.
-7. **Cost:** committed spend (the sum of contracted fees) up front, then actual CPA and CPL by creator in the readout.
-8. **Campaign readout (AI):** a verdict on whether creators beat paid social, a scatter of fee against purchases with the CPA goal line, and a pool for each creator (Converters, Lead builders, Reach, Test again, Don't rebook) by an exact rule, plus custom pools. Pools save to the brand, so the next roster starts from them. Table and Funnel views sit below for checking. Runs on clearly labeled sample results.
+7. **Cost:** committed spend (the sum of contracted fees) up front, then actual CPA and cost per sign-up by creator in the readout.
+8. **Campaign readout (AI):** a verdict on whether creators beat paid social, a scatter of fee against purchases with the CPA goal line, and a pool for each creator (Converters, List builders, Reach, Test again, Don't rebook) by an exact rule, plus custom pools. Pools save to the brand, so the next roster starts from them. Table and Funnel views sit below for checking. Runs on clearly labeled sample results.
 
 ## Success metrics (prototype targets)
 
@@ -75,5 +75,5 @@ A brand manager can launch a campaign across a full creator roster in minutes, w
 - Do brands bring a contracted roster, or would they want help recruiting within the product?
 - Who approves messages today: the brand, the agency, or the creator?
 - Who pays for the automation account: the brand, the agency, or the creator?
-- Is CPA the metric that decides rebooking, with CPL second, or is it something else?
+- Is CPA the metric that decides rebooking, with cost per sign-up second, or is it something else?
   - Do these vary by brand? To what extent?

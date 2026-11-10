@@ -7,7 +7,7 @@ Five campaign screens, one per step a brand takes (brief, roster, drafts, creato
 - **Start mostly done.** Every screen opens prefilled from the brand kit, the roster, or the last campaign. The brand edits; it rarely types from scratch.
 - **Show the result while it's still cheap to change.** The brief previews real DMs as it's edited; the roster shows the budget as creators are picked.
 - **Flag, explain, then block.** Problems surface in plain words with the cause highlighted. Only a failed check blocks an action, and the block says what fixes it.
-- **One metric decides.** CPA orders the roster and is checked first when the readout places creators in pools. CPL, engagement, and reach stay visible for context but never set the order.
+- **One metric decides.** CPA orders the roster and is checked first when the readout places creators in pools. Past CPL, sign-ups, engagement, and reach stay visible for context but never set the order.
 - **Every AI claim is checkable.** The readout's verdict and each decision tag sit next to the numbers behind them.
 
 ## Navigation
@@ -21,7 +21,7 @@ Five campaign screens, one per step a brand takes (brief, roster, drafts, creato
 **Job:** set up a campaign in minutes, on-brand by default.
 
 - Brand kit card, prefilled and labeled as such: voice, disclosure, approved claims (green chips), banned claims (red chips).
-- Campaign fields: product, offer, product link, posting window, campaign budget, main goal (paid social CPA to beat), and an optional secondary goal (cost per lead, email and SMS sign-ups, or reach) with a target. The readout uses the secondary goal to say why a creator who missed on CPA may still be worth keeping. Each creator gets a code (NURSE20) that is both their comment keyword and their checkout code; the DM link carries it so it applies at checkout (…/serum?code=NURSE20).
+- Campaign fields: product, offer, product link, posting window, campaign budget, main goal (paid social CPA to beat), and an optional secondary goal: email and SMS sign-ups (the default, with an optional target cost per sign-up) or reach (always against the campaign average). The readout uses the secondary goal to say why a creator who missed on CPA may still be worth keeping. Each creator gets a code (NURSE20) that is both their comment keyword and their checkout code; the DM link carries it so it applies at checkout (…/serum?code=NURSE20).
 - Starter DMs beside the form: the starter DM three creators will receive, written from each creator's past DMs, with disclosure, claims, and link check chips. Each shows how many past DMs its voice comes from, and flags low confidence when there are fewer than two. Updates on every edit to the brief.
 - Primary action: **Next: pick creators**.
 
@@ -67,10 +67,11 @@ The next campaign is usually a different launch, not a rerun, so the readout's o
 
 - **Verdict and scatter, always on top.** One sentence with the number that matters ("Creators beat paid social by 24%, once you take out @sunlit.sam"), a short line of facts (CPA with and without the outlier, purchases, hooks that converted with **Use in next brief**), then a scatter: fee across, purchases up, and the line where CPA equals the paid social goal. Above the line beats ads. Dots are colored by pool and labeled directly; hover shows creator, CPA, and one line. Position against a reference line is read before any text, so the outlier needs no sentence. On a phone, the scatter becomes a ranked list.
 - **Where each creator goes next: pool cards.** One card per pool: name, count, the stat that placed them against its target (same format on every card), who's in it, what to use the pool for next, **View in table**, and **Save pool**. Creator-level numbers live once, in the table below; clicking a card filters the table to that pool, the same flag-then-show pattern as the roster's warnings.
-- **Exact rules, one tap away.** In a tooltip next to "Create a custom pool", where a brand is deciding on a rule of its own. Beat: 10% or more better than the target. At par: within 10% either way. Missed: more than 10% worse. Targets come from the brief (CPA goal, secondary goal); a metric with no target uses the campaign average. A creator joins the first pool they qualify for: Converters (beat CPA), Lead builders (beat cost per lead), Reach (beat reach cost). Anyone who beats nothing goes to Test again on a first campaign with the brand, otherwise Don't rebook.
-- **Custom pools.** A brand can add its own pool: a name, a metric (for example, cost per sign-up, DM-to-purchase rate, engagement, content reused as an ad), a target, and where it's checked in the order. It's saved to the brand and applied to every future readout. Once saved, its card and table rows show who it took.
+- **Exact rules, one tap away.** In a tooltip next to "Create a custom pool", where a brand is deciding on a rule of its own. Beat: 10% or more better than the target. At par: within 10% either way. Missed: more than 10% worse. Targets come from the brief (CPA goal, secondary goal); a metric with no target uses the campaign average. A creator joins the first pool they qualify for: Converters (beat CPA), List builders (beat cost per sign-up), Reach (beat reach cost). Anyone who beats nothing goes to Test again on a first campaign with the brand, otherwise Don't rebook.
+- **Custom pools.** A brand can add its own pool: a name, a metric (for example, DM-to-purchase rate, engagement, content reused as an ad), a target, and where it's checked in the order. It's saved to the brand and applied to every future readout. Once saved, its card and table rows show who it took.
+- **Empty pools stay out of the way.** A pool with no creators this campaign gets no card, legend entry, or filter option. One muted line under the cards names them ("No creators this campaign: List builders"), so a custom pool that came out empty is still visible and removable.
 - **Hooks.** A hook is the angle a creator's post used ("nurse explains sensitive skin"). The AI tags it from each post's caption after it runs, so the readout can say which angles converted. The creator isn't asked to define one.
-- **Campaign data, below.** Views switch between Table and Funnel; filter by pool (set by clicking a pool card) and creator; group by pool. The last three columns are the goals, with the target in each header (CPA, goal $65; cost per lead, goal $4.00; per 1,000 impressions, campaign average). Each value says beat, at par, or missed, and the value that placed the creator is outlined.
+- **Campaign data, below.** Views switch between Table and Funnel; filter by pool (set by clicking a pool card) and creator; group by pool. The last three columns are the goals, with the target in each header (CPA, goal $65; cost per sign-up, goal or campaign average; per 1,000 impressions, campaign average). Each value says beat, at par, or missed, and the value that placed the creator is outlined.
 - Attribution: a purchase counts to a creator whenever their code is used, whether it came from the link or was typed at checkout. Codes that leak to coupon sites are flagged when a creator's code use far outruns their DMs.
 
 ## 6. Campaigns home
@@ -86,7 +87,7 @@ The next campaign is usually a different launch, not a rerun, so the readout's o
 **Job:** keep the roster sorted by what each creator is good for, across campaigns.
 
 - Pool tabs with counts (the five defaults, then custom pools, then **+ New pool**). Selecting one shows what the pool means, what it's for next, and **Start a campaign with these N**.
-- Table: creator, pool, niche, campaigns run, last CPA, last CPL, fee, last campaign.
+- Table: creator, pool, niche, campaigns run, last CPA, last cost per sign-up, fee, last campaign.
 - A creator's pool is their latest readout's result. History is kept and shown ("Test again in Oct → Don't rebook in Dec"). A brand can pin a creator to a pool by hand; pins are labeled.
 
 ## 8. Brand kit

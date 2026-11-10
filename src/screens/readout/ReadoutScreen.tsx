@@ -13,6 +13,7 @@ import {
   type CustomMetric,
   type CustomPool,
 } from '../../lib/readout';
+import { cpsFromGoal } from '../../lib/pools';
 import { parseUsd } from '../../state/brief';
 import { useBrief } from '../../state/BriefContext';
 import { useReadout } from '../../state/ReadoutContext';
@@ -29,6 +30,9 @@ export function ReadoutScreen() {
     [brief, readout.customPools],
   );
   const pools = poolList(readout.customPools);
+  // A pool with no creators this campaign is noise: show only pools someone landed in.
+  const shownPools = pools.filter((p) => rows.some((r) => r.pool === p.id));
+  const emptyPools = pools.filter((p) => !shownPools.includes(p));
   const v = verdict(rows, targets.cpa_usd);
   const hooks = convertingHooks(rows);
   const [poolFilter, setPoolFilter] = useState<string | null>(null);
@@ -93,7 +97,7 @@ export function ReadoutScreen() {
         <div className="verdict__foot">
           <span className="sub">Across: creator fee · Up: purchases</span>
           <span className="pool-legend">
-            {pools.map((p) => (
+            {shownPools.map((p) => (
               <span key={p.id} className={`pool--${p.tone}`}>
                 <span className="pool-dot" aria-hidden="true" />
                 {p.name}
@@ -109,7 +113,7 @@ export function ReadoutScreen() {
           <span className="sub">Click a pool to see its creators in the table below. Saved pools filter the next roster.</span>
         </div>
         <div className="pools__cards">
-          {pools.map((p) => {
+          {shownPools.map((p) => {
             const members = rows.filter((r) => r.pool === p.id).sort((a, b) => (a.cpa ?? Infinity) - (b.cpa ?? Infinity));
             const active = poolFilter === p.id;
             return (
@@ -118,7 +122,7 @@ export function ReadoutScreen() {
                   <h4>{p.name}</h4>
                   <span className="pool-card__count">{members.length}</span>
                 </div>
-                <div className="pool-card__stat">{poolStat(p.id, members, targets, readout.customPools)}</div>
+                <div className="pool-card__stat">{poolStat(p.id, members, targets, readout.customPools, cpsFromGoal(brief))}</div>
                 <div className="sub">{members.map((m) => m.creator.handle).join(', ') || 'No one this campaign'}</div>
                 <div className="sub sub--13">
                   <span className="muted">Use next for:</span> <span className="text-ink">{p.useNextFor}</span>
@@ -153,12 +157,38 @@ export function ReadoutScreen() {
             );
           })}
         </div>
+        {emptyPools.length > 0 && (
+          <p className="sub pools__empty">
+            No creators this campaign:{' '}
+            {emptyPools.map((p, i) => (
+              <span key={p.id}>
+                {i > 0 && ', '}
+                {p.name}
+                {p.custom && (
+                  <>
+                    {' '}
+                    (<button type="button" className="btn-link" onClick={() => readout.removeCustomPool(p.id)}>
+                      Remove<span className="sr-only"> {p.name}</span>
+                    </button>)
+                  </>
+                )}
+              </span>
+            ))}
+          </p>
+        )}
 
         <CustomPoolForm existing={readout.customPools} onSave={readout.addCustomPool} />
 
       </section>
 
-      <CampaignData rows={rows} targets={targets} pools={pools} poolFilter={poolFilter} onPoolFilter={setPoolFilter} />
+      <CampaignData
+        rows={rows}
+        targets={targets}
+        pools={shownPools}
+        poolFilter={poolFilter}
+        onPoolFilter={setPoolFilter}
+        cpsIsGoal={cpsFromGoal(brief)}
+      />
     </>
   );
 }
@@ -166,14 +196,14 @@ export function ReadoutScreen() {
 const AFTER_LABEL: Record<CustomPool['after'], string> = {
   first: 'First',
   converters: 'After Converters',
-  lead_builders: 'After Lead builders',
+  list_builders: 'After List builders',
   reach: 'After Reach',
 };
 
 function CustomPoolForm({ existing, onSave }: { existing: CustomPool[]; onSave: (p: CustomPool) => void }) {
-  const [name, setName] = useState('Sign-up drivers');
-  const [metric, setMetric] = useState<CustomMetric>('cost_per_signup');
-  const [targetText, setTargetText] = useState('$10.00 or less');
+  const [name, setName] = useState('Strong closers');
+  const [metric, setMetric] = useState<CustomMetric>('dm_to_purchase');
+  const [targetText, setTargetText] = useState('7% or more');
   const [after, setAfter] = useState<CustomPool['after']>('converters');
   const isPct = CUSTOM_METRICS[metric].unit === 'pct';
   const parsed = parseUsd(targetText.replace('%', '').replace(/ or (less|more)$/, ''));
@@ -195,8 +225,8 @@ function CustomPoolForm({ existing, onSave }: { existing: CustomPool[]; onSave: 
           <h4>+ Create a custom pool</h4>
           <InfoTip label="How pools are set">
             <strong>How pools are set.</strong> Beat: 10% or more better than the target. At par: within 10% either way.
-            Missed: more than 10% worse. Targets come from the brief; reach has none, so it uses the campaign average. A
-            creator joins the first pool they qualify for, in order: beat CPA (Converters), beat cost per lead (Lead
+            Missed: more than 10% worse. Targets come from the brief; a goal with no target, like reach, uses the campaign average. A
+            creator joins the first pool they qualify for, in order: beat CPA (Converters), beat cost per sign-up (List
             builders), beat reach cost (Reach). Anyone who beats nothing goes to Test again on a first campaign,
             otherwise Don’t rebook. Custom pools use the same rule, checked in the order you set.
           </InfoTip>

@@ -22,7 +22,7 @@ Messages go out under a creator's name, but the brand carries the risk. A missed
 ### 1. Unit tests for everything deterministic
 
 - **Checks:** each exact check against its own fixtures, including edge cases: `#ad` mid-sentence vs first line, "#Ad", a link with an extra parameter, another creator's code, a message exactly at the length limit.
-- **Metrics:** CPA, CPL, and CPM from fixed inputs, including zero purchases (CPA is "no purchases", not infinity or zero).
+- **Metrics:** CPA, cost per sign-up, and CPM from fixed inputs, including zero purchases (CPA is "no purchases", not infinity or zero).
 - **Thresholds:** values at exactly 90% and 110% of target land in the right state; a creator joins exactly one pool; pool order is respected, including custom pools.
 - **Readiness:** each creator lands in exactly one group, and the groups add up to the campaign's active creators.
 
