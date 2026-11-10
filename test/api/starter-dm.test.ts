@@ -56,6 +56,34 @@ describe('generateStarter', () => {
     expect(r.failures.map((f) => f.name)).toContain('banned_claim');
   });
 
+  it('regenerates once when the claim check is unsure, feeding back the phrase, and keeps the passing judgment', async () => {
+    const forShiftSkin = { ...good, dm: good.dm.replace('Fragrance-free.', 'For shift skin. Fragrance-free.') };
+    const { client, calls } = fakeClient(forShiftSkin, good);
+    const judge = vi.fn(async (dm: string) =>
+      dm.includes('shift skin')
+        ? { verdict: 'unsure' as const, source: 'model' as const, findings: [{ phrase: 'For shift skin', type: 'unapproved_claim' as const, matches: '', reason: 'Implies who it suits.', suggested_fix: 'suitable for sensitive skin' }] }
+        : { verdict: 'pass' as const, source: 'model' as const, findings: [] },
+    );
+    const r = await generateStarter(brief, creator, client, judge);
+    expect(r).toMatchObject({ starter: good, failures: [], attempts: 2, judgment: { verdict: 'pass' } });
+    expect(calls[1]!.messages[0]!.content).toMatch(/claims: The claim check was unsure: "For shift skin": Implies who it suits\./);
+    expect(judge).toHaveBeenCalledTimes(2);
+  });
+
+  it('skips the claim check while an exact check is failing', async () => {
+    const noCode = { ...good, dm: '#ad The serum. 20% off: https://fernway.example.com/serum' };
+    const { client } = fakeClient(noCode, noCode);
+    const judge = vi.fn();
+    await generateStarter(brief, creator, client, judge);
+    expect(judge).not.toHaveBeenCalled();
+  });
+
+  it('tells the writer not to say who the product is for unless it is an approved claim', async () => {
+    const { client, calls } = fakeClient(good);
+    await generateStarter(brief, creator, client);
+    expect((calls[0] as unknown as { system: string }).system).toContain('Don\'t say who the product is for or what skin it suits');
+  });
+
   it('flags a claim the starter used that is not approved', async () => {
     const { client } = fakeClient({ ...good, claims_used: ['vegan'] }, { ...good, claims_used: ['vegan'] });
     expect((await generateStarter(brief, creator, client)).failures.map((f) => f.name)).toEqual(['claims']);

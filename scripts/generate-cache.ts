@@ -35,8 +35,16 @@ const out = process.env.CACHE_OUT_DIR ?? join(root, 'data/cached');
 mkdirSync(out, { recursive: true });
 const now = new Date().toISOString();
 
-// 1. Starters, one call per creator (two when the first fails a check).
+// The claim judgment, as the app runs it: with the product name and offer as context.
+const judge = (message: string) =>
+  judgeClaims(
+    { message, approved_claims: brief.approved_claims, banned_claims: brief.banned_claims, product: brief.product, offer: brief.offer },
+    client,
+  );
+
+// 1. Starters, one call per creator plus its claim check; regenerated once when either check fails.
 const starters = [];
+const starterJudgments = new Map<string, Awaited<ReturnType<typeof judge>>>(); // dm → judgment, reused below
 for (const c of roster) {
   const r = await generateStarter(
     brief,
@@ -48,11 +56,13 @@ for (const c of roster) {
       sample_captions: c.sample_captions,
     },
     client,
+    judge,
   );
   if (!r.starter) throw new Error(`No starter for ${c.handle} after ${r.attempts} attempts.`);
   const failures = r.failures.map((f) => f.name);
   console.log(`${c.handle}: ${r.attempts} attempt(s)${failures.length ? `, still failing ${failures.join(', ')}` : ''}\n  ${r.starter.dm}`);
   starters.push({ handle: c.handle, ...r.starter, failures });
+  if (r.judgment) starterJudgments.set(r.starter.dm, r.judgment);
 }
 writeFileSync(
   join(out, 'starter_dms.json'),
@@ -79,10 +89,7 @@ for (const d of demo.drafts_snapshot) {
 const judgments = [];
 for (const [message, code] of messages) {
   if (exactChecks({ dm: message, code }, brief).some((c) => !c.passed)) continue;
-  const j = await judgeClaims(
-    { message, approved_claims: brief.approved_claims, banned_claims: brief.banned_claims, product: brief.product, offer: brief.offer },
-    client,
-  );
+  const j = starterJudgments.get(message) ?? (await judge(message));
   console.log(`judgment ${j.verdict}: ${message.slice(0, 70)}…${j.findings.map((f) => `\n  "${f.phrase}" ${f.type}`).join('')}`);
   const { source: _source, ...rest } = j;
   judgments.push({ message, ...rest });
