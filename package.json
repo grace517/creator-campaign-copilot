@@ -13,7 +13,8 @@
     "typecheck": "tsc -b",
     "test": "vitest run",
     "test:watch": "vitest",
-    "evals": "tsx scripts/run-evals.ts"
+    "evals": "tsx scripts/run-evals.ts",
+    "generate-cache": "tsx scripts/generate-cache.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.7.0",

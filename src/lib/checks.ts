@@ -67,9 +67,11 @@ export function checkLink(
     name: 'link',
     passed: false,
     phrase: found,
-    reason: found
-      ? `The link should be ${displayUrl(expected)}, so the code applies at checkout and purchases count to this creator.`
-      : `No link: add ${displayUrl(expected)} so followers can buy with this creator's code.`,
+    reason: !found
+      ? `No link: add ${displayUrl(expected)} so followers can buy with this creator's code.`
+      : found.replace(/\/$/, '') === brief.link
+        ? `The link is missing this creator's code (?${brief.code_param}=${creator.code}), so the discount won't apply automatically and their purchases may not count toward their CPA. Suggested fix: restore the full link.`
+        : `The link should be ${displayUrl(expected)}, so the code applies at checkout and purchases count to this creator.`,
   };
 }
 
